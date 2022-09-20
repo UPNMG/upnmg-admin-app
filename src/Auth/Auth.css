@@ -1,0 +1,25 @@
+.loginPage{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginPage form{
+    width: 500px;
+}
+.loginPage input{
+    margin-bottom: 1.5rem;
+}
+.loginPage .button{
+    border: none;
+    margin: 1rem 0rem;
+    background: var(--success);
+    color: white;
+    padding: .6rem;
+    width: 200px;
+}
+
+.loginPage .forgot_password{
+    text-align: end;
+}

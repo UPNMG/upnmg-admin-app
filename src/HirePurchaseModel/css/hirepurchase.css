@@ -1,0 +1,278 @@
+.HirePurchaseDashboard .hirePurchaseContainer {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 1rem;
+}
+
+.HirePurchaseDashboard .hirePurchaseContainer .card {
+  padding: 1rem;
+}
+
+.HirePurchaseDashboard .hirePurchaseContainer .card .icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.HirePurchaseDashboard .hirePurchaseContainer .card .icons .cover {
+  background: #a6bbff;
+  padding: 2px 10px;
+  border-radius: .2vw;
+}
+
+.HirePurchaseDashboard .hirePurchaseContainer .card1 {
+  background: var(--primary);
+  color: white;
+}
+
+.HirePurchaseDashboard table {
+  border: 0px solid white;
+  margin: 1rem 0rem;
+  box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+  -webkit-box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+  -moz-box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+}
+
+.HirePurchaseDashboard thead th {
+  border: 0px solid white;
+}
+
+.HirePurchaseDashboard tbody tr:nth-child(odd) {
+  background-color: white;
+}
+
+.products .productContainer {
+  display: -ms-grid;
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
+  -ms-grid-columns: (1fr)[5];
+      grid-template-columns: repeat(5, 1fr);
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.products .productContainer .productCard {
+  background: #fff;
+}
+
+.products .productContainer .productCard .items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1rem 0rem;
+}
+
+.products .productContainer .productCard .items .product-name {
+  font-weight: bold;
+  padding-top: .7rem;
+}
+
+.products .productContainer .productCard .image {
+  width: 40%;
+}
+
+.products .productContainer .productCard .ordered_date {
+  font-size: .7rem;
+  padding: .4rem 0rem;
+  font-weight: bold;
+  color: #a7a7a7;
+}
+
+.products .productContainer .productCard button {
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-size: .8rem;
+  padding: .2rem 1rem;
+  border-radius: 4pc;
+}
+
+.products table {
+  border: 0px solid white;
+  margin: 1rem 0rem;
+  box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+  -webkit-box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+  -moz-box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+}
+
+.products thead th {
+  border: 0px solid white;
+}
+
+.products tbody tr:nth-child(odd) {
+  background-color: white;
+}
+
+.Orders .orderContainer {
+  display: -ms-grid;
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
+  -ms-grid-columns: (1fr)[5];
+      grid-template-columns: repeat(5, 1fr);
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Orders .orderContainer .orderCard {
+  background: #fff;
+}
+
+.Orders .orderContainer .orderCard .items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1rem 0rem;
+}
+
+.Orders .orderContainer .orderCard .items .product-name {
+  font-weight: bold;
+  padding-top: .7rem;
+}
+
+.Orders .orderContainer .orderCard .image {
+  width: 40%;
+}
+
+.Orders .orderContainer .orderCard .ordered_date {
+  font-size: .7rem;
+  padding: .4rem 0rem;
+  font-weight: bold;
+  color: #a7a7a7;
+}
+
+.Orders .orderContainer .orderCard button {
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-size: .8rem;
+  padding: .2rem 1rem;
+  border-radius: 4pc;
+}
+
+.OrderDetailed {
+  background: white;
+}
+
+.OrderDetailed .orderCover {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 20% 80%;
+      grid-template-columns: 20% 80%;
+  margin-bottom: 1rem;
+}
+
+.OrderDetailed .product_info {
+  box-shadow: -4px 3px 26px -5px rgba(209, 209, 209, 0.75);
+  -webkit-box-shadow: -4px 3px 26px -5px rgba(209, 209, 209, 0.75);
+  -moz-box-shadow: -4px 3px 26px -5px rgba(209, 209, 209, 0.75);
+  padding: 1rem;
+}
+
+.OrderDetailed .user_profile_section {
+  z-index: 99;
+}
+
+.OrderDetailed .user_profile_section .overlay {
+  background: rgba(255, 255, 255, 0.932);
+}
+
+.OrderDetailed .profile .items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1rem 0rem;
+}
+
+.OrderDetailed .profile .items .profile-name {
+  font-weight: bold;
+  padding-top: .7rem;
+}
+
+.OrderDetailed .profile .image {
+  border-radius: 50%;
+}
+
+.OrderDetailed .profile .image img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border: 5px solid rgba(218, 165, 32, 0.295);
+}
+
+.OrderDetailed .profile .ordered_date {
+  font-size: .7rem;
+  padding: .4rem 0rem;
+  font-weight: bold;
+  color: #a7a7a7;
+}
+
+.OrderDetailed .profile button {
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-size: .8rem;
+  padding: .2rem 1rem;
+  border-radius: 4pc;
+}
+
+.ProcessedOrder table {
+  border: 0px solid white;
+  margin: 1rem 0rem;
+  box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+  -webkit-box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+  -moz-box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+}
+
+.ProcessedOrder thead th {
+  border: 0px solid white;
+}
+
+.ProcessedOrder tbody tr:nth-child(odd) {
+  background-color: white;
+}
+/*# sourceMappingURL=hirepurchase.css.map */

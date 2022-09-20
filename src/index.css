@@ -1,12 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+:root {
+  /* background: linear-gradient(to bottom,  20%, #015f39 100%); */
+
+  --primaryColor: #01a94b;
+  --primaryColorAcent: #015f39;
+  --primaryColorLite: rgba(245, 119, 69, 0.432);
+  /* --secondaryColor: */
+  --whiteColor: white;
+  --grayColor: rgb(163, 163, 163);
+  --success: rgb(0, 165, 102);
+  --successDeep: rgba(0, 148, 91, 0.548);
+  --warning: rgb(221, 118, 0);
+  --danger: rgb(230, 0, 0);
+  --primary: rgb(0, 103, 221);
+  --primaryLite: rgb(0, 177, 221);
+  --grayColor: rgb(207, 207, 207);
+  --grayDeep: rgb(121, 121, 121);
+
+  --primary-gradient: linear-gradient(to bottom, var(--primaryColor) 20%, var(--primaryColorAcent) 100%)
+
+  
+    --weekend: rgba(0, 0, 0, 0);
+    --date-light: #f8f9fa;
+    --date-primary: #5644c1;
+    --date-success: #37d37d;
+    --date-primaryLight: #eceaf5;
+    --date-primaryTitle: #dbd8f0;
+    --date-hover: #262769;
+    --date-highlight: #f83854;
+    --date-disabled:#c2c1cc;
+    --date-width: 260px;
+    --date-height: 280px;
+}
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
 }
-
+img{
+  width: 100%;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

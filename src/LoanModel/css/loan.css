@@ -1,0 +1,73 @@
+.LoansDashboard .loanCardContainer {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 1rem;
+}
+
+.LoansDashboard .loanCardContainer .card {
+  width: 80%;
+  border-radius: 0.7vw;
+  padding: 0rem 1rem;
+}
+
+.LoansDashboard .loanCardContainer .icon {
+  font-size: 2rem;
+  margin: 1rem 0rem;
+}
+
+.LoansDashboard .loanCardContainer .title {
+  font-weight: bold;
+  color: #949494;
+}
+
+.LoansDashboard .loanCardContainer .subtitle {
+  color: gray;
+  font-size: 0.8rem;
+}
+
+.LoansDashboard .loanCardContainer .value {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-top: 0.5rem;
+}
+
+.LoansDashboard .usersDisplay {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 65% 35%;
+      grid-template-columns: 65% 35%;
+}
+
+.LoansDashboard .usersTable table {
+  border: 0px solid white;
+  box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+  -webkit-box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+  -moz-box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+}
+
+.LoansDashboard thead th {
+  border: 0px solid white;
+}
+
+.LoansDashboard tbody tr:nth-child(odd) {
+  background-color: white;
+}
+
+.LoanApplication table {
+  border: 0px solid white;
+  margin: 1rem 0rem;
+  box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+  -webkit-box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+  -moz-box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+}
+
+.LoanApplication thead th {
+  border: 0px solid white;
+}
+
+.LoanApplication tbody tr:nth-child(odd) {
+  background-color: white;
+}
+/*# sourceMappingURL=loan.css.map */

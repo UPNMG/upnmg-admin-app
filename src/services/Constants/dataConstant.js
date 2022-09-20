@@ -1,0 +1,9 @@
+export const dataConstants = {
+    LOADING:"LOADING",
+    GET_LOANS:"GET_LOANS",
+    GET_APPLIED_LOANS:"GET_APPLIED_LOANS",
+    GET_FUNDS:"GET_FUNDS",
+    GET_DUES:"GET_DUES",
+    RESPONSE_STATE:"RESPONSE_STATE",
+    
+}

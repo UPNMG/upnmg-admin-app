@@ -1,0 +1,200 @@
+.AdminDashboard{
+    display: grid;
+    /* grid-template-columns: 5% 95%; */
+    grid-template-columns: 15% 85%;
+    position: relative;
+}
+.AdminDashboard .sideBar{
+ /* width: 100px; */
+ /* background-color: var(--primary); */
+ background-color: rgb(255, 255, 255);
+ border-right: 1px solid rgb(224, 224, 224);
+ height: 100vh;
+ position: relative;
+}
+.AdminDashboard .sideBar .profile{ 
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+.AdminDashboard .sideBar .profile button{ 
+    width: 100%;
+    border: none;
+padding: .4rem 0rem;
+background-color: var(--success);
+color: #fff;
+font-weight: bold;
+border-radius: 10px 10px 0px 0px;
+}
+.AdminDashboard .sideBar .menuList{
+    margin-top: 3rem;
+}
+.AdminDashboard .sideBar .menuList .menu{
+display: flex;
+/* justify-content: center; */
+align-items: center;
+margin-top: 1rem;
+}
+.AdminDashboard .sideBar .menuList .menu .icon{
+margin-right: 1rem;
+font-size: 1.5rem;
+}
+
+.AdminDashboard .mainPage{
+    height: 100vh;
+    overflow-y: hidden;
+}
+.AdminDashboard .mainPage .DashboardContent{
+    height: 100vh;
+    overflow-y: scroll;
+}
+.AdminDashboard .mainPage .topBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 55px;
+    background-color: rgb(1, 109, 145);
+    /* background-color: var(--primary); */
+    color: #fff;
+    box-shadow: 1px 2px 4px rgba(226, 226, 226, 0.664);
+}
+.AdminDashboard .mainPage .topBar .menus ul{
+    display: inline-block;
+    margin-left: 10px;
+}
+.AdminDashboard .mainPage .topBar .menus ul li{
+  list-style: none;
+    margin-left: 10px;
+}
+.AdminDashboard .mainPage .topBar .icon_nd_search{
+    display: flex;
+    margin-left: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.AdminDashboard .mainPage .topBar .menus  li{
+    display: inline-block;
+    margin-left: 10px;
+}
+.AdminDashboard .mainPage .topBar .prodileInfo{
+    display: flex;
+    justify-content: space-between;
+}
+.AdminDashboard .mainPage .topBar .prodileInfo .icon{
+font-size: 1.4rem;
+margin: 0px 10px;
+}
+.AdminDashboard .mainPage .topBar .prodileInfo .userImage img{
+width: 20px;
+margin: 0px 10px;
+}
+
+
+.AdminDashboard .mainPage .cardContainer{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
+.AdminDashboard .mainPage .cardContainer .card{
+ border: .6px solid rgba(51, 153, 139, 0.384);
+ /* width: 80%; */
+}
+.AdminDashboard .mainPage .cardContainer .card img{
+    width: 50px;
+    
+}
+.AdminDashboard .mainPage .cardContainer .imgCover{
+    width: 50px;
+    height: 50px;
+    background: rgb(51, 153, 139);
+    margin: .5rem 0rem;
+}
+.AdminDashboard .mainPage .cardContainer .section1{
+    padding: 1rem 1rem;
+}
+.AdminDashboard .mainPage .cardContainer .section2{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--success);
+    padding: .4rem .5rem;
+    color: white;
+    font-weight: bold;
+    /* padding: 0rem .4rem; */
+}
+.AdminDashboard .chart_nd_deductions{
+    display: grid;
+    grid-template-columns: 65% 35%;
+    margin: 1rem 0rem;
+    padding-top: 1rem;
+}
+.AdminDashboard .chart{
+  background-color: white;
+  padding-top: 1rem;
+}
+.AdminDashboard .deductions{
+background-color: #fff;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+justify-content: center;
+align-items: center;
+text-align: center;
+}
+.AdminDashboard .deductions .card{
+background-color: white;
+width: 90%;
+padding: .3rem 0rem;
+margin: 0 auto;
+box-shadow: -4px 3px 26px -5px rgba(115,115,115,0.75);
+-webkit-box-shadow: -4px 3px 26px -5px rgba(115,115,115,0.75);
+-moz-box-shadow: -4px 3px 26px -5px rgba(115,115,115,0.75);
+}
+.AdminDashboard .deductions .card .icon{
+font-weight: bold;
+font-size: 1.8rem;
+
+}
+.AdminDashboard .deductions .card .title{
+font-weight: bold;
+padding-top: .5rem;
+
+}
+.AdminDashboard .deductions .card .subTitle{
+font-size: .9rem;
+color: var(--grayDeep);
+padding: .2rem 0rem;
+}
+.AdminDashboard .deductions .card .value{
+font-size: .9rem;
+padding: .2rem 0rem;
+font-weight: bold;
+}
+
+
+/* table style */
+.AdminDashboard .usersDisplay{
+    display: grid;
+    grid-template-columns: 65% 35%;
+
+}
+.AdminDashboard .usersDisplay .usersList{
+ 
+
+}
+.AdminDashboard .usersDisplay .usersList .usersTable{
+
+}
+.AdminDashboard .usersDisplay .usersList .usersTable table{
+border: 0px solid white;
+box-shadow: -4px 3px 26px -5px rgba(115,115,115,0.75);
+-webkit-box-shadow: -4px 3px 26px -5px rgba(115,115,115,0.75);
+-moz-box-shadow: -4px 3px 26px -5px rgba(115,115,115,0.75);
+}
+.AdminDashboard .usersDisplay .usersList .usersTable table thead th{
+border: 0px solid white;
+}
+.AdminDashboard .usersDisplay .usersList .usersTable table tbody tr:nth-child(odd){
+background-color: white;
+}

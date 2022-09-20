@@ -1,0 +1,16 @@
+.LoanDeduction table {
+  border: 0px solid white;
+  margin-top: 2rem;
+  box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+  -webkit-box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+  -moz-box-shadow: -4px 3px 26px -5px rgba(115, 115, 115, 0.75);
+}
+
+.LoanDeduction table thead th {
+  border: 0px solid white;
+}
+
+.LoanDeduction table tbody tr:nth-child(odd) {
+  background-color: white;
+}
+/*# sourceMappingURL=pages.css.map */

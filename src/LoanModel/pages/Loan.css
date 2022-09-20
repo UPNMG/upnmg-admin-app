@@ -1,0 +1,40 @@
+
+
+
+.LoanApplicationDetailed .displaySection{
+    display: flex;
+    justify-content: space-between;
+}
+.LoanApplicationDetailed .displaySection .sideOne .item{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 1rem;
+    margin-bottom: .5rem;
+}
+.LoanApplicationDetailed .displaySection .sideOne .item .name{
+    margin-right: 1rem;
+    font-size: .8rem;
+}
+.LoanApplicationDetailed .displaySection .sideOne .item .value{
+    font-weight: bold;
+    font-size: .9rem;
+}
+
+.LoanApplicationDetailed .displaySection .sideTwo .item{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 1rem;
+    margin-bottom: .5rem;
+}
+.LoanApplicationDetailed .displaySection .sideTwo .item .name{
+    margin-right: 1rem;
+    font-size: .8rem;
+}
+.LoanApplicationDetailed .displaySection .sideTwo .item .value{
+    font-weight: bold;
+    font-size: .9rem;
+}
+.LoanApplicationDetailed .displaySection .sideTwo .item img{
+    width: 150px;
+    height: auto;
+}
