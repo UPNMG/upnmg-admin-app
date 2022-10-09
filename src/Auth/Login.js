@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import { bindActionCreators } from "redux";
 import { authActionCreators } from "../services/Actions";
 import "./Auth.css";
 
 function Login() {
   const dispatch = useDispatch();
+  const history = useHistory()
   const auth = useSelector((state) => state?.auth);
   const { Login } = bindActionCreators(authActionCreators, dispatch);
   const [formData, setFormData] = useState(null);
+
+  console.log('auth', auth) 
 
   const handleInputChange = (e) => {
     setFormData((prevState) => {
@@ -26,19 +31,24 @@ function Login() {
     console.log(formData);
     if (formData !== null) {
       Login(formData);
+    }else{
+      toast.error('All fields are required')
     }
   };
 
-  if (auth?.authenticated) {
-    auth.role.map((rol, index) => {
-      if (rol === "ADMIN") {
-        return <Redirect to={"/admin/home"} />;
-      }
-      if (rol === "LOAN_OFFICER") {
-        return <Redirect to={"/loans/home"} />;
-      }
-      console.log('roles', rol)
-    });
+
+  //ADMIN, LOAN_OFFICER, MART_OFFICER, INVESTMENT_OFFICER, USER
+  if (auth?.authenticated && auth?.user_type === "SYSTEM_USER" && auth?.user?.super_role === "ADMIN") {
+    history.replace('/admin/home')
+  }
+  if (auth?.authenticated && auth?.user_type === "SYSTEM_USER" && auth?.user?.super_role === "LOAN_OFFICER") {
+    history.replace('/loans/home')
+  }
+  if (auth?.authenticated && auth?.user_type === "SYSTEM_USER" && auth?.user?.super_role === "MART_OFFICER") {
+    history.replace('/mart/home')
+  }
+  if (auth?.authenticated && auth?.user_type === "SYSTEM_USER" && auth?.user?.super_role === "INVESTMENT_OFFICER") {
+    history.replace('/investment/home')
   }
 
   return (
@@ -130,6 +140,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <ToastContainer autoClose={3000}/>
     </div>
   );
 }

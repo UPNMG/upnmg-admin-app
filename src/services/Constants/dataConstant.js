@@ -5,5 +5,7 @@ export const dataConstants = {
     GET_FUNDS:"GET_FUNDS",
     GET_DUES:"GET_DUES",
     RESPONSE_STATE:"RESPONSE_STATE",
+    GET_SYSTEM_USERS:"GET_SYSTEM_USERS",
+    GET_MEMBERS:"GET_MEMBERS",
     
 }

@@ -3,39 +3,40 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { bindActionCreators } from "redux";
-import Loader from "../../Components/Loader";
 import { dataActionCreators } from "../../services/Actions";
-import RenderLoanPage from "../RenderLoanPage";
-import "./Loan.css";
+import RenderAdminPage from "../RenderAdminPage";
+import "./LoanBookings.css";
 
-function LoanApplicationDetailed() {
+function PaidLoansDetailed() {
   const history = useHistory();
   const location = useLocation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const {MarkedAsBookedAppliedLoans, ResetDataResponse} = bindActionCreators(dataActionCreators, dispatch)
-  const data = useSelector(state => state?.data)
-  const response = data?.response
   console.log("location", location);
   const loanDetailed = location?.state?.loan;
   const defaultImage = "/images/dev/success.png";
-
+  const {
+    MarkedAsPaidAppliedLoans,
+    ResetDataResponse,
+    MarkedAsInitiatedAppliedLoans,
+  } = bindActionCreators(dataActionCreators, dispatch);
+  const data = useSelector((state) => state?.data);
+  const response = data?.response;
   console.log("loanDetailed", loanDetailed);
 
-  const handleMarkedAsBooked = (loan_id) => {
+  const handleMarkedAsInitiated = (loan_id) => {
     // alert(loan_id)
     const body = {
-      status: true
-    }
-    MarkedAsBookedAppliedLoans(loan_id, body)
-  }
-
+      status: true,
+    };
+    MarkedAsInitiatedAppliedLoans(loan_id, body);
+  };
   useEffect(() => {
     if (response?.state === "SUCCESS") {
       toast.success(response?.message);
       setTimeout(() => {
         ResetDataResponse();
-        history.push('/loans/application')
+        history.push("/admin/loans-paid");
       }, 1500);
     } else if (response?.state === "ERROR") {
       toast.error(response?.message);
@@ -45,26 +46,29 @@ function LoanApplicationDetailed() {
       }, 1500);
     }
   }, [response?.state]);
-
   return (
-    <div className="LoanApplicationDetailed">
-      <RenderLoanPage title={""}>
-        {data.isLoading && <Loader/>}
-    <div className="flex justify-between">
-    <div
-          className="relative inline-block px-3 my-2 mx-2 py-1 font-semibold text-white leading-tight cursor-pointer"
-          onClick={() => history.goBack()}
-        >
-          <span
-            aria-hidden
-            className="absolute inset-0 bg-gray-900 opacity-50 rounded-full"
-          ></span>
-          <span className="relative">Back</span>
+    <div className="LoanBookedDetailed">
+      <RenderAdminPage title={""}>
+        <div className="flex justify-between">
+          <div
+            className="relative inline-block px-3 my-2 mx-2 py-1 font-semibold text-white leading-tight cursor-pointer"
+            onClick={() => history.goBack()}
+          >
+            <span
+              aria-hidden
+              className="absolute inset-0 bg-gray-900 opacity-50 rounded-full"
+            ></span>
+            <span className="relative">Back</span>
+          </div>
+          <div className="mt-2">
+            <span
+              onClick={() => handleMarkedAsInitiated(loanDetailed?._id)}
+              className="customBtn"
+            >
+              Marked as Initiated
+            </span>
+          </div>
         </div>
-        <div className="mt-2">
-          <span onClick={() => handleMarkedAsBooked(loanDetailed?._id)} className="customBtn">Marked as Booked</span>
-        </div>
-    </div>
 
         <div className="row">
           <div className="col-md-3">
@@ -78,17 +82,6 @@ function LoanApplicationDetailed() {
                 style={{ width: "200px" }}
                 alt=""
               />
-            </div>
-          
-            <div className="mt-5 ">
-              <h2>Send Message</h2>
-              <textarea
-                className="form-control"
-                placeholder="Write your message here..."
-              ></textarea>
-              <button className="btn btn-success btn-sm mt-2">
-                Send Message
-              </button>
             </div>
           </div>
           <div className="col-md-9">
@@ -193,18 +186,6 @@ function LoanApplicationDetailed() {
                   <div className="name">Net Salary</div>
                   <div className="value">{loanDetailed?.netSalary}</div>
                 </div>
-                <div className="item">
-                  <div className="name">Mandate Number</div>
-                  <div className="value">{loanDetailed?.mandateNumber}</div>
-                </div>
-                <div className="item">
-                  <div className="name">OTP Number</div>
-                  <div className="value">{loanDetailed?.otpNumber}</div>
-                </div>
-                <div className="item">
-                  <div className="name">Monthly Deduction</div>
-                  <div className="value">{loanDetailed?.monthlyDeduction}</div>
-                </div>
 
                 <hr />
                 <div className="item">
@@ -260,7 +241,12 @@ function LoanApplicationDetailed() {
                   }}
                 >
                   <img src={loanDetailed?.backIDImage} alt="id_back" />
-                  <a className="btn btn-sm bg-blue-500" href={loanDetailed?.backIDImage}>Download</a>
+                  <a
+                    className="btn btn-sm bg-blue-500"
+                    href={loanDetailed?.backIDImage}
+                  >
+                    Download
+                  </a>
                 </div>
               </div>
             </div>
@@ -281,10 +267,10 @@ function LoanApplicationDetailed() {
             </div>
           </div>
         </div>
-        <ToastContainer autoClose={3000}/>
-      </RenderLoanPage>
+        <ToastContainer autoClose={3000} />
+      </RenderAdminPage>
     </div>
   );
 }
 
-export default LoanApplicationDetailed;
+export default PaidLoansDetailed;

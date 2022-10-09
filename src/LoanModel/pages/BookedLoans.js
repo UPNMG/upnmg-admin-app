@@ -17,8 +17,7 @@ import * as moment from "moment";
 import NotFoundComponent from "../../Components/NotFoundComponent";
 import Loader from "../../Components/Loader";
 
-
-function LoanApplication() {
+function BookedLoans() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { GetAppliedLoans } = bindActionCreators(dataActionCreators, dispatch);
@@ -27,13 +26,14 @@ function LoanApplication() {
   console.log("data", data);
 
   useEffect(() => {
-    GetAppliedLoans(`?status=submitted`);
+    GetAppliedLoans(`?status=booked`);
+    // GetAppliedLoans("booked");
   }, []);
 
   return (
     <div className="LoanApplication">
-      {data?.isLoading && <Loader/>}
       <RenderLoanPage title={""}>
+      {data?.isLoading && <Loader/>}
         <div className="row">
           <div className="col-md-7">
             <label htmlFor="search">Search Query:</label>
@@ -65,15 +65,14 @@ function LoanApplication() {
               <div className="py-8">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-semibold leading-tight">
-                    Loan Request
+                    Booked Applications
                   </h2>
-                  <div className="flex items-center justify-between" >
+                  <div className="flex items-center justify-between">
                     <FormControlLabel
                       control={<Switch />}
                       label="South Loans"
                     />
                     <FormControlLabel
-                
                       control={<Switch />}
                       label="North Loans"
                     />
@@ -165,16 +164,16 @@ function LoanApplication() {
                                   {loan?.mandateNumber}
                                 </p>
                                 {/* <p className="text-gray-600 whitespace-no-wrap">
-                              USD
-                            </p> */}
+                                USD
+                              </p> */}
                               </td>
                               <td className="px-5 py-1 border-b border-gray-200 bg-white text-sm">
                                 <p className="text-gray-900 whitespace-no-wrap">
                                   {loan?.otpNumber}
                                 </p>
                                 {/* <p className="text-gray-600 whitespace-no-wrap">
-                              USD
-                            </p> */}
+                                USD
+                              </p> */}
                               </td>
 
                               <td className="px-5 py-1 border-b border-gray-200 bg-white text-sm">
@@ -214,7 +213,7 @@ function LoanApplication() {
                                 <IconButton
                                   onClick={() => {
                                     history.push({
-                                      pathname: "/loans/application-detailed",
+                                      pathname: "/loans/booked-detailed",
                                       state: { loan },
                                     });
                                   }}
@@ -242,71 +241,73 @@ function LoanApplication() {
               </div>
             </div>
           </section>
-        ) : (<>
-        <NotFoundComponent title={'No Loan applications available'}/>
-        </>)}
+        ) : (
+          <>
+            <NotFoundComponent title={"No initiated loans at the monent"} />
+          </>
+        )}
 
         {/* <table className="table">
-        <thead>
-          <tr>
-        
-            <th scope="col">Profile</th>
-            <th scope="col">staff Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">email</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Peroid</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr onClick={() => history.push('/loans/application-detailed')}>
-            <th scope="row">
-              <Avatar alt="Remy Sharp" src="/images/dev/success.png" />
-            </th>
-
-            <td>657656</td>
-            <td>Agyapong Derrick</td>
-            <td>derrick@upnmg.com</td>
-            <td>Loan</td>
-            <td>Active</td>
-            <td ><button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"><IoMdMore/></button></td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <Avatar alt="Remy Sharp" src="/images/dev/cancel.png" />
-            </th>
-            <td>657656</td>
-            <td>Agyapong Derrick</td>
-            <td>derrick@upnmg.com</td>
-            <td>Loan</td>
-            <td>Active</td>
-            <td>del</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <Avatar alt="Remy Sharp" src="i/mages/dev/A.png" />
-            </th>
-            <td>657656</td>
-            <td>Agyapong Derrick</td>
-            <td>derrick@upnmg.com</td>
-            <td>Loan</td>
-            <td>Active</td>
-            <td>del</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <Avatar alt="Remy Sharp" src="/images/dev/loan.png" />
-            </th>
-            <td>657656</td>
-            <td>Agyapong Derrick</td>
-            <td>derrick@upnmg.com</td>
-            <td>Loan</td>
-            <td>Active</td>
-            <td>del</td>
-          </tr>
-        </tbody>
-      </table> */}
+          <thead>
+            <tr>
+          
+              <th scope="col">Profile</th>
+              <th scope="col">staff Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">email</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Peroid</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr onClick={() => history.push('/loans/application-detailed')}>
+              <th scope="row">
+                <Avatar alt="Remy Sharp" src="/images/dev/success.png" />
+              </th>
+  
+              <td>657656</td>
+              <td>Agyapong Derrick</td>
+              <td>derrick@upnmg.com</td>
+              <td>Loan</td>
+              <td>Active</td>
+              <td ><button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"><IoMdMore/></button></td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <Avatar alt="Remy Sharp" src="/images/dev/cancel.png" />
+              </th>
+              <td>657656</td>
+              <td>Agyapong Derrick</td>
+              <td>derrick@upnmg.com</td>
+              <td>Loan</td>
+              <td>Active</td>
+              <td>del</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <Avatar alt="Remy Sharp" src="i/mages/dev/A.png" />
+              </th>
+              <td>657656</td>
+              <td>Agyapong Derrick</td>
+              <td>derrick@upnmg.com</td>
+              <td>Loan</td>
+              <td>Active</td>
+              <td>del</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <Avatar alt="Remy Sharp" src="/images/dev/loan.png" />
+              </th>
+              <td>657656</td>
+              <td>Agyapong Derrick</td>
+              <td>derrick@upnmg.com</td>
+              <td>Loan</td>
+              <td>Active</td>
+              <td>del</td>
+            </tr>
+          </tbody>
+        </table> */}
 
         <div
           class="modal fade"
@@ -349,4 +350,4 @@ function LoanApplication() {
   );
 }
 
-export default LoanApplication;
+export default BookedLoans;

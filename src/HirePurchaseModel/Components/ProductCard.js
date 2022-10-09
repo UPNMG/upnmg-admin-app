@@ -14,7 +14,7 @@ function ProductCard({image, name, price,}) {
         </div>
         <div className='price'>$454</div>
         <div className='ordered_date'>Available in stock</div>
-        <button onClick={() => history.push('/hirepurchase/order-detailed')}>
+        <button onClick={() => history.push('/mart/order-detailed')}>
          view detail
         </button>
     </div>

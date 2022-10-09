@@ -3,6 +3,7 @@
     /* grid-template-columns: 5% 95%; */
     grid-template-columns: 15% 85%;
     position: relative;
+    /* background: white; */
 }
 .AdminDashboard .sideBar{
  /* width: 100px; */
@@ -11,6 +12,13 @@
  border-right: 1px solid rgb(224, 224, 224);
  height: 100vh;
  position: relative;
+ display: grid;
+ grid-template-columns: 20% 80%;
+}
+.AdminDashboard .sideBar .sec1{
+    background: var(--primaryColor);
+    /* width: 20px; */
+    height: 100%;
 }
 .AdminDashboard .sideBar .profile{ 
     position: absolute;
@@ -28,17 +36,19 @@ font-weight: bold;
 border-radius: 10px 10px 0px 0px;
 }
 .AdminDashboard .sideBar .menuList{
-    margin-top: 3rem;
+    margin-top: 5rem;
+    font-size: .8rem;
 }
 .AdminDashboard .sideBar .menuList .menu{
 display: flex;
 /* justify-content: center; */
 align-items: center;
 margin-top: 1rem;
+padding-left: .6rem;
 }
 .AdminDashboard .sideBar .menuList .menu .icon{
-margin-right: 1rem;
-font-size: 1.5rem;
+margin-right: .4rem;
+font-size: .8rem !important;
 }
 
 .AdminDashboard .mainPage{
@@ -54,8 +64,9 @@ font-size: 1.5rem;
     justify-content: space-between;
     align-items: center;
     height: 55px;
-    background-color: white;
-    box-shadow: 1px 2px 4px rgba(226, 226, 226, 0.664);
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: rgb(100, 100, 100) !important;
 }
 .AdminDashboard .mainPage .topBar .menus ul{
     display: inline-block;
@@ -78,36 +89,50 @@ font-size: 1.5rem;
 .AdminDashboard .mainPage .topBar .prodileInfo{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .AdminDashboard .mainPage .topBar .prodileInfo .icon{
 font-size: 1.4rem;
 margin: 0px 10px;
 }
-.AdminDashboard .mainPage .topBar .prodileInfo .userImage img{
-width: 20px;
+.AdminDashboard .mainPage .topBar .prodileInfo .userImage{
+width: 30px;
+height: 30px;
+border-radius: 50%;
 margin: 0px 10px;
+background: var(--primaryColor);
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 
 .AdminDashboard .mainPage .cardContainer{
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 10px;
     grid-row-gap: 10px;
 }
 .AdminDashboard .mainPage .cardContainer .card{
- border: .6px solid rgba(51, 153, 139, 0.384);
+ border: none;
+ border-left: 3px solid rgba(255, 0, 0, 0.473);
+ border-left: 3px solid rgba(7, 155, 69, 0.568);
+ border-left: 3px solid rgba(252, 232, 51, 0.842);
+ border-left: 3px solid rgba(51, 155, 252, 0.842);
  /* width: 80%; */
 }
 .AdminDashboard .mainPage .cardContainer .card img{
     width: 50px;
+    height: 50px;
+    border-radius: 50%;
     
 }
 .AdminDashboard .mainPage .cardContainer .imgCover{
     width: 50px;
     height: 50px;
-    background: rgb(51, 153, 139);
+    /* background: rgb(51, 153, 139); */
     margin: .5rem 0rem;
+    border-radius: 50%;
 }
 .AdminDashboard .mainPage .cardContainer .section1{
     padding: 1rem 1rem;
@@ -116,9 +141,10 @@ margin: 0px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--success);
+    /* background: var(--success); */
     padding: .4rem .5rem;
-    color: white;
+    /* color: white; */
+    font-size: .8rem;
     font-weight: bold;
     /* padding: 0rem .4rem; */
 }
@@ -138,7 +164,7 @@ display: grid;
 grid-template-columns: repeat(2, 1fr);
 justify-content: center;
 align-items: center;
-text-align: center;
+
 }
 .AdminDashboard .deductions .card{
 background-color: white;
@@ -148,10 +174,23 @@ margin: 0 auto;
 box-shadow: -4px 3px 26px -5px rgba(115,115,115,0.75);
 -webkit-box-shadow: -4px 3px 26px -5px rgba(115,115,115,0.75);
 -moz-box-shadow: -4px 3px 26px -5px rgba(115,115,115,0.75);
+padding: 10px;
+}
+.AdminDashboard .deductions .card .iconCover{
+width: 40px;
+height: 40px;
+/* background: red; */
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+
 }
 .AdminDashboard .deductions .card .icon{
 font-weight: bold;
-font-size: 1.8rem;
+font-size: 1.4rem;
+color: white;
+
 
 }
 .AdminDashboard .deductions .card .title{

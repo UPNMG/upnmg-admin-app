@@ -19,7 +19,7 @@ function Orders() {
                         </div>
                         <div className='price'>$454</div>
                         <div className='ordered_date'>Ordered on: <span>22 jan 2021</span></div>
-                        <button onClick={() => history.push('/hirepurchase/order-detailed')}>
+                        <button onClick={() => history.push('/mart/order-detailed')}>
                             <span><GrProjects size={'14px'} color=""/></span>
                             <span>Process</span>
                         </button>
@@ -35,7 +35,7 @@ function Orders() {
                         </div>
                         <div className='price'>$454</div>
                         <div className='ordered_date'>Ordered on: <span>22 jan 2021</span></div>
-                        <button onClick={() => history.push('/hirepurchase/order-detailed')}>
+                        <button onClick={() => history.push('/mart/order-detailed')}>
                             <span><GrProjects size={'14px'} color=""/></span>
                             <span>Process</span>
                         </button>
@@ -51,7 +51,7 @@ function Orders() {
                         </div>
                         <div className='price'>$454</div>
                         <div className='ordered_date'>Ordered on: <span>22 jan 2021</span></div>
-                        <button onClick={() => history.push('/hirepurchase/order-detailed')}>
+                        <button onClick={() => history.push('/mart/order-detailed')}>
                             <span><GrProjects size={'14px'} color=""/></span>
                             <span>Process</span>
                         </button>
@@ -67,7 +67,7 @@ function Orders() {
                         </div>
                         <div className='price'>$454</div>
                         <div className='ordered_date'>Ordered on: <span>22 jan 2021</span></div>
-                        <button onClick={() => history.push('/hirepurchase/order-detailed')}>
+                        <button onClick={() => history.push('/mart/order-detailed')}>
                             <span><GrProjects size={'14px'} color=""/></span>
                             <span>Process</span>
                         </button>
@@ -83,7 +83,7 @@ function Orders() {
                         </div>
                         <div className='price'>$454</div>
                         <div className='ordered_date'>Ordered on: <span>22 jan 2021</span></div>
-                        <button onClick={() => history.push('/hirepurchase/order-detailed')}>
+                        <button onClick={() => history.push('/mart/order-detailed')}>
                             <span><GrProjects size={'14px'} color=""/></span>
                             <span>Process</span>
                         </button>
@@ -99,7 +99,7 @@ function Orders() {
                         </div>
                         <div className='price'>$454</div>
                         <div className='ordered_date'>Ordered on: <span>22 jan 2021</span></div>
-                        <button onClick={() => history.push('/hirepurchase/order-detailed')}>
+                        <button onClick={() => history.push('/mart/order-detailed')}>
                             <span><GrProjects size={'14px'} color=""/></span>
                             <span>Process</span>
                         </button>
@@ -115,7 +115,7 @@ function Orders() {
                         </div>
                         <div className='price'>$454</div>
                         <div className='ordered_date'>Ordered on: <span>22 jan 2021</span></div>
-                        <button onClick={() => history.push('/hirepurchase/order-detailed')}>
+                        <button onClick={() => history.push('/mart/order-detailed')}>
                             <spa>Icon</spa>
                             <span>Process</span>
                         </button>

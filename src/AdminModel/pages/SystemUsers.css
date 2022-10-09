@@ -1,0 +1,18 @@
+.SystemUsers .chips{
+    display: flex;
+    /* grid-template-columns: repeat(2, 1fr); */
+    width: 100%;
+    /* border: 5px solid red; */
+    font-size: .7rem;
+    justify-content: start;
+    align-items: center;
+}
+.SystemUsers .chips .chip{
+    background: var(--default);
+    margin: 2px;
+    border-radius: 4pc;
+    padding: 5px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}

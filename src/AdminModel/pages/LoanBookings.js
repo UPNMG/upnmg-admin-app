@@ -6,31 +6,33 @@ import {
     Switch,
   } from "@material-ui/core";
   import React, { useEffect } from "react";
-  import { IoMdMore } from "react-icons/io";
   import { useDispatch, useSelector } from "react-redux";
   import { useHistory } from "react-router-dom";
   import { bindActionCreators } from "redux";
   import { dataActionCreators } from "../../services/Actions";
-  import RenderLoanPage from "../RenderLoanPage";
   import { format } from "timeago.js";
   import * as moment from "moment";
+import RenderAdminPage from "../RenderAdminPage";
+import NotFoundComponent from "../../Components/NotFoundComponent";
+import Loader from "../../Components/Loader";
   
   
-  function PendingLoans() {
+  function LoanBookings() {
     const history = useHistory();
     const dispatch = useDispatch();
     const { GetAppliedLoans } = bindActionCreators(dataActionCreators, dispatch);
   
     const data = useSelector((state) => state?.data);
     console.log("data", data);
-  
+    const {isLoading, appliedLoans} = data
     useEffect(() => {
-      GetAppliedLoans();
+      GetAppliedLoans(`?status=initiated`);
     }, []);
   
     return (
       <div className="LoanApplication">
-        <RenderLoanPage title={""}>
+        <RenderAdminPage title={""}>
+          {isLoading && <Loader/>}
           <div className="row">
             <div className="col-md-7">
               <label htmlFor="search">Search Query:</label>
@@ -56,13 +58,13 @@ import {
             </div>
           </div>
   
-          {data?.appliedLoans.length > 0 && (
+          {appliedLoans.length > 0 ? (
             <section className="bg-white mt-4">
               <div className="container mx-auto px-4 sm:px-8">
                 <div className="py-8">
                   <div className="flex items-center justify-between">
                     <h2 className="text-2xl font-semibold leading-tight">
-                      Pending Loan Applications
+                      Procced Loan Applications
                     </h2>
                     <div className="flex items-center justify-between" >
                       <FormControlLabel
@@ -88,10 +90,10 @@ import {
                               Loan Amount
                             </th>
                             <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                              Mandate Number
+                              Loan Term
                             </th>
                             <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                              OTP
+                              Net Salary
                             </th>
                             <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                               Date
@@ -99,14 +101,14 @@ import {
                             <th className="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                               Status
                             </th>
-                            <th className="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            {/* <th className="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                               Region
-                            </th>
+                            </th> */}
                             <th className="px-1 py-3 border-b-2 border-gray-200 bg-gray-100"></th>
                           </tr>
                         </thead>
                         <tbody>
-                          {data?.appliedLoans.map((loan, index) => {
+                          {appliedLoans.map((loan, index) => {
                             console.log(loan);
                             return (
                               <tr key={index}>
@@ -140,7 +142,7 @@ import {
                                 </td>
                                 <td className="px-5 py-1 border-b border-gray-200 bg-white text-sm">
                                   <p className="text-gray-900 whitespace-no-wrap">
-                                    {loan?.mandateNumber}
+                                    {loan?.loanTerm}
                                   </p>
                                   {/* <p className="text-gray-600 whitespace-no-wrap">
                                 USD
@@ -148,7 +150,7 @@ import {
                                 </td>
                                 <td className="px-5 py-1 border-b border-gray-200 bg-white text-sm">
                                   <p className="text-gray-900 whitespace-no-wrap">
-                                    {loan?.otpNumber}
+                                    {loan?.netSalary}
                                   </p>
                                   {/* <p className="text-gray-600 whitespace-no-wrap">
                                 USD
@@ -177,7 +179,7 @@ import {
                                     </span>
                                   </span>
                                 </td>
-                                <td className="px-3 py-1 border-b border-gray-200 bg-white text-sm">
+                                {/* <td className="px-3 py-1 border-b border-gray-200 bg-white text-sm">
                                   <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                     <span
                                       aria-hidden
@@ -187,12 +189,12 @@ import {
                                       {loan?.user?.district}
                                     </span>
                                   </span>
-                                </td>
+                                </td> */}
                                 <td className="px-3 py-1 border-b border-gray-200 bg-white text-sm text-right">
                                   <IconButton
                                     onClick={() => {
                                       history.push({
-                                        pathname: "/loans/application-detailed",
+                                        pathname: "/admin/loans-application-detailed",
                                         state: { loan },
                                       });
                                     }}
@@ -220,69 +222,11 @@ import {
                 </div>
               </div>
             </section>
-          )}
+          ): (<>
+          <NotFoundComponent title={'No initiated loans available yet'}/>
+          </>)}
   
-          {/* <table className="table">
-          <thead>
-            <tr>
-          
-              <th scope="col">Profile</th>
-              <th scope="col">staff Id</th>
-              <th scope="col">Name</th>
-              <th scope="col">email</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Peroid</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr onClick={() => history.push('/loans/application-detailed')}>
-              <th scope="row">
-                <Avatar alt="Remy Sharp" src="/images/dev/success.png" />
-              </th>
-  
-              <td>657656</td>
-              <td>Agyapong Derrick</td>
-              <td>derrick@upnmg.com</td>
-              <td>Loan</td>
-              <td>Active</td>
-              <td ><button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"><IoMdMore/></button></td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <Avatar alt="Remy Sharp" src="/images/dev/cancel.png" />
-              </th>
-              <td>657656</td>
-              <td>Agyapong Derrick</td>
-              <td>derrick@upnmg.com</td>
-              <td>Loan</td>
-              <td>Active</td>
-              <td>del</td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <Avatar alt="Remy Sharp" src="i/mages/dev/A.png" />
-              </th>
-              <td>657656</td>
-              <td>Agyapong Derrick</td>
-              <td>derrick@upnmg.com</td>
-              <td>Loan</td>
-              <td>Active</td>
-              <td>del</td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <Avatar alt="Remy Sharp" src="/images/dev/loan.png" />
-              </th>
-              <td>657656</td>
-              <td>Agyapong Derrick</td>
-              <td>derrick@upnmg.com</td>
-              <td>Loan</td>
-              <td>Active</td>
-              <td>del</td>
-            </tr>
-          </tbody>
-        </table> */}
+        
   
           <div
             class="modal fade"
@@ -320,10 +264,10 @@ import {
               </div>
             </div>
           </div>
-        </RenderLoanPage>
+        </RenderAdminPage>
       </div>
     );
   }
   
-  export default PendingLoans;
+  export default LoanBookings;
   

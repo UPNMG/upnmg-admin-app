@@ -27,7 +27,7 @@ function OrderDetailed() {
                 Facility: <span>Osu governmanet hospital</span>
               </div>
               <button
-                onClick={() => history.push("/hirepurchase/order-detailed")}
+                onClick={() => history.push("/mart/order-detailed")}
               >
                 view detail
               </button>

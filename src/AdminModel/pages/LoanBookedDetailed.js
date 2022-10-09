@@ -3,31 +3,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { bindActionCreators } from "redux";
-import Loader from "../../Components/Loader";
 import { dataActionCreators } from "../../services/Actions";
-import RenderLoanPage from "../RenderLoanPage";
-import "./Loan.css";
+import RenderAdminPage from "../RenderAdminPage";
+import './LoanBookings.css'
 
-function LoanApplicationDetailed() {
+function LoanBookedDetailed() {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch()
 
-  const {MarkedAsBookedAppliedLoans, ResetDataResponse} = bindActionCreators(dataActionCreators, dispatch)
-  const data = useSelector(state => state?.data)
-  const response = data?.response
   console.log("location", location);
   const loanDetailed = location?.state?.loan;
   const defaultImage = "/images/dev/success.png";
-
+  const {MarkedAsPaidAppliedLoans, ResetDataResponse, MarkedAsInitiatedAppliedLoans} = bindActionCreators(dataActionCreators, dispatch)
+  const data = useSelector(state => state?.data)
+  const response = data?.response
   console.log("loanDetailed", loanDetailed);
-
-  const handleMarkedAsBooked = (loan_id) => {
+  const handleMarkedAsPaid = (loan_id) =>{
     // alert(loan_id)
     const body = {
       status: true
     }
-    MarkedAsBookedAppliedLoans(loan_id, body)
+    MarkedAsPaidAppliedLoans(loan_id, body)
   }
 
   useEffect(() => {
@@ -35,7 +32,7 @@ function LoanApplicationDetailed() {
       toast.success(response?.message);
       setTimeout(() => {
         ResetDataResponse();
-        history.push('/loans/application')
+        history.push('/admin/loans-bookings')
       }, 1500);
     } else if (response?.state === "ERROR") {
       toast.error(response?.message);
@@ -45,12 +42,10 @@ function LoanApplicationDetailed() {
       }, 1500);
     }
   }, [response?.state]);
-
   return (
-    <div className="LoanApplicationDetailed">
-      <RenderLoanPage title={""}>
-        {data.isLoading && <Loader/>}
-    <div className="flex justify-between">
+    <div className="LoanBookedDetailed">
+      <RenderAdminPage title={""}>
+      <div className="flex justify-between">
     <div
           className="relative inline-block px-3 my-2 mx-2 py-1 font-semibold text-white leading-tight cursor-pointer"
           onClick={() => history.goBack()}
@@ -62,7 +57,8 @@ function LoanApplicationDetailed() {
           <span className="relative">Back</span>
         </div>
         <div className="mt-2">
-          <span onClick={() => handleMarkedAsBooked(loanDetailed?._id)} className="customBtn">Marked as Booked</span>
+          <span onClick={() => handleMarkedAsPaid(loanDetailed?._id)} className="customBtn">Marked as Paid</span>
+         
         </div>
     </div>
 
@@ -79,17 +75,8 @@ function LoanApplicationDetailed() {
                 alt=""
               />
             </div>
-          
-            <div className="mt-5 ">
-              <h2>Send Message</h2>
-              <textarea
-                className="form-control"
-                placeholder="Write your message here..."
-              ></textarea>
-              <button className="btn btn-success btn-sm mt-2">
-                Send Message
-              </button>
-            </div>
+     
+         
           </div>
           <div className="col-md-9">
             <div className="displaySection">
@@ -193,18 +180,6 @@ function LoanApplicationDetailed() {
                   <div className="name">Net Salary</div>
                   <div className="value">{loanDetailed?.netSalary}</div>
                 </div>
-                <div className="item">
-                  <div className="name">Mandate Number</div>
-                  <div className="value">{loanDetailed?.mandateNumber}</div>
-                </div>
-                <div className="item">
-                  <div className="name">OTP Number</div>
-                  <div className="value">{loanDetailed?.otpNumber}</div>
-                </div>
-                <div className="item">
-                  <div className="name">Monthly Deduction</div>
-                  <div className="value">{loanDetailed?.monthlyDeduction}</div>
-                </div>
 
                 <hr />
                 <div className="item">
@@ -282,9 +257,9 @@ function LoanApplicationDetailed() {
           </div>
         </div>
         <ToastContainer autoClose={3000}/>
-      </RenderLoanPage>
+      </RenderAdminPage>
     </div>
   );
 }
 
-export default LoanApplicationDetailed;
+export default LoanBookedDetailed;

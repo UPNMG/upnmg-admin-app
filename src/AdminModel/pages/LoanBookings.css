@@ -1,0 +1,40 @@
+
+
+
+.LoanBookedDetailed .displaySection{
+    display: flex;
+    justify-content: space-between;
+}
+.LoanBookedDetailed .displaySection .sideOne .item{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 1rem;
+    margin-bottom: .5rem;
+}
+.LoanBookedDetailed .displaySection .sideOne .item .name{
+    margin-right: 1rem;
+    font-size: .8rem;
+}
+.LoanBookedDetailed .displaySection .sideOne .item .value{
+    font-weight: bold;
+    font-size: .9rem;
+}
+
+.LoanBookedDetailed .displaySection .sideTwo .item{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 1rem;
+    margin-bottom: .5rem;
+}
+.LoanBookedDetailed .displaySection .sideTwo .item .name{
+    margin-right: 1rem;
+    font-size: .8rem;
+}
+.LoanBookedDetailed .displaySection .sideTwo .item .value{
+    font-weight: bold;
+    font-size: .9rem;
+}
+.LoanBookedDetailed .displaySection .sideTwo .item img{
+    width: 150px;
+    height: auto;
+}

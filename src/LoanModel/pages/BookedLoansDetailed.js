@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useHistory } from "react-router-dom";
@@ -8,12 +9,12 @@ import { dataActionCreators } from "../../services/Actions";
 import RenderLoanPage from "../RenderLoanPage";
 import "./Loan.css";
 
-function LoanApplicationDetailed() {
+function BookedLoansDetailed() {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch()
 
-  const {MarkedAsBookedAppliedLoans, ResetDataResponse} = bindActionCreators(dataActionCreators, dispatch)
+  const {MarkedAsBookedAppliedLoans,MarkedAsInitiatedAppliedLoans, ResetDataResponse} = bindActionCreators(dataActionCreators, dispatch)
   const data = useSelector(state => state?.data)
   const response = data?.response
   console.log("location", location);
@@ -22,12 +23,19 @@ function LoanApplicationDetailed() {
 
   console.log("loanDetailed", loanDetailed);
 
-  const handleMarkedAsBooked = (loan_id) => {
+//   const handleMarkedAsBooked = (loan_id) => {
+//     // alert(loan_id)
+//     const body = {
+//       status: true
+//     }
+//     MarkedAsBookedAppliedLoans(loan_id, body)
+//   }
+  const handleMarkedAsInitiated = (loan_id) => {
     // alert(loan_id)
     const body = {
       status: true
     }
-    MarkedAsBookedAppliedLoans(loan_id, body)
+    MarkedAsInitiatedAppliedLoans(loan_id, body)
   }
 
   useEffect(() => {
@@ -35,7 +43,7 @@ function LoanApplicationDetailed() {
       toast.success(response?.message);
       setTimeout(() => {
         ResetDataResponse();
-        history.push('/loans/application')
+        history.push('/loans/booked')
       }, 1500);
     } else if (response?.state === "ERROR") {
       toast.error(response?.message);
@@ -62,7 +70,8 @@ function LoanApplicationDetailed() {
           <span className="relative">Back</span>
         </div>
         <div className="mt-2">
-          <span onClick={() => handleMarkedAsBooked(loanDetailed?._id)} className="customBtn">Marked as Booked</span>
+          {/* <span onClick={() => handleMarkedAsBooked(loanDetailed?._id)} className="customBtn">Marked as Submitted</span> */}
+          <span onClick={() => handleMarkedAsInitiated(loanDetailed?._id)} className="customBtn">Marked as Initiated</span>
         </div>
     </div>
 
@@ -91,7 +100,7 @@ function LoanApplicationDetailed() {
               </button>
             </div>
           </div>
-          <div className="col-md-9">
+          <div className="col-md-8">
             <div className="displaySection">
               <div className="sideOne">
                 <div className="item">
@@ -193,18 +202,6 @@ function LoanApplicationDetailed() {
                   <div className="name">Net Salary</div>
                   <div className="value">{loanDetailed?.netSalary}</div>
                 </div>
-                <div className="item">
-                  <div className="name">Mandate Number</div>
-                  <div className="value">{loanDetailed?.mandateNumber}</div>
-                </div>
-                <div className="item">
-                  <div className="name">OTP Number</div>
-                  <div className="value">{loanDetailed?.otpNumber}</div>
-                </div>
-                <div className="item">
-                  <div className="name">Monthly Deduction</div>
-                  <div className="value">{loanDetailed?.monthlyDeduction}</div>
-                </div>
 
                 <hr />
                 <div className="item">
@@ -287,4 +284,4 @@ function LoanApplicationDetailed() {
   );
 }
 
-export default LoanApplicationDetailed;
+export default BookedLoansDetailed;

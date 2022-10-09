@@ -1,0 +1,22 @@
+.paginations {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 3rem;
+    padding-top: 4rem;
+    .numbers {
+      display: flex;
+      .number {
+        padding: 1px 12px;
+        margin-right: 0.3rem;
+        border-radius: 4pc;
+        &:hover {
+          background: var(--primaryColorLite);
+          cursor: pointer;
+        }
+      }
+      .active {
+        background: var(--primaryColor);
+        color: white;
+      }
+    }
+  }

@@ -1,6 +1,6 @@
 import React from "react";
 import "./LoansDashboard.css";
-import { MdOutlineNotificationsNone } from "react-icons/md";
+import { MdLogout, MdOutlineNotificationsNone } from "react-icons/md";
 import { FaHands } from "react-icons/fa";
 import { TbMessage2 } from "react-icons/tb";
 import { BsMenuButtonFill } from "react-icons/bs";
@@ -12,9 +12,12 @@ import { Avatar } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 function RenderLoanPage({ children, title }) {
   const history = useHistory();
+  const handleLogout = () => {
+    history.push('/logout')
+  }
   return (
-    <div className="AdminDashboard">
-      <section className="sideBar">
+    <div className="LoansDashboard">
+      <section className="LoanSideBar">
         <div className="menuList">
           <div
             className="menu cursor-pointer"
@@ -25,24 +28,39 @@ function RenderLoanPage({ children, title }) {
           </div>
           <div
             className="menu cursor-pointer"
+            onClick={() => history.push("/loans/fund-deduction")}
+          >
+            <FaHands className="icon" />
+            <div className="label">Fund Deduction</div>
+          </div>
+          <div
+            className="menu cursor-pointer"
             onClick={() => history.push("/loans/application")}
           >
             <FaHands className="icon" />
             <div className="label">Loan Applications</div>
           </div>
+     
           <div
             className="menu cursor-pointer"
-            onClick={() => history.push("/loans/procced")}
+            onClick={() => history.push("/loans/booked")}
           >
             <GrMoney className="icon" />
-            <div className="label">Loan Proccessed</div>
+            <div className="label">Booked Loans </div>
           </div>
           <div
             className="menu cursor-pointer"
-            onClick={() => history.push("/loans/pending")}
+            onClick={() => history.push("/loans/initiated")}
           >
             <GrMoney className="icon" />
-            <div className="label">Pending Request</div>
+            <div className="label">Initiated Loans</div>
+          </div>
+          <div
+            className="menu cursor-pointer"
+            onClick={() => history.push("/loans/status")}
+          >
+            <GrMoney className="icon" />
+            <div className="label">Loan Status</div>
           </div>
           <div
             className="menu cursor-pointer"
@@ -81,7 +99,8 @@ function RenderLoanPage({ children, title }) {
               <MdOutlineNotificationsNone className="icon" />
             </div>
             <div className="userImage">
-              <img src="/images/dev/loan.png" alt="" />
+              <MdLogout className="text-white"  onClick={handleLogout}/>
+             
             </div>
           </div>
         </div>

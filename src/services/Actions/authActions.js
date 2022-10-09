@@ -59,6 +59,84 @@ export const Login = (user) => {
   };
 };
 
+export const SignOut = () => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: authConstants.LOADING,
+        isLoading: true,
+      });
+      localStorage.clear();
+      dispatch({
+        type: authConstants.LOG_OUT,
+      });
+    } catch (e) {
+      dispatch({
+        type: authConstants.RESPONSE_STATE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: authConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
+
+
+export const AddNewSystemUser = (user) => {
+  console.log(user);
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: authConstants.LOADING,
+        isLoading: true,
+      });
+      const response = await axiosInstance.post(`/users/admin/create`, {
+        email: user?.email,
+        password: user?.password,
+        user_type: 'SYSTEM_USER',
+        name: user?.name,
+        staff_code: user?.staff_code,
+        phone_number: user?.phone_number,
+        role: user?.role,
+        super_role: user?.super_role,
+        staff_id: user.staff_id
+      });
+     
+      if (response) {
+        dispatch({
+          type: authConstants.RESPONSE_STATE,
+          response: {
+            state: "SUCCESS",
+            message: "New system user added",
+          },
+        });
+        dispatch({
+          type: authConstants.LOADING,
+          isLoading: false,
+        });
+      }
+    } catch (e) {
+      dispatch({
+        type: authConstants.RESPONSE_STATE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: authConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
+
+
 export const ResetAuthResponse = () => {
   return async (dispatch) => {
     dispatch({

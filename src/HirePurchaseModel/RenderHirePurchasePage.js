@@ -17,32 +17,32 @@ function RenderHirePurchasePage({children, title}) {
     <div className='AdminDashboard'>
               <section className="sideBar">
           <div className="menuList">
-            <div className="menu" onClick={()=> history.push('/hirepurchase/home')}>
+            <div className="menu" onClick={()=> history.push('/mart/home')}>
                 <TiHomeOutline className="icon"/>
                 <div className="label" >Home</div>
             </div>
-            <div className="menu" onClick={()=> history.push('/hirepurchase/product')}>
+            <div className="menu" onClick={()=> history.push('/mart/product')}>
                 <FaHands className="icon"/>
                 <div className="label">Products</div>
             </div>
-            <div className="menu" onClick={()=> history.push('/hirepurchase/order')}>
+            <div className="menu" onClick={()=> history.push('/mart/order')}>
                 <GrMoney className="icon"/>
                 <div className="label">Orders</div>
             </div>
-            <div className="menu" onClick={()=> history.push('/hirepurchase/processed-order')}>
+            <div className="menu" onClick={()=> history.push('/mart/processed-order')}>
                 <GrMoney className="icon"/>
                 <div className="label">Processed Order</div>
             </div>
             <hr/>
-            <div className="menu" onClick={()=> history.push('/hirepurchase/report')}>
+            <div className="menu" onClick={()=> history.push('/mart/report')}>
                 <GrMoney className="icon"/>
                 <div className="label">Report</div>
             </div>
-            <div className="menu" onClick={()=> history.push('/hirepurchase/setting')}>
+            <div className="menu" onClick={()=> history.push('/mart/setting')}>
                 <GrMoney className="icon"/>
                 <div className="label">Settings</div>
             </div>
-            <div className="menu" onClick={()=> history.push('/hirepurchase/support')}>
+            <div className="menu" onClick={()=> history.push('/mart/support')}>
                 <GrMoney className="icon"/>
                 <div className="label">Support</div>
             </div>
