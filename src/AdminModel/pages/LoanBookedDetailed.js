@@ -65,15 +65,29 @@ function LoanBookedDetailed() {
         <div className="row">
           <div className="col-md-3">
             <div className="card">
-              <img
-                src={
-                  loanDetailed?.user?.profile_image
-                    ? loanDetailed?.user?.profile_image
-                    : defaultImage
-                }
-                style={{ width: "200px" }}
-                alt=""
-              />
+            {loanDetailed?.user?.profile_image ? (
+                <img
+                  src={loanDetailed?.user?.profile_image}
+                  alt=""
+                  style={{ width: "200px" }}
+                />
+              ) : (
+                <>
+                  {loanDetailed?.user?.name?.split(" ")[0] === "Mr." ? (
+                    <img
+                      src="/images/dev/avarta2.jpeg"
+                      alt=""
+                      style={{ width: "200px" }}
+                    />
+                  ) : (
+                    <img
+                      src="/images/dev/woman-avarta.jpeg"
+                      alt=""
+                      style={{ width: "200px" }}
+                    />
+                  )}
+                </>
+              )}
             </div>
      
          

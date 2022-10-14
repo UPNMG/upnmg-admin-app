@@ -17,7 +17,6 @@ import OrderDetailed from './HirePurchaseModel/pages/OrderDetailed';
 import ProcessedOrder from './HirePurchaseModel/pages/ProcessedOrder';
 import HirePurchaseReport from './HirePurchaseModel/pages/HirePurchaseReport';
 import Login from './Auth/Login';
-import CancelledLoans from './LoanModel/pages/CancelledLoans';
 import ProccedLoans from './LoanModel/pages/BookedLoans';
 import Logout from './Auth/LogOut';
 import PrivateRoute from './HOC/PrivateRoute';
@@ -32,6 +31,7 @@ import BookedLoansDetailed from './LoanModel/pages/BookedLoansDetailed';
 import LoanStatus from './LoanModel/pages/LoanStatus';
 import PaidLoans from './AdminModel/pages/PaidLoans';
 import PaidLoansDetailed from './AdminModel/pages/PaidLoansDetailed';
+import LoansPaid from './LoanModel/pages/PaidLoans';
 function App() {
   return (
     <div className="App">
@@ -59,7 +59,7 @@ function App() {
       <PrivateLoanAdminRoute  path={'/loans/booked-detailed'} component={BookedLoansDetailed}/>
       <PrivateLoanAdminRoute  path={'/loans/initiated'} component={InitiatedLoans}/>
       <PrivateLoanAdminRoute  path={'/loans/status'} component={LoanStatus}/>
-      <PrivateLoanAdminRoute  path={'/loans/cancelled'} component={CancelledLoans}/>
+      <PrivateLoanAdminRoute  path={'/loans/paid'} component={LoansPaid}/>
       <PrivateLoanAdminRoute  path={'/loans/application-detailed'} component={LoanApplicationDetailed}/>
 
       <PrivateMartAdminRoute  path={'/mart/home'} component={HirePurchaseDashboard}/>

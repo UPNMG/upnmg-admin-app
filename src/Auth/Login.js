@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
@@ -11,10 +11,10 @@ function Login() {
   const dispatch = useDispatch();
   const history = useHistory()
   const auth = useSelector((state) => state?.auth);
-  const { Login } = bindActionCreators(authActionCreators, dispatch);
+  const { Login, ResetAuthResponse } = bindActionCreators(authActionCreators, dispatch);
   const [formData, setFormData] = useState(null);
 
-  console.log('auth', auth) 
+ const { isLoading, response, authenticated, user,user_type} = auth
 
   const handleInputChange = (e) => {
     setFormData((prevState) => {
@@ -38,18 +38,33 @@ function Login() {
 
 
   //ADMIN, LOAN_OFFICER, MART_OFFICER, INVESTMENT_OFFICER, USER
-  if (auth?.authenticated && auth?.user_type === "SYSTEM_USER" && auth?.user?.super_role === "ADMIN") {
+  if (authenticated && user_type === "SYSTEM_USER" && user?.super_role === "ADMIN") {
     history.replace('/admin/home')
   }
-  if (auth?.authenticated && auth?.user_type === "SYSTEM_USER" && auth?.user?.super_role === "LOAN_OFFICER") {
+  if (authenticated && user_type === "SYSTEM_USER" && user?.super_role === "LOAN_OFFICER") {
     history.replace('/loans/home')
   }
-  if (auth?.authenticated && auth?.user_type === "SYSTEM_USER" && auth?.user?.super_role === "MART_OFFICER") {
+  if (authenticated && user_type === "SYSTEM_USER" && user?.super_role === "MART_OFFICER") {
     history.replace('/mart/home')
   }
-  if (auth?.authenticated && auth?.user_type === "SYSTEM_USER" && auth?.user?.super_role === "INVESTMENT_OFFICER") {
+  if (authenticated && user_type === "SYSTEM_USER" && user?.super_role === "INVESTMENT_OFFICER") {
     history.replace('/investment/home')
   }
+
+  useEffect(() => {
+    if (response?.state === "SUCCESS") {
+      toast.success(response?.message);
+      setTimeout(() => {
+        ResetAuthResponse();
+      }, 300);
+    } else if (response?.state === "ERROR") {
+      toast.error(response?.message);
+      setTimeout(() => {
+        ResetAuthResponse();
+      }, 300);
+    }
+  }, [response?.state, response?.message]);
+
 
   return (
     <div className="loginPage">

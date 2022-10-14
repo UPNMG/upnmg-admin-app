@@ -57,18 +57,19 @@ function RenderLoanPage({ children, title }) {
           </div>
           <div
             className="menu cursor-pointer"
+            onClick={() => history.push("/loans/paid")}
+          >
+            <GrMoney className="icon" />
+            <div className="label">Loans Paid</div>
+          </div>
+          <div
+            className="menu cursor-pointer"
             onClick={() => history.push("/loans/status")}
           >
             <GrMoney className="icon" />
             <div className="label">Loan Status</div>
           </div>
-          <div
-            className="menu cursor-pointer"
-            onClick={() => history.push("/loans/cancelled")}
-          >
-            <GrMoney className="icon" />
-            <div className="label">Cancelled Request</div>
-          </div>
+         
         </div>
         <div className="profile">
           <Avatar alt="Remy Sharp" src="/images/dev/success.png" />

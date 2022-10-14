@@ -8,6 +8,10 @@ const initialState = {
   loans: [],
   dues: [],
   system_users: [],
+  totalMembers: 0,
+  totalDues: 0,
+  totalFunds: 0,
+  totalLoans: 0,
 
   paginate: {
     total: 0,
@@ -33,10 +37,19 @@ const dataReducer = (state = initialState, action) => {
         ...state,
         isLoading: action.isLoading,
       };
+      case dataConstants.GET_TOTAL:
+      return {
+        ...state,
+        totalMembers: action.payload.totalMembers,
+        totalFunds: action.payload.totalFunds,
+        totalDues: action.payload.totalDues,
+        totalLoans: action.payload.totalLoans,
+      };
     case dataConstants.GET_APPLIED_LOANS:
       return {
         ...state,
         appliedLoans: action.payload.appliedLoans,
+        paginate: action.payload.paginate,
       };
     case dataConstants.GET_FUNDS:
       return {

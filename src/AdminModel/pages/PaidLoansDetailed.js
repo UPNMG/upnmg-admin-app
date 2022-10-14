@@ -6,6 +6,7 @@ import { bindActionCreators } from "redux";
 import { dataActionCreators } from "../../services/Actions";
 import RenderAdminPage from "../RenderAdminPage";
 import "./LoanBookings.css";
+import { saveAs } from "file-saver";
 
 function PaidLoansDetailed() {
   const history = useHistory();
@@ -29,14 +30,15 @@ function PaidLoansDetailed() {
     const body = {
       status: true,
     };
-    MarkedAsInitiatedAppliedLoans(loan_id, body);
+    MarkedAsPaidAppliedLoans(loan_id, body);
   };
   useEffect(() => {
     if (response?.state === "SUCCESS") {
       toast.success(response?.message);
       setTimeout(() => {
         ResetDataResponse();
-        history.push("/admin/loans-paid");
+        history.goBack();
+        // history.push("/admin/loans-paid");
       }, 1500);
     } else if (response?.state === "ERROR") {
       toast.error(response?.message);
@@ -62,10 +64,16 @@ function PaidLoansDetailed() {
           </div>
           <div className="mt-2">
             <span
-              onClick={() => handleMarkedAsInitiated(loanDetailed?._id)}
+              onClick={() => {
+                if (loanDetailed?.status === "paid") {
+                  MarkedAsInitiatedAppliedLoans(loanDetailed?._id);
+                } else if (loanDetailed?.status === "initiated") {
+                  MarkedAsPaidAppliedLoans(loanDetailed?._id);
+                }
+              }}
               className="customBtn"
             >
-              Marked as Initiated
+              Marked as {loanDetailed.status === "paid" ? "initiated" : "paid"}
             </span>
           </div>
         </div>
@@ -73,15 +81,29 @@ function PaidLoansDetailed() {
         <div className="row">
           <div className="col-md-3">
             <div className="card">
-              <img
-                src={
-                  loanDetailed?.user?.profile_image
-                    ? loanDetailed?.user?.profile_image
-                    : defaultImage
-                }
-                style={{ width: "200px" }}
-                alt=""
-              />
+              {loanDetailed?.user?.profile_image ? (
+                <img
+                  src={loanDetailed?.user?.profile_image}
+                  alt=""
+                  style={{ width: "200px" }}
+                />
+              ) : (
+                <>
+                  {loanDetailed?.user?.name?.split(" ")[0] === "Mr." ? (
+                    <img
+                      src="/images/dev/avarta2.jpeg"
+                      alt=""
+                      style={{ width: "200px" }}
+                    />
+                  ) : (
+                    <img
+                      src="/images/dev/woman-avarta.jpeg"
+                      alt=""
+                      style={{ width: "200px" }}
+                    />
+                  )}
+                </>
+              )}
             </div>
           </div>
           <div className="col-md-9">
@@ -232,7 +254,17 @@ function PaidLoansDetailed() {
                   }}
                 >
                   <img src={loanDetailed?.frontIDImage} alt="id_front" />
-                  <a className="btn btn-sm bg-blue-500">Download</a>
+                  <a
+                    className="btn btn-sm bg-blue-500"
+                    onClick={() =>
+                      saveAs(
+                        `${loanDetailed?.frontIDImage}`,
+                        `${loanDetailed?.staff_id}-frontIdCard-image.jpg`
+                      )
+                    }
+                  >
+                    Download
+                  </a>
                 </div>
                 <div
                   className="item"
@@ -243,7 +275,13 @@ function PaidLoansDetailed() {
                   <img src={loanDetailed?.backIDImage} alt="id_back" />
                   <a
                     className="btn btn-sm bg-blue-500"
-                    href={loanDetailed?.backIDImage}
+                    // href={loanDetailed?.backIDImage}
+                    onClick={() =>
+                      saveAs(
+                        `${loanDetailed?.backIDImage}`,
+                        `${loanDetailed?.staff_id}-backIdCard-image.jpg`
+                      )
+                    }
                   >
                     Download
                   </a>

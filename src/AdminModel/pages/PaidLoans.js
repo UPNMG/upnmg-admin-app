@@ -6,7 +6,7 @@ import {
     IconButton,
     Switch,
   } from "@material-ui/core";
-  import React, { useEffect } from "react";
+  import React, { useEffect, useState } from "react";
   import { useDispatch, useSelector } from "react-redux";
   import { useHistory } from "react-router-dom";
   import { bindActionCreators } from "redux";
@@ -16,20 +16,87 @@ import {
 import RenderAdminPage from "../RenderAdminPage";
 import Loader from "../../Components/Loader";
 import NotFoundComponent from "../../Components/NotFoundComponent";
+import { debounce } from "lodash";
+import { toast, ToastContainer } from "react-toastify";
   
   
   function PaidLoans() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { GetAppliedLoans } = bindActionCreators(dataActionCreators, dispatch);
+    const { GetAppliedLoans, ResetDataResponse } = bindActionCreators(dataActionCreators, dispatch);
   
     const data = useSelector((state) => state?.data);
-    console.log("data", data);
-    const {isLoading, appliedLoans} = data
+
+    const {isLoading, appliedLoans, paginate, response} = data
+
+    const [limit, setLimit] = useState(5)
+    const [search, setSearch] = useState(null)
+
+    const status = 'paid'
+
+  const [currentItems, setCurrentItems] = useState(null);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = limit;
+  const [currentPage, setCurrentPage] = useState(0);
+
+ 
+
+  useEffect(() => {
+    // Fetch items from another resources.
+    const endOffset = itemOffset + itemsPerPage;
+
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    setCurrentItems(appliedLoans?.slice(itemOffset, endOffset));
+    setPageCount(Number(paginate?.total));
+  }, [itemOffset, itemsPerPage, appliedLoans]);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    console.log("event", event);
+    GetAppliedLoans(true, event.selected + 1, limit, status);
+
+    console.log("currentPage", currentPage);
+
+    const newOffset = (event.selected * itemsPerPage) % paginate?.total;
+
+    setItemOffset(newOffset);
+  };
+
+  const onSearchTextChange = debounce((e) => {
+    if (e?.target?.value) {
+      setSearch(e?.target?.value ?? null);
+      GetAppliedLoans(
+        true,
+        1,
+        limit,
+        status,
+        `${e?.target?.value ? "&search=" + e?.target?.value : ""}`
+      );
+      // GetAllFunds(true, 1, limit, `${e?.target?.value ? "&search=" + e?.target?.value : ""}`)
+    } else {
+      setSearch(null);
+      GetAppliedLoans(true, 1, limit, status);
+    }
+  }, 800);
   
     useEffect(() => {
-      GetAppliedLoans(`?status=paid`);
+      GetAppliedLoans(true, 1, 15, status);
     }, []);
+
+    useEffect(() => {
+      if(response?.state === "SUCCESS"){
+        toast.success(response?.message)
+        setTimeout(() => {
+          ResetDataResponse()
+      }, 1500);
+      }else if(response?.state === "ERROR"){
+        toast.success(response?.message)
+        setTimeout(() => {
+            ResetDataResponse()
+        }, 1500);
+      }
+    })
   
     return (
       <div className="LoanApplication">
@@ -39,24 +106,28 @@ import NotFoundComponent from "../../Components/NotFoundComponent";
             <div className="col-md-7">
               <label htmlFor="search">Search Query:</label>
               <input
-                type={"search"}
-                id="search"
-                placeholder="search by staff id, name"
-                className="form-control"
-              />
+              type={"search"}
+              id="search"
+              placeholder="search by staff id, name"
+              className="form-control"
+              onChange={onSearchTextChange}
+            />
             </div>
             <div className="col-md-3"></div>
             <div className="col-md-2">
               <label htmlFor="search">List to show:</label>
-              <select className="form-control">
-                <option value={15}>15</option>
-                <option value={15}>25</option>
-                <option value={15}>30</option>
-                <option value={15}>50</option>
-                <option value={15}>100</option>
-                <option value={15}>200</option>
-                <option value={15}>250</option>
-              </select>
+              <select
+              className="form-control"
+              onChange={(e) => setLimit(e.target.value)}
+            >
+              <option value={15}>15</option>
+              <option value={25}>25</option>
+              <option value={30}>30</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+              <option value={200}>200</option>
+              <option value={300}>300</option>
+            </select>
             </div>
           </div>
   
@@ -68,7 +139,7 @@ import NotFoundComponent from "../../Components/NotFoundComponent";
                     <h2 className="text-2xl font-semibold leading-tight">
                       Paid Loans
                     </h2>
-                    <div className="flex items-center justify-between" >
+                    {/* <div className="flex items-center justify-between" >
                       <FormControlLabel
                         control={<Switch />}
                         label="South Loans"
@@ -78,7 +149,7 @@ import NotFoundComponent from "../../Components/NotFoundComponent";
                         control={<Switch />}
                         label="North Loans"
                       />
-                    </div>
+                    </div> */}
                   </div>
                   <div className="-mx-1 sm:-mx-8 px-4 sm:px-8 py-0 overflow-x-auto">
                     <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
@@ -116,13 +187,32 @@ import NotFoundComponent from "../../Components/NotFoundComponent";
                               <tr key={index}>
                                 <td className="px-1 py-3 border-b border-gray-200 bg-white text-sm">
                                   <div className="flex">
-                                    <div className="flex-shrink-0 w-10 h-10">
+                                  <div className="flex-shrink-0 w-10 h-10">
+                                    {loan?.user?.profile_image ? (
                                       <img
                                         className="w-full h-full rounded-full"
                                         src={loan?.user?.profile_image}
                                         alt=""
                                       />
-                                    </div>
+                                    ) : (
+                                      <>
+                                        {loan?.user?.name?.split(" ")[0] ===
+                                        "Mr." ? (
+                                          <img
+                                            className="w-full h-full rounded-full"
+                                            src="/images/dev/avarta2.jpeg"
+                                            alt=""
+                                          />
+                                        ) : (
+                                          <img
+                                            className="w-full h-full rounded-full"
+                                            src="/images/dev/woman-avarta.jpeg"
+                                            alt=""
+                                          />
+                                        )}
+                                      </>
+                                    )}
+                                  </div>
                                     <div className="ml-3">
                                       <p className="text-gray-900 whitespace-no-wrap">
                                         {loan?.user?.name}
@@ -230,42 +320,7 @@ import NotFoundComponent from "../../Components/NotFoundComponent";
   
         
   
-          <div
-            class="modal fade"
-            id="exampleModal"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">
-                    Modal title
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">...</div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="button" class="btn btn-primary">
-                    Save changes
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+      <ToastContainer autoClose={3000}/>
         </RenderAdminPage>
       </div>
     );

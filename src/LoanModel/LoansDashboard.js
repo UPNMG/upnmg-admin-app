@@ -33,7 +33,7 @@ function LoansDashboard() {
   console.log("data", data);
 
   useEffect(() => {
-    GetAppliedLoans(`?status=submitted`);
+    GetAppliedLoans(true, 1, 5, 'submitted');
   }, []);
 
   return (
@@ -54,7 +54,7 @@ function LoansDashboard() {
                 <BsArrowUpRightCircle className="icon" />
               </div>
               <div className="title">Loan Application</div>
-              <div className="subtitle">View total loan from members</div>
+              <div className="subtitle">View all</div>
               <div className="value">{totalLoans}</div>
             </div>
             <div
@@ -70,7 +70,7 @@ function LoansDashboard() {
                 <BsArrowUpRightCircle className="icon" />
               </div>
               <div className="title">Unprocessed Loans</div>
-              <div className="subtitle">View total loan from members</div>
+              <div className="subtitle">View submitted</div>
               <div className="value">{totalLoansSubmitted}</div>
             </div>
             <div className="card">
@@ -82,7 +82,7 @@ function LoansDashboard() {
                 <BsArrowUpRightCircle className="icon" />
               </div>
               <div className="title">Loan Booked</div>
-              <div className="subtitle">View total loan from members</div>
+              <div className="subtitle">View booked</div>
               <div className="value">{totalLoansBooked}</div>
             </div>
             <div className="card">
@@ -94,7 +94,7 @@ function LoansDashboard() {
                 <BsArrowUpRightCircle className="icon" />
               </div>
               <div className="title">Loan Initiated</div>
-              <div className="subtitle">View total loan from members</div>
+              <div className="subtitle">View initiated</div>
               <div className="value">{totalLoansInitiated}</div>
             </div>
             <div></div>
@@ -107,7 +107,7 @@ function LoansDashboard() {
                   <h2 className="text-2xl font-semibold leading-tight">
                     Loan Request
                   </h2>
-                  <div className="flex items-center justify-between">
+                  {/* <div className="flex items-center justify-between">
                     <FormControlLabel
                       control={<Switch />}
                       label="South Loans"
@@ -116,7 +116,7 @@ function LoansDashboard() {
                       control={<Switch />}
                       label="North Loans"
                     />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="-mx-1 sm:-mx-8 px-4 sm:px-8 py-0 overflow-x-auto">
                   <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
@@ -142,7 +142,7 @@ function LoansDashboard() {
                             Status
                           </th>
                           <th className="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                            Region
+                            Sector
                           </th>
                           <th className="px-1 py-3 border-b-2 border-gray-200 bg-gray-100"></th>
                         </tr>
@@ -225,10 +225,10 @@ function LoansDashboard() {
                                     <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                       <span
                                         aria-hidden
-                                        className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                        className={`absolute inset-0 ${loan?.sector === 'Northern' ? 'bg-red-300': 'bg-blue-300'} opacity-50 rounded-full`}
                                       ></span>
                                       <span className="relative">
-                                        {loan?.user?.district}
+                                        {loan?.sector}
                                       </span>
                                     </span>
                                   </td>

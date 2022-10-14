@@ -7,5 +7,6 @@ export const dataConstants = {
     RESPONSE_STATE:"RESPONSE_STATE",
     GET_SYSTEM_USERS:"GET_SYSTEM_USERS",
     GET_MEMBERS:"GET_MEMBERS",
+    GET_TOTAL:"GET_TOTAL",
     
 }

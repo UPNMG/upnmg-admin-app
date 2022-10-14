@@ -135,6 +135,82 @@ export const AddNewSystemUser = (user) => {
     }
   };
 };
+export const DeleteSystemUser = (staff_code) => {
+
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: authConstants.LOADING,
+        isLoading: true,
+      });
+      const response = await axiosInstance.delete(`/users/admin/delete/${staff_code}`);
+     
+      if (response) {
+        dispatch({
+          type: authConstants.RESPONSE_STATE,
+          response: {
+            state: "SUCCESS",
+            message: "User deleted successfully",
+          },
+        });
+        dispatch({
+          type: authConstants.LOADING,
+          isLoading: false,
+        });
+      }
+    } catch (e) {
+      dispatch({
+        type: authConstants.RESPONSE_STATE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: authConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
+export const EditSystemUser = (id, user) => {
+
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: authConstants.LOADING,
+        isLoading: true,
+      });
+      const response = await axiosInstance.put(`/users/admin/edit/${id}`, user);
+     
+      if (response) {
+        dispatch({
+          type: authConstants.RESPONSE_STATE,
+          response: {
+            state: "SUCCESS",
+            message: "User updated successfully",
+          },
+        });
+        dispatch({
+          type: authConstants.LOADING,
+          isLoading: false,
+        });
+      }
+    } catch (e) {
+      dispatch({
+        type: authConstants.RESPONSE_STATE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: authConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
 
 
 export const ResetAuthResponse = () => {

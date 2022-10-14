@@ -2,7 +2,14 @@ import { ApiEndpoints } from "../Axios/apiEndpoints";
 import axiosInstance from "../Axios/axios";
 import { dataConstants } from "../Constants/dataConstant";
 
-export const GetAppliedLoans = (status) => {
+export const GetAppliedLoans = (
+  isPaginated,
+  page,
+  size,
+  status,
+  search,
+  filter
+) => {
   return async (dispatch) => {
     try {
       dispatch({
@@ -10,13 +17,45 @@ export const GetAppliedLoans = (status) => {
         isLoading: true,
       });
       // ?status=${status}
-      const response = await axiosInstance.get(`/loans/applied-loans${status}`);
+      const response = await axiosInstance.get(
+        `/loans/applied-loans?isPaginated=${isPaginated}&page=${page}&size=${size}&status=${status}${
+          search ? search : ""
+        }${filter ? filter : ""}`
+      );
       // const response = await axiosInstance.get(`/loans/applied-loans${status && `?status=`+status }`);
 
       if (response) {
+        // dispatch({
+        //   type: dataConstants.GET_APPLIED_LOANS,
+        //   payload: { appliedLoans: response.data },
+        // });
+        const {
+          docs,
+          page: currentPage,
+          totalItems,
+          totalPages,
+          currentPageSize,
+          links,
+          size: currentSize,
+        } = response.data;
+
         dispatch({
           type: dataConstants.GET_APPLIED_LOANS,
-          payload: { appliedLoans: response.data },
+          payload: {
+            appliedLoans: docs,
+            paginate: {
+              total: totalPages,
+              totalItems,
+              page: currentPage,
+              size: currentSize,
+              previousPage: links?.previousPage,
+              currentPageSize,
+              nextPage: links?.nextPage,
+              previousNumber: links?.previous,
+              nextNumber: links?.next,
+            },
+          },
+          // payload: { funds: response.data}
         });
         dispatch({
           type: dataConstants.LOADING,
@@ -75,7 +114,7 @@ export const GetSystemUsers = () => {
     }
   };
 };
-export const GetMembers = (isPaginated, page, size,search) => {
+export const GetMembers = (isPaginated, page, size, search) => {
   return async (dispatch) => {
     try {
       dispatch({
@@ -326,6 +365,51 @@ export const GetAllFunds = (isPaginated, page, size, search) => {
     }
   };
 };
+export const GetTotal = () => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: dataConstants.LOADING,
+        isLoading: true,
+      });
+      //  const response Promise.all([
+
+      //   ])
+      const membersResponse = await axiosInstance.get(`/users/members/total`);
+      const fundsResponse = await axiosInstance.get(`/funds/total`);
+      const duesResponse = await axiosInstance.get(`/dues/total`);
+      const loansResponse = await axiosInstance.get(`/loans/total`);
+
+      if (membersResponse && fundsResponse ) {
+        dispatch({
+          type: dataConstants.GET_TOTAL,
+          payload: {
+            totalMembers: membersResponse.data,
+            totalFunds: fundsResponse.data,
+            totalDues: duesResponse.data,
+            totalLoans: loansResponse.data,
+          },
+        });
+        dispatch({
+          type: dataConstants.LOADING,
+          isLoading: false,
+        });
+      }
+    } catch (e) {
+      dispatch({
+        type: dataConstants.RESPONSE_STATE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: dataConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
 export const GetAllDues = (isPaginated, page, size, search) => {
   return async (dispatch) => {
     try {
@@ -338,7 +422,7 @@ export const GetAllDues = (isPaginated, page, size, search) => {
           search ? search : ""
         }`
       );
-    
+
       if (response) {
         const {
           docs,
@@ -366,7 +450,6 @@ export const GetAllDues = (isPaginated, page, size, search) => {
               nextNumber: links?.next,
             },
           },
-         
         });
         dispatch({
           type: dataConstants.LOADING,
@@ -428,7 +511,6 @@ export const GetAllLoans = (isPaginated, page, size, search) => {
               nextNumber: links?.next,
             },
           },
-          
         });
         dispatch({
           type: dataConstants.LOADING,

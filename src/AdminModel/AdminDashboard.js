@@ -19,19 +19,35 @@ import * as moment from "moment";
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import { dataActionCreators } from "../services/Actions";
+import { toast, ToastContainer } from "react-toastify";
 function AdminDashboard() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { GetAppliedLoans,GetAllDues } = bindActionCreators(dataActionCreators, dispatch);
+  const { GetAppliedLoans,GetAllDues, ResetDataResponse, GetTotal } = bindActionCreators(dataActionCreators, dispatch);
 
   const data = useSelector((state) => state?.data);
-  console.log("data", data);
+  const {isLoading, appliedLoans, paginate, response, totalMembers, totalFunds, totalLoans, totalDues} = data
  
 
   useEffect(() => {
-    GetAppliedLoans(`?status=initiated`);
-
+    GetAppliedLoans(true, 1, 5, 'initiated');
+    GetTotal()
   }, []);
+
+  useEffect(() => {
+    if(response?.state === "SUCCESS"){
+      toast.success(response?.message)
+      setTimeout(() => {
+        ResetDataResponse()
+    }, 1500);
+    }else if(response?.state === "ERROR"){
+      toast.success(response?.message)
+      setTimeout(() => {
+          ResetDataResponse()
+      }, 1500);
+    }
+  })
+
   return (
     <div className="">
       <RenderAdminPage title={"Dashboard"}>
@@ -132,7 +148,7 @@ function AdminDashboard() {
               <div className="title">Loans Ded</div>
               <div className="subTitle">loan deductions</div>
               <div className="value">
-                <CediSymbol /> 200
+                <CediSymbol /> {totalLoans}
               </div>
             </div>
 
@@ -150,7 +166,7 @@ function AdminDashboard() {
               <div className="title">Dues Ded</div>
               <div className="subTitle">Dues deductions</div>
               <div className="value">
-                <CediSymbol /> 200
+                <CediSymbol /> {totalDues}
               </div>
             </div>
             <div
@@ -167,7 +183,24 @@ function AdminDashboard() {
               <div className="title">Fund Ded</div>
               <div className="subTitle">Fund deductions</div>
               <div className="value">
-                <CediSymbol /> 200
+                <CediSymbol /> {totalFunds}
+              </div>
+            </div>
+            <div
+              className="card cursor-pointer"
+              onClick={() => history.push("/admin/funds")}
+            >
+              <div
+                className="iconCover"
+                style={{ background: "var(--default)" }}
+              >
+                {" "}
+                <BsArrowUpRightCircle className="icon" />
+              </div>
+              <div className="title">Total Members</div>
+              <div className="subTitle">Current Members</div>
+              <div className="value">
+                {totalMembers}
               </div>
             </div>
           </div>
@@ -184,7 +217,7 @@ function AdminDashboard() {
                         <h2 className="text-2xl font-semibold leading-tight">
                           Loans Initiated
                         </h2>
-                        <div className="flex items-center justify-between">
+                        {/* <div className="flex items-center justify-between">
                           <FormControlLabel
                             control={<Switch />}
                             label="South Loans"
@@ -193,7 +226,7 @@ function AdminDashboard() {
                             control={<Switch />}
                             label="North Loans"
                           />
-                        </div>
+                        </div> */}
                       </div>
                       <div className="-mx-1 sm:-mx-8 px-4 sm:px-8 py-0 overflow-x-auto">
                         <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
@@ -352,6 +385,7 @@ function AdminDashboard() {
           </div>
         </section>
         {/* </div> */}
+        <ToastContainer autoClose={3000}/>
       </RenderAdminPage>
     </div>
   );

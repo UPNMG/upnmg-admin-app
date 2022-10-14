@@ -6,9 +6,11 @@
 }
 
 .LoansDashboard .loanCardContainer{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
     justify-content: space-between;
-    /* width: 70%; */
+    flex: 1;
     margin-top: 1rem;
 }
 .LoansDashboard .loanCardContainer .card{
@@ -31,6 +33,24 @@
     font-size: 1.4rem;
     color: white;
     
+    
+    }
+    .LoansDashboard  .card .title{
+    font-weight: bold;
+    font-size: .9rem;
+    padding: .2rem 0rem;
+    
+    }
+    .LoansDashboard  .card .subtitle{
+    font-weight: bold;
+    font-size: .7rem;
+  color: #bbbbbb;
+    
+    }
+    .LoansDashboard  .card .value{
+    font-weight: bold;
+    font-size: 1.7rem;
+    color: #838383;
     
     }
 

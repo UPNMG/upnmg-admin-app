@@ -11,16 +11,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import { dataActionCreators } from "../../services/Actions";
+import RenderLoanPage from "../RenderLoanPage";
 import { format } from "timeago.js";
 import * as moment from "moment";
 import NotFoundComponent from "../../Components/NotFoundComponent";
 import Loader from "../../Components/Loader";
 import { debounce } from "lodash";
 import ReactPaginate from "react-paginate";
-import RenderAdminPage from "../RenderAdminPage";
 
-  function LoanBookings() {
-    const history = useHistory();
+function LoansPaid() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { GetAppliedLoans } = bindActionCreators(dataActionCreators, dispatch);
   const [checkSouthLoan, setCheckSouthLoan] = useState(false);
@@ -28,7 +28,7 @@ import RenderAdminPage from "../RenderAdminPage";
   const [search, setSearch] = useState(null);
   const [limit, setLimit] = useState(5);
   const data = useSelector((state) => state?.data);
-  const status = "initiated"
+  const status = "paid"
  
 
   const [currentItems, setCurrentItems] = useState(null);
@@ -133,7 +133,7 @@ import RenderAdminPage from "../RenderAdminPage";
 
   return (
     <div className="LoanApplication">
-      <RenderAdminPage title={""}>
+      <RenderLoanPage title={""}>
         {isLoading && <Loader />}
         <div className="row">
           <div className="col-md-7">
@@ -170,7 +170,7 @@ import RenderAdminPage from "../RenderAdminPage";
             <div className="py-8">
               <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-semibold leading-tight">
-                  initiated Loans
+                  Booked Applications
                 </h2>
                 <div className="flex items-center justify-between">
                   <FormControlLabel
@@ -221,7 +221,7 @@ import RenderAdminPage from "../RenderAdminPage";
                           <th className="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                             Sector
                           </th>
-                          <th className="px-1 py-3 border-b-2 border-gray-200 bg-gray-100"></th>
+                          {/* <th className="px-1 py-3 border-b-2 border-gray-200 bg-gray-100"></th> */}
                         </tr>
                       </thead>
                       <tbody>
@@ -330,7 +330,7 @@ import RenderAdminPage from "../RenderAdminPage";
                                   </span>
                                 </span>
                               </td>
-                              <td className="px-3 py-1 border-b border-gray-200 bg-white text-sm text-right">
+                              {/* <td className="px-3 py-1 border-b border-gray-200 bg-white text-sm text-right">
                                 <IconButton
                                   onClick={() => {
                                     history.push({
@@ -351,7 +351,7 @@ import RenderAdminPage from "../RenderAdminPage";
                                     </svg>
                                   </button>
                                 </IconButton>
-                              </td>
+                              </td> */}
                             </tr>
                           );
                         })}
@@ -389,10 +389,9 @@ import RenderAdminPage from "../RenderAdminPage";
           </div>
         </section>
     
-      </RenderAdminPage>
+      </RenderLoanPage>
     </div>
   );
-  }
-  
-  export default LoanBookings;
-  
+}
+
+export default LoansPaid;

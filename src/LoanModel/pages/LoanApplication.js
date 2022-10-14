@@ -5,7 +5,7 @@ import {
   IconButton,
   Switch,
 } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdMore } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -16,24 +16,125 @@ import { format } from "timeago.js";
 import * as moment from "moment";
 import NotFoundComponent from "../../Components/NotFoundComponent";
 import Loader from "../../Components/Loader";
-
+import { debounce } from "lodash";
+import ReactPaginate from "react-paginate";
 
 function LoanApplication() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { GetAppliedLoans } = bindActionCreators(dataActionCreators, dispatch);
-
+  const [checkSouthLoan, setCheckSouthLoan] = useState(false);
+  const [checkNorthLoan, setCheckNorthLoan] = useState(false);
+  const [search, setSearch] = useState(null);
+  const [limit, setLimit] = useState(5);
   const data = useSelector((state) => state?.data);
-  console.log("data", data);
+  const status = "submitted"
+ 
+
+  const [currentItems, setCurrentItems] = useState(null);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const itemsPerPage = limit;
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const { appliedLoans, paginate, isLoading } = data;
 
   useEffect(() => {
-    GetAppliedLoans(`?status=submitted`);
+    // Fetch items from another resources.
+    const endOffset = itemOffset + itemsPerPage;
+
+    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+    setCurrentItems(appliedLoans?.slice(itemOffset, endOffset));
+    setPageCount(Number(paginate?.total));
+  }, [itemOffset, itemsPerPage, appliedLoans]);
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    console.log("event", event);
+    GetAppliedLoans(true, event.selected + 1, limit, status);
+
+    console.log("currentPage", currentPage);
+
+    const newOffset = (event.selected * itemsPerPage) % paginate?.total;
+
+    setItemOffset(newOffset);
+  };
+
+  const handleSouthChange = (e) => {
+    setCheckSouthLoan(e.target.checked);
+  };
+  const handleNorthChange = (e) => {
+    setCheckNorthLoan(e.target.checked);
+  };
+
+  const onSearchTextChange = debounce((e) => {
+    if (e?.target?.value) {
+      setSearch(e?.target?.value ?? null);
+      GetAppliedLoans(
+        true,
+        1,
+        limit,
+        status,
+        `${e?.target?.value ? "&search=" + e?.target?.value : ""}`
+      );
+      // GetAllFunds(true, 1, limit, `${e?.target?.value ? "&search=" + e?.target?.value : ""}`)
+    } else {
+      setSearch(null);
+      GetAppliedLoans(true, 1, limit, status);
+    }
+  }, 800);
+  const Northern = checkNorthLoan && "Northern";
+  const Southern = checkSouthLoan && "Southern";
+
+
+
+  useEffect(() => {
+    GetAppliedLoans(true, 1, limit, status);
+    setCheckNorthLoan(false);
+    setCheckSouthLoan(false);
   }, []);
+
+  useEffect(() => {
+    if (Northern && Southern) {
+      GetAppliedLoans(true, 1, limit, status);
+    } else if (Northern) {
+      GetAppliedLoans(
+        true,
+        1,
+        limit,
+        status,
+        `${Northern ? "&filter=" + "Northern" : ""}`
+      );
+    } else if (Southern) {
+      GetAppliedLoans(
+        true,
+        1,
+        limit,
+        status,
+        `${Southern ? "&filter=" + "Southern" : ""}`
+      );
+    } else {
+      GetAppliedLoans(true, 1, limit, status);
+    }
+
+    // GetAppliedLoans("booked");
+  }, [Southern, Northern]);
+
+  useEffect(() => {
+    GetAppliedLoans(
+      true,
+      1,
+      limit,
+      status,
+      `${Northern ? "&filter=" + "Northern" : ""}`
+    );
+    // GetAppliedLoans("booked");
+  }, [Northern]);
 
   return (
     <div className="LoanApplication">
-      {data?.isLoading && <Loader/>}
       <RenderLoanPage title={""}>
+        {isLoading && <Loader />}
         <div className="row">
           <div className="col-md-7">
             <label htmlFor="search">Search Query:</label>
@@ -42,43 +143,58 @@ function LoanApplication() {
               id="search"
               placeholder="search by staff id, name"
               className="form-control"
+              onChange={onSearchTextChange}
             />
           </div>
           <div className="col-md-3"></div>
           <div className="col-md-2">
             <label htmlFor="search">List to show:</label>
-            <select className="form-control">
+            <select
+              className="form-control"
+              onChange={(e) => setLimit(e.target.value)}
+            >
               <option value={15}>15</option>
-              <option value={15}>25</option>
-              <option value={15}>30</option>
-              <option value={15}>50</option>
-              <option value={15}>100</option>
-              <option value={15}>200</option>
-              <option value={15}>250</option>
+              <option value={25}>25</option>
+              <option value={30}>30</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+              <option value={200}>200</option>
+              <option value={300}>300</option>
             </select>
           </div>
         </div>
 
-        {data?.appliedLoans.length > 0 ? (
-          <section className="bg-white mt-4">
-            <div className="container mx-auto px-4 sm:px-8">
-              <div className="py-8">
+        {/* {appliedLoans.length > 0 ? ( */}
+        <section className="bg-white mt-4">
+          <div className="container mx-auto px-4 sm:px-8">
+            <div className="py-8">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-semibold leading-tight">
+                  Loan Applications
+                </h2>
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-semibold leading-tight">
-                    Loan Request
-                  </h2>
-                  <div className="flex items-center justify-between" >
-                    <FormControlLabel
-                      control={<Switch />}
-                      label="South Loans"
-                    />
-                    <FormControlLabel
-                
-                      control={<Switch />}
-                      label="North Loans"
-                    />
-                  </div>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={checkSouthLoan}
+                        onChange={handleSouthChange}
+                      />
+                    }
+                    label="South Loans"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={checkNorthLoan}
+                        onChange={handleNorthChange}
+                      />
+                    }
+                    label="North Loans"
+                  />
                 </div>
+              </div>
+              {/* here */}
+              {appliedLoans?.length > 0 ? (
                 <div className="-mx-1 sm:-mx-8 px-4 sm:px-8 py-0 overflow-x-auto">
                   <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
                     <table className="min-w-full leading-normal">
@@ -103,19 +219,19 @@ function LoanApplication() {
                             Status
                           </th>
                           <th className="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                            Region
+                            Sector
                           </th>
                           <th className="px-1 py-3 border-b-2 border-gray-200 bg-gray-100"></th>
                         </tr>
                       </thead>
                       <tbody>
-                        {data?.appliedLoans.map((loan, index) => {
+                        {appliedLoans.map((loan, index) => {
                           console.log(loan);
                           return (
                             <tr key={index}>
                               <td className="px-1 py-3 border-b border-gray-200 bg-white text-sm">
                                 <div className="flex">
-                                <div className="flex-shrink-0 w-10 h-10">
+                                  <div className="flex-shrink-0 w-10 h-10">
                                     {loan?.user?.profile_image ? (
                                       <img
                                         className="w-full h-full rounded-full"
@@ -165,16 +281,16 @@ function LoanApplication() {
                                   {loan?.mandateNumber}
                                 </p>
                                 {/* <p className="text-gray-600 whitespace-no-wrap">
-                              USD
-                            </p> */}
+                                      USD
+                                    </p> */}
                               </td>
                               <td className="px-5 py-1 border-b border-gray-200 bg-white text-sm">
                                 <p className="text-gray-900 whitespace-no-wrap">
                                   {loan?.otpNumber}
                                 </p>
                                 {/* <p className="text-gray-600 whitespace-no-wrap">
-                              USD
-                            </p> */}
+                                      USD
+                                    </p> */}
                               </td>
 
                               <td className="px-5 py-1 border-b border-gray-200 bg-white text-sm">
@@ -203,10 +319,14 @@ function LoanApplication() {
                                 <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                   <span
                                     aria-hidden
-                                    className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                    className={`absolute inset-0 ${
+                                      loan?.sector === "Northern"
+                                        ? "bg-red-300"
+                                        : "bg-blue-300"
+                                    } opacity-50 rounded-full`}
                                   ></span>
                                   <span className="relative">
-                                    {loan?.user?.district}
+                                    {loan?.sector}
                                   </span>
                                 </span>
                               </td>
@@ -214,7 +334,7 @@ function LoanApplication() {
                                 <IconButton
                                   onClick={() => {
                                     history.push({
-                                      pathname: "/loans/application-detailed",
+                                      pathname: "/loans/booked-detailed",
                                       state: { loan },
                                     });
                                   }}
@@ -238,112 +358,37 @@ function LoanApplication() {
                       </tbody>
                     </table>
                   </div>
+
+                  {appliedLoans.length > 0 && (
+                    <ReactPaginate
+                      breakLabel="..."
+                      nextLabel=">"
+                      onPageChange={handlePageClick}
+                      pageRangeDisplayed={5}
+                      pageCount={pageCount}
+                      previousLabel="<"
+                      renderOnZeroPageCount={null}
+                      containerClassName="pagination"
+                      pageLinkClassName="page-num"
+                      previousLinkClassName="page-num"
+                      nextLinkClassName="page-num"
+                      activeLinkClassName="active"
+                    />
+                  )}
                 </div>
-              </div>
-            </div>
-          </section>
-        ) : (<>
-        <NotFoundComponent title={'No Loan applications available'}/>
-        </>)}
+              ) : (
+                <>
+                  <NotFoundComponent
+                    title={"No initiated loans at the monent"}
+                  />
+                </>
+              )}
 
-        {/* <table className="table">
-        <thead>
-          <tr>
-        
-            <th scope="col">Profile</th>
-            <th scope="col">staff Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">email</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Peroid</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr onClick={() => history.push('/loans/application-detailed')}>
-            <th scope="row">
-              <Avatar alt="Remy Sharp" src="/images/dev/success.png" />
-            </th>
-
-            <td>657656</td>
-            <td>Agyapong Derrick</td>
-            <td>derrick@upnmg.com</td>
-            <td>Loan</td>
-            <td>Active</td>
-            <td ><button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"><IoMdMore/></button></td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <Avatar alt="Remy Sharp" src="/images/dev/cancel.png" />
-            </th>
-            <td>657656</td>
-            <td>Agyapong Derrick</td>
-            <td>derrick@upnmg.com</td>
-            <td>Loan</td>
-            <td>Active</td>
-            <td>del</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <Avatar alt="Remy Sharp" src="i/mages/dev/A.png" />
-            </th>
-            <td>657656</td>
-            <td>Agyapong Derrick</td>
-            <td>derrick@upnmg.com</td>
-            <td>Loan</td>
-            <td>Active</td>
-            <td>del</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <Avatar alt="Remy Sharp" src="/images/dev/loan.png" />
-            </th>
-            <td>657656</td>
-            <td>Agyapong Derrick</td>
-            <td>derrick@upnmg.com</td>
-            <td>Loan</td>
-            <td>Active</td>
-            <td>del</td>
-          </tr>
-        </tbody>
-      </table> */}
-
-        <div
-          class="modal fade"
-          id="exampleModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Modal title
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">...</div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="button" class="btn btn-primary">
-                  Save changes
-                </button>
-              </div>
+              {/* here */}
             </div>
           </div>
-        </div>
+        </section>
+    
       </RenderLoanPage>
     </div>
   );
