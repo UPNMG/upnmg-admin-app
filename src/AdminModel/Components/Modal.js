@@ -1,3 +1,4 @@
+/* eslint-disable  */
 import React from 'react'
 import './Modal.css'
 function Modal({children, width, title, closeModal, submitFunction}) {

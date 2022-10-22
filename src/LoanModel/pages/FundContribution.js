@@ -1,25 +1,14 @@
 
-import {
-    Avatar,
-    FormControlLabel,
-    FormGroup,
-    IconButton,
-    Switch,
-  } from "@material-ui/core";
-  import React, { useEffect, useState } from "react";
-  import { IoMdMore } from "react-icons/io";
-  import { useDispatch, useSelector } from "react-redux";
-  import { useHistory } from "react-router-dom";
-  import { bindActionCreators } from "redux";
-  import { dataActionCreators } from "../../services/Actions";
-  import RenderLoanPage from "../RenderLoanPage";
-  import { format } from "timeago.js";
-  import * as moment from "moment";
+/* eslint-disable  */
 import { debounce } from "lodash";
-import CediSymbol from "../../Components/CediSymbol";
-import { ArrowBackOutlined, DoubleArrowOutlined } from "@material-ui/icons";
-import Loader from "../../Components/Loader";
+import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import CediSymbol from "../../Components/CediSymbol";
+import Loader from "../../Components/Loader";
+import { dataActionCreators } from "../../services/Actions";
+import RenderLoanPage from "../RenderLoanPage";
   
   
   function FundContribution() {
@@ -271,104 +260,7 @@ import ReactPaginate from "react-paginate";
             </section>
           )}
   
-          {/* <table className="table">
-          <thead>
-            <tr>
-          
-              <th scope="col">Profile</th>
-              <th scope="col">staff Id</th>
-              <th scope="col">Name</th>
-              <th scope="col">email</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Peroid</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr onClick={() => history.push('/loans/application-detailed')}>
-              <th scope="row">
-                <Avatar alt="Remy Sharp" src="/images/dev/success.png" />
-              </th>
-  
-              <td>657656</td>
-              <td>Agyapong Derrick</td>
-              <td>derrick@upnmg.com</td>
-              <td>Loan</td>
-              <td>Active</td>
-              <td ><button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"><IoMdMore/></button></td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <Avatar alt="Remy Sharp" src="/images/dev/cancel.png" />
-              </th>
-              <td>657656</td>
-              <td>Agyapong Derrick</td>
-              <td>derrick@upnmg.com</td>
-              <td>Loan</td>
-              <td>Active</td>
-              <td>del</td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <Avatar alt="Remy Sharp" src="i/mages/dev/A.png" />
-              </th>
-              <td>657656</td>
-              <td>Agyapong Derrick</td>
-              <td>derrick@upnmg.com</td>
-              <td>Loan</td>
-              <td>Active</td>
-              <td>del</td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <Avatar alt="Remy Sharp" src="/images/dev/loan.png" />
-              </th>
-              <td>657656</td>
-              <td>Agyapong Derrick</td>
-              <td>derrick@upnmg.com</td>
-              <td>Loan</td>
-              <td>Active</td>
-              <td>del</td>
-            </tr>
-          </tbody>
-        </table> */}
-  
-          <div
-            className="modal fade"
-            id="exampleModal"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title" id="exampleModalLabel">
-                    Modal title
-                  </h5>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div className="modal-body">...</div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="button" className="btn btn-primary">
-                    Save changes
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+      
         </RenderLoanPage>
       </div>
     );

@@ -1,7 +1,7 @@
+/* eslint-disable  */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Redirect } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { bindActionCreators } from "redux";
 import { authActionCreators } from "../services/Actions";

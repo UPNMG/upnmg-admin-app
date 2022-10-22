@@ -1,15 +1,16 @@
-import React from 'react'
-import "./HirePurchaseDashboard.css";
-import { MdOutlineNotificationsNone } from "react-icons/md";
-import { FaHands } from "react-icons/fa";
-import { TbMessage2 } from "react-icons/tb";
-import { BsMenuButtonFill } from "react-icons/bs";
-import { TiHomeOutline } from "react-icons/ti";
-import { FiLogOut } from "react-icons/fi";
-import { GrMoney } from "react-icons/gr";
+/* eslint-disable  */
 // import Chart from "./Components/Chart";
 import { Avatar } from "@material-ui/core";
+import React from 'react';
+import { BsMenuButtonFill } from "react-icons/bs";
+import { FaHands } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
+import { GrMoney } from "react-icons/gr";
+import { MdOutlineNotificationsNone } from "react-icons/md";
+import { TbMessage2 } from "react-icons/tb";
+import { TiHomeOutline } from "react-icons/ti";
 import { useHistory } from "react-router-dom";
+import "./HirePurchaseDashboard.css";
 
 function RenderHirePurchasePage({children, title}) {
     const history = useHistory()

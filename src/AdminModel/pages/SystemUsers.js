@@ -1,19 +1,17 @@
-import { Avatar, IconButton } from "@material-ui/core";
+/* eslint-disable  */
 import React, { useEffect, useState } from "react";
-import "../css/pages.css";
-import "./SystemUsers.css";
-import { IoMdMore } from "react-icons/io";
-import RenderAdminPage from "../RenderAdminPage";
 import { useDispatch, useSelector } from "react-redux";
-import { bindActionCreators } from "redux";
-import { authActionCreators, dataActionCreators } from "../../services/Actions";
-import { format } from "timeago.js";
 import { useHistory } from "react-router-dom";
-import Modal from "../Components/Modal";
-
 import { toast, ToastContainer } from "react-toastify";
+import { bindActionCreators } from "redux";
 import Loader from "../../Components/Loader";
+import { authActionCreators, dataActionCreators } from "../../services/Actions";
+import Modal from "../Components/Modal";
 import PromptModal from "../Components/PromptModal";
+import "../css/pages.css";
+import RenderAdminPage from "../RenderAdminPage";
+import "./SystemUsers.css";
+
 function SystemUsers() {
   const history = useHistory();
   const dispatch = useDispatch();

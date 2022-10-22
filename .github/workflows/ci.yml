@@ -1,0 +1,42 @@
+
+name: UPNMG Member addmin Portal Application
+
+on:
+  push:
+    branches: 
+       - master
+
+jobs:
+  build: 
+
+    runs-on: ubuntu-latest     
+
+    strategy:
+      matrix:
+        node-version: ["14.x"]  
+
+    steps:
+      - name: Install SSH Keys
+        uses: shimataro/ssh-key-action@v2    
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: "placeholder-for-known-hosts"
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts    
+      - name: Checking out UPNMG member portal frontend application
+        uses: actions/checkout@v2
+      
+      - name: Using Node.js ${{ matrix.node-version }}  
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: yarn  
+      - run: yarn install
+    
+      - name: Building The UI Codes For Production
+   
+        run: yarn run build
+
+      - name: Deploy To UPNMG Production Server
+        run: rsync -avz  build/* ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home/derrick/admin-portal

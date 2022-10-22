@@ -1,16 +1,14 @@
+/* eslint-disable  */
 import React from "react";
-import "./AdminDashboard.css";
-import { MdLogout, MdOutlineNotificationsNone } from "react-icons/md";
-import { FaHands, FaUsers, FaUsersCog } from "react-icons/fa";
-import { TbMessage2 } from "react-icons/tb";
 import { BsMenuButtonFill } from "react-icons/bs";
-import { TiHomeOutline } from "react-icons/ti";
-import { FiLogOut } from "react-icons/fi";
-import { RiHandCoinLine } from "react-icons/ri";
+import { FaHands, FaUsers, FaUsersCog } from "react-icons/fa";
 import { GrMoney } from "react-icons/gr";
-import { Avatar } from "@material-ui/core";
+import { MdLogout, MdOutlineNotificationsNone } from "react-icons/md";
+import { RiHandCoinLine } from "react-icons/ri";
+import { TbMessage2 } from "react-icons/tb";
+import { TiHomeOutline } from "react-icons/ti";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import "./AdminDashboard.css";
 
 function RenderAdminPage({children, title}) {
     const history = useHistory()

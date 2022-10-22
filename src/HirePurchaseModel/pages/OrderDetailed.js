@@ -1,8 +1,8 @@
+/* eslint-disable  */
 import React from "react";
-import ProductCard from "../Components/ProductCard";
-import RenderHirePurchasePage from "../RenderHirePurchasePage";
-import "../css/hirepurchase.css";
 import { useHistory } from "react-router-dom";
+import "../css/hirepurchase.css";
+import RenderHirePurchasePage from "../RenderHirePurchasePage";
 function OrderDetailed() {
   const history = useHistory();
   return (

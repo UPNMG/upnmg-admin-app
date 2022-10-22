@@ -1,11 +1,11 @@
+/* eslint-disable  */
 import React from 'react'
-import { FaAccusoft,FaRegChartBar } from 'react-icons/fa'
+import { FaAccusoft, FaRegChartBar } from 'react-icons/fa'
 import { MdOutlineShowChart } from 'react-icons/md'
 import { RiBarChartLine } from 'react-icons/ri'
-import RenderHirePurchasePage from './RenderHirePurchasePage'
-import './css/hirepurchase.css'
-import { Avatar } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
+import './css/hirepurchase.css'
+import RenderHirePurchasePage from './RenderHirePurchasePage'
 function HirePurchaseDashboard() {
     const history = useHistory()
     const data = [

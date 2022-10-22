@@ -1,3 +1,4 @@
+/* eslint-disable  */
 import { ApiEndpoints } from "../Axios/apiEndpoints";
 import axiosInstance from "../Axios/axios";
 import { dataConstants } from "../Constants/dataConstant";

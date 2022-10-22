@@ -1,9 +1,10 @@
+/* eslint-disable  */
 import { Avatar } from '@material-ui/core'
 import React from 'react'
 import { IoMdMore } from 'react-icons/io'
-import RenderHirePurchasePage from '../RenderHirePurchasePage'
-import '../css/hirepurchase.css'
 import ProductCard from '../Components/ProductCard'
+import '../css/hirepurchase.css'
+import RenderHirePurchasePage from '../RenderHirePurchasePage'
 function Products() {
   return (
     <div className='products'>

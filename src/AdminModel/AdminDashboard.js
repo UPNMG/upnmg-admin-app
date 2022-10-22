@@ -1,25 +1,22 @@
-import React, { useEffect } from "react";
-import "./AdminDashboard.css";
-import { BsArrowUpRightCircle } from "react-icons/bs";
-
-import Chart from "./Components/Chart";
+/* eslint-disable  */
 import {
-  Avatar,
-  FormControlLabel,
-  IconButton,
-  Switch,
+  IconButton
 } from "@material-ui/core";
-import RenderAdminPage from "./RenderAdminPage";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+import * as moment from "moment";
+import React, { useEffect } from "react";
+import { BsArrowUpRightCircle } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import { bindActionCreators } from "redux";
+import { format } from "timeago.js";
 import CediSymbol from "../Components/CediSymbol";
 import NotFoundComponent from "../Components/NotFoundComponent";
-import { format } from "timeago.js";
-import * as moment from "moment";
-import { bindActionCreators } from "redux";
-import { useDispatch, useSelector } from "react-redux";
 import { dataActionCreators } from "../services/Actions";
-import { toast, ToastContainer } from "react-toastify";
+import "./AdminDashboard.css";
+import Chart from "./Components/Chart";
+import RenderAdminPage from "./RenderAdminPage";
+
 function AdminDashboard() {
   const history = useHistory();
   const dispatch = useDispatch();

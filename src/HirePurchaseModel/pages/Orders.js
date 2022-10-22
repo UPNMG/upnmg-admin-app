@@ -1,8 +1,9 @@
+/* eslint-disable  */
 import React from 'react'
-import RenderHirePurchasePage from '../RenderHirePurchasePage'
-import '../css/hirepurchase.css'
 import { GrProjects } from 'react-icons/gr'
 import { useHistory } from 'react-router-dom'
+import '../css/hirepurchase.css'
+import RenderHirePurchasePage from '../RenderHirePurchasePage'
 function Orders() {
     const history = useHistory()
   return (

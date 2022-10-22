@@ -1,23 +1,19 @@
+/* eslint-disable  */
 import {
-  Avatar,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-  Switch,
+  FormControlLabel, Switch
 } from "@material-ui/core";
+import { debounce } from "lodash";
+import * as moment from "moment";
 import React, { useEffect, useState } from "react";
-import { IoMdMore } from "react-icons/io";
+import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { format } from "timeago.js";
+import Loader from "../../Components/Loader";
+import NotFoundComponent from "../../Components/NotFoundComponent";
 import { dataActionCreators } from "../../services/Actions";
 import RenderLoanPage from "../RenderLoanPage";
-import { format } from "timeago.js";
-import * as moment from "moment";
-import NotFoundComponent from "../../Components/NotFoundComponent";
-import Loader from "../../Components/Loader";
-import { debounce } from "lodash";
-import ReactPaginate from "react-paginate";
 
 function LoansPaid() {
   const history = useHistory();

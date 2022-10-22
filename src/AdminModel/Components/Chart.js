@@ -1,3 +1,4 @@
+/* eslint-disable  */
 import React from 'react'
 import { Bar, Tooltip, Area, Line, CartesianGrid, Legend, XAxis, YAxis, ComposedChart } from 'recharts';
 

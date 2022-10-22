@@ -1,3 +1,4 @@
+/* eslint-disable  */
 const [limit, setLimit] = useState(5);
 const [search, setSearch] = useState(null);
 const [pageRange, setPageRange] = useState({

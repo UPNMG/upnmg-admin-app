@@ -1,36 +1,36 @@
 
+/* eslint-disable  */
+import { Route, Switch } from 'react-router-dom';
 import AdminDashboard from './AdminModel/AdminDashboard';
-import LoanDeduction from './AdminModel/pages/LoanDeduction';
-import './App.css';
-import {Route, Switch} from 'react-router-dom'
 import DuesDeductions from './AdminModel/pages/DuesDeductions';
 import FundDeductions from './AdminModel/pages/FundDeductions';
-import SystemUsers from './AdminModel/pages/SystemUsers';
-import UPNMGMembers from './AdminModel/pages/Members';
-import LoansDashboard from './LoanModel/LoansDashboard';
-import LoanApplication from './LoanModel/pages/LoanApplication';
-import LoanApplicationDetailed from './LoanModel/pages/LoanApplicationDetailed';
-import HirePurchaseDashboard from './HirePurchaseModel/HirePurchaseDashboard';
-import Products from './HirePurchaseModel/pages/Products';
-import Orders from './HirePurchaseModel/pages/Orders';
-import OrderDetailed from './HirePurchaseModel/pages/OrderDetailed';
-import ProcessedOrder from './HirePurchaseModel/pages/ProcessedOrder';
-import HirePurchaseReport from './HirePurchaseModel/pages/HirePurchaseReport';
-import Login from './Auth/Login';
-import ProccedLoans from './LoanModel/pages/BookedLoans';
-import Logout from './Auth/LogOut';
-import PrivateRoute from './HOC/PrivateRoute';
-import PrivateLoanAdminRoute from './HOC/PrivateLoanAdminRoute';
-import PrivateMartAdminRoute from './HOC/PrivateMartAdminRoute';
-import FundContribution from './LoanModel/pages/FundContribution';
-import LoanBookings from './AdminModel/pages/LoanBookings';
 import LoanBookedDetailed from './AdminModel/pages/LoanBookedDetailed';
-import BookedLoans from './LoanModel/pages/BookedLoans';
-import InitiatedLoans from './LoanModel/pages/InitiatedLoans';
-import BookedLoansDetailed from './LoanModel/pages/BookedLoansDetailed';
-import LoanStatus from './LoanModel/pages/LoanStatus';
+import LoanBookings from './AdminModel/pages/LoanBookings';
+import LoanDeduction from './AdminModel/pages/LoanDeduction';
+import UPNMGMembers from './AdminModel/pages/Members';
 import PaidLoans from './AdminModel/pages/PaidLoans';
 import PaidLoansDetailed from './AdminModel/pages/PaidLoansDetailed';
+import SystemUsers from './AdminModel/pages/SystemUsers';
+import './App.css';
+import Login from './Auth/Login';
+import Logout from './Auth/LogOut';
+import HirePurchaseDashboard from './HirePurchaseModel/HirePurchaseDashboard';
+import HirePurchaseReport from './HirePurchaseModel/pages/HirePurchaseReport';
+import OrderDetailed from './HirePurchaseModel/pages/OrderDetailed';
+import Orders from './HirePurchaseModel/pages/Orders';
+import ProcessedOrder from './HirePurchaseModel/pages/ProcessedOrder';
+import Products from './HirePurchaseModel/pages/Products';
+import PrivateLoanAdminRoute from './HOC/PrivateLoanAdminRoute';
+import PrivateMartAdminRoute from './HOC/PrivateMartAdminRoute';
+import PrivateRoute from './HOC/PrivateRoute';
+import LoansDashboard from './LoanModel/LoansDashboard';
+import BookedLoans from './LoanModel/pages/BookedLoans';
+import BookedLoansDetailed from './LoanModel/pages/BookedLoansDetailed';
+import FundContribution from './LoanModel/pages/FundContribution';
+import InitiatedLoans from './LoanModel/pages/InitiatedLoans';
+import LoanApplication from './LoanModel/pages/LoanApplication';
+import LoanApplicationDetailed from './LoanModel/pages/LoanApplicationDetailed';
+import LoanStatus from './LoanModel/pages/LoanStatus';
 import LoansPaid from './LoanModel/pages/PaidLoans';
 function App() {
   return (

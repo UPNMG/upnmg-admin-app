@@ -1,24 +1,18 @@
+/* eslint-disable  */
 import {
-  Avatar,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-  Switch,
+  IconButton
 } from "@material-ui/core";
+import * as moment from "moment";
 import React, { useEffect } from "react";
-import { IoMdMore } from "react-icons/io";
+import { BsArrowUpRightCircle } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { dataActionCreators } from "../services/Actions";
-import RenderLoanPage from "./RenderLoanPage";
 import { format } from "timeago.js";
-import * as moment from "moment";
-import { GrMoney } from "react-icons/gr";
-import { BeakerIcon } from "@heroicons/react/solid";
-import "./LoansDashboard.css";
 import NotFoundComponent from "../Components/NotFoundComponent";
-import { BsArrowUpRightCircle } from "react-icons/bs";
+import { dataActionCreators } from "../services/Actions";
+import "./LoansDashboard.css";
+import RenderLoanPage from "./RenderLoanPage";
 
 function LoansDashboard() {
   const history = useHistory();

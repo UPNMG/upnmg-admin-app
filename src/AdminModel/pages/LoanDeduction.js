@@ -1,21 +1,15 @@
-import { Avatar } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import "../css/pages.css";
-import { IoMdMore } from "react-icons/io";
-import RenderAdminPage from "../RenderAdminPage";
-import { bindActionCreators } from "redux";
-import { dataActionCreators } from "../../services/Actions";
-import { useDispatch, useSelector } from "react-redux";
-import CediSymbol from "../../Components/CediSymbol";
+/* eslint-disable  */
 import { debounce } from "lodash";
-import {
-  ArrowBackIosSharp,
-  ArrowBackOutlined,
-  DoubleArrowOutlined,
-} from "@material-ui/icons";
-import "../css/fundDed.css";
+import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import CediSymbol from "../../Components/CediSymbol";
 import Loader from "../../Components/Loader";
+import { dataActionCreators } from "../../services/Actions";
+import "../css/fundDed.css";
+import "../css/pages.css";
+import RenderAdminPage from "../RenderAdminPage";
 function LoanDeduction() {
   const dispatch = useDispatch();
   const { GetAllFunds, GetAllLoans } = bindActionCreators(

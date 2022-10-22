@@ -1,7 +1,8 @@
 
+/* eslint-disable  */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { bindActionCreators } from "redux";
 import Loader from "../../Components/Loader";

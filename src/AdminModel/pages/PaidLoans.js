@@ -1,23 +1,20 @@
 
+/* eslint-disable  */
 import {
-    Avatar,
-    FormControlLabel,
-    FormGroup,
-    IconButton,
-    Switch,
-  } from "@material-ui/core";
-  import React, { useEffect, useState } from "react";
-  import { useDispatch, useSelector } from "react-redux";
-  import { useHistory } from "react-router-dom";
-  import { bindActionCreators } from "redux";
-  import { dataActionCreators } from "../../services/Actions";
-  import { format } from "timeago.js";
-  import * as moment from "moment";
-import RenderAdminPage from "../RenderAdminPage";
+  IconButton
+} from "@material-ui/core";
+import { debounce } from "lodash";
+import * as moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import { bindActionCreators } from "redux";
+import { format } from "timeago.js";
 import Loader from "../../Components/Loader";
 import NotFoundComponent from "../../Components/NotFoundComponent";
-import { debounce } from "lodash";
-import { toast, ToastContainer } from "react-toastify";
+import { dataActionCreators } from "../../services/Actions";
+import RenderAdminPage from "../RenderAdminPage";
   
   
   function PaidLoans() {
