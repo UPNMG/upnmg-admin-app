@@ -37,10 +37,7 @@ jobs:
       - name: Building The UI Codes For Production
    
         run: npm run build
-      - name: echo environment variables
-        run: |
-            echo ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}
-            
+      
       - name: Deploy To UPNMG Production Server
 
         run: rsync -avz  build/* ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home/derrick/admin_portal
