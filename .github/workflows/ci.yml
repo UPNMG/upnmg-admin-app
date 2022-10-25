@@ -39,4 +39,5 @@ jobs:
         run: npm run build
 
       - name: Deploy To UPNMG Production Server
+
         run: rsync -avz  build/* ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/home/derrick/admin_portal
