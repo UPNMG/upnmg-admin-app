@@ -1,0 +1,68 @@
+/* eslint-disable  */
+.loginPage{
+    display: grid;
+    grid-template-columns: 25% 75%;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  
+    .section_one{
+        .overlay{
+            padding: 1rem;
+            background: rgba(0, 89, 255, 0.692);
+            // background: rgba(255, 255, 255, 0.884);
+            height: 100vh;
+            display: flex;
+            justify-items: center;
+            flex-direction: column;
+            justify-content: center;
+            
+         
+        }
+    }
+  
+ 
+
+.section_two {
+    border-radius: 0rem 0rem 0rem 3rem;
+    .overlay{
+        // background: rgba(0, 89, 255, 0.692);
+        background: rgba(238, 238, 238, 0.884);
+        height: 100vh;
+        display: flex;
+        justify-items: center;
+        flex-direction: column;
+        justify-content: center;
+        color: white;
+        border-radius: 0rem 0rem 0rem 3rem;
+       .title{
+           font-size: 2rem;
+           padding-bottom: 1rem;
+           color: black;
+       }
+
+        form{
+            width: 500px;
+            margin:  0 auto;
+            background: white;
+            padding: 2rem;
+            // label{
+            //     color: white;
+            // }
+        }
+        .button{
+            border: none;
+            margin: 1rem 0rem;
+            background: var(--success);
+            color: white;
+            padding: .6rem;
+            width: 200px;
+            border-radius: 4pc;
+        }
+        .forgot_password{
+            color: black;
+            text-align: end;
+        }
+     }
+}
+}

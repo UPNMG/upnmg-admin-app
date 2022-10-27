@@ -4,7 +4,9 @@
     /* grid-template-columns: 15% 85%; */
     position: relative;
 }
-
+.LoansDashboard .mainPage{
+    flex: 1;
+}
 .LoansDashboard .loanCardContainer{
     display: grid;
     grid-template-columns: repeat(4, 1fr);

@@ -129,7 +129,7 @@ function BookedLoans() {
   }, [Northern]);
 
   return (
-    <div className="LoanApplication">
+    
       <RenderLoanPage title={""}>
         {isLoading && <Loader />}
         <div className="row">
@@ -166,7 +166,7 @@ function BookedLoans() {
           <div className="container mx-auto px-4 sm:px-8">
             <div className="py-8">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-semibold leading-tight">
+                <h2 className="text-2xl font-semibold leading-tight py-3">
                   Booked Applications
                 </h2>
                 <div className="flex items-center justify-between">
@@ -387,7 +387,7 @@ function BookedLoans() {
         </section>
     
       </RenderLoanPage>
-    </div>
+   
   );
 }
 

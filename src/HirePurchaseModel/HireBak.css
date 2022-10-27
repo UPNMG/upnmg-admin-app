@@ -12,7 +12,6 @@
  height: 100vh;
  position: relative;
 }
-
 .RenderHirePurchasePage .sideBar .profile{ 
     position: absolute;
     bottom: 0;
@@ -99,50 +98,34 @@ margin: 0px 10px;
     grid-row-gap: 10px;
 }
 .RenderHirePurchasePage .mainPage .cardContainer .card{
-    border: .6px solid rgba(51, 153, 139, 0.384);
-    /* width: 80%; */
-    padding: 5px;
-   }
-   .RenderHirePurchasePage .mainPage .cardContainer .card .icons{
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 1rem;
-   }
-   
-   .RenderHirePurchasePage .mainPage .cardContainer .card1{
-    
-       background: rgb(51, 153, 139);
-       color: #fff;
-   }
-   .RenderHirePurchasePage .mainPage .cardContainer .card2{
-    
-       background: rgb(62, 66, 66);
-       color: #fff;
-   }
+ border: .6px solid rgba(51, 153, 139, 0.384);
+ /* width: 80%; */
+ padding: 5px;
+}
+.RenderHirePurchasePage .mainPage .cardContainer .card .icons{
+ display: flex;
+ justify-content: space-between;
+ padding-bottom: 1rem;
+}
 
-/* .RenderHirePurchasePage .mainPage .cardContainer .card img{
-    width: 50px;
-    
-} */
-/* .RenderHirePurchasePage .mainPage .cardContainer .imgCover{
-    width: 50px;
-    height: 50px;
+.RenderHirePurchasePage .mainPage .cardContainer .card1{
+ 
     background: rgb(51, 153, 139);
-    margin: .5rem 0rem;
-} */
-
+    color: #fff;
+}
+.RenderHirePurchasePage .mainPage .cardContainer .card2{
+ 
+    background: rgb(51, 153, 139) !important;
+    color: #fff;
+}
 .RenderHirePurchasePage .mainPage .cardContainer .section1{
     padding: 1rem 1rem;
 }
-.RenderHirePurchasePage .mainPage .cardContainer .section2{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--success);
-    padding: .4rem .5rem;
+.RenderHirePurchasePage .mainPage .cardContainer .card2{
+  
+    background: red;
     color: white;
-    font-weight: bold;
-    /* padding: 0rem .4rem; */
+ 
 }
 .RenderHirePurchasePage .chart_nd_deductions{
     display: grid;
@@ -218,3 +201,12 @@ border: 0px solid white;
 .RenderHirePurchasePage .usersDisplay .usersList .usersTable table tbody tr:nth-child(odd){
 background-color: white;
 }
+
+
+/* THE CARD STYLES */
+/* .RenderHirePurchasePage .cardContainer{
+display: flex;
+}
+.RenderHirePurchasePage .cardContainer .card{
+    padding: 5px;
+} */

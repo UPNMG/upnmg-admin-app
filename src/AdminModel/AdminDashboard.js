@@ -25,10 +25,12 @@ function AdminDashboard() {
   const data = useSelector((state) => state?.data);
   const {isLoading, appliedLoans, paginate, response, totalMembers, totalFunds, totalLoans, totalDues} = data
  
+  console.log('data', data)
 
   useEffect(() => {
     GetAppliedLoans(true, 1, 5, 'initiated');
     GetTotal()
+    console.log('from app')
   }, []);
 
   useEffect(() => {
@@ -99,12 +101,14 @@ function AdminDashboard() {
               </div>
               <div>Hire Purchase Model</div>
             </div>
-            <div className="section2">
+          
+            <Link to={"/mart/home"} target="_blank" className="section2">
               <div>learn more</div>
               <div>
                 <BsArrowUpRightCircle />
               </div>
-            </div>
+              </Link>
+          
           </div>
           <div
             className="card"

@@ -1,0 +1,82 @@
+/* eslint-disable  */
+.loginPage {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 25% 75%;
+      grid-template-columns: 25% 75%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100vh;
+}
+
+.loginPage .section_one .overlay {
+  padding: 1rem;
+  background: rgba(0, 89, 255, 0.692);
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.loginPage .section_two {
+  border-radius: 0rem 0rem 0rem 3rem;
+}
+
+.loginPage .section_two .overlay {
+  background: rgba(238, 238, 238, 0.884);
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+  border-radius: 0rem 0rem 0rem 3rem;
+}
+
+.loginPage .section_two .overlay .title {
+  font-size: 2rem;
+  padding-bottom: 1rem;
+  color: black;
+}
+
+.loginPage .section_two .overlay form {
+  width: 500px;
+  margin: 0 auto;
+  background: white;
+  padding: 2rem;
+}
+
+.loginPage .section_two .overlay .button {
+  border: none;
+  margin: 1rem 0rem;
+  background: var(--success);
+  color: white;
+  padding: .6rem;
+  width: 200px;
+  border-radius: 4pc;
+}
+
+.loginPage .section_two .overlay .forgot_password {
+  color: black;
+  text-align: end;
+}
+/*# sourceMappingURL=auth.css.map */

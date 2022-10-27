@@ -15,17 +15,22 @@ import "./HirePurchaseDashboard.css";
 function RenderHirePurchasePage({children, title}) {
     const history = useHistory()
   return (
-    <div className='AdminDashboard'>
+    <div className='RenderHirePurchasePage'>
               <section className="sideBar">
           <div className="menuList">
             <div className="menu" onClick={()=> history.push('/mart/home')}>
                 <TiHomeOutline className="icon"/>
                 <div className="label" >Home</div>
             </div>
+            <div className="menu" onClick={()=> history.push('/mart/category')}>
+                <GrMoney className="icon"/>
+                <div className="label">Category</div>
+            </div>
             <div className="menu" onClick={()=> history.push('/mart/product')}>
                 <FaHands className="icon"/>
                 <div className="label">Products</div>
             </div>
+            
             <div className="menu" onClick={()=> history.push('/mart/order')}>
                 <GrMoney className="icon"/>
                 <div className="label">Orders</div>
@@ -87,7 +92,7 @@ function RenderHirePurchasePage({children, title}) {
           </div>
         </div>
 
-        <div className="DashboardContent">
+        <div className="DashboardContent pt-3 px-3">
             <h2>{title}</h2>
             {children}
         </div>

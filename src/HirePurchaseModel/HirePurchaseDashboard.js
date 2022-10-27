@@ -14,9 +14,9 @@ function HirePurchaseDashboard() {
       }
     ]
   return (
-    <div className='HirePurchaseDashboard'>
+    // <div className='HirePurchaseDashboard'>
         <RenderHirePurchasePage>
-            <section className='hirePurchaseContainer'>
+            <section className='cardContainer'>
                 <div className='card card1'>
                     <div className='icons'> 
                         <div className='cover'>
@@ -32,7 +32,7 @@ function HirePurchaseDashboard() {
                     <hr/>
                     <div>start from 1 jan 2021</div>
                 </div>
-                <div className='card'>
+                <div className='card card2'>
                     <div className='icons'> 
                         <div className='cover'>
                             <FaAccusoft/>
@@ -69,10 +69,10 @@ function HirePurchaseDashboard() {
 
         {/* {data?.products.length > 0 && ( */}
           <section className="bg-white mt-4">
-            <div className="container mx-auto px-4 sm:px-8">
+            <div className="mx-auto px-4 sm:px-8">
               <div className="py-8">
                 <div>
-                  <h2 className="text-2xl font-semibold leading-tight">
+                  <h2 className="text-2xl font-semibold leading-tight pb-3">
                     New Orders
                   </h2>
                 </div>
@@ -184,7 +184,7 @@ function HirePurchaseDashboard() {
          
           
         </RenderHirePurchasePage>
-    </div>
+    // </div>
   )
 }
 

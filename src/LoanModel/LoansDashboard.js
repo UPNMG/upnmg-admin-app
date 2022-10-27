@@ -31,15 +31,15 @@ function LoansDashboard() {
   }, []);
 
   return (
-    <div className="LoansDashboard ">
+   
       <RenderLoanPage title={""}>
-        <div className="container">
+        <div className="">
           <div className="loanCardContainer ">
             <div
               className="card"
               onClick={() => history.push("/loans/application")}
             >
-              {/* <GrMoney className="icon" /> */}
+              
               <div
                 className="iconCover"
                 style={{ background: "var(--success)" }}
@@ -55,7 +55,7 @@ function LoansDashboard() {
               className="card"
               // onClick={() => history.push("/loans/application")}
             >
-              {/* <GrMoney className="icon" /> */}
+              
               <div
                 className="iconCover"
                 style={{ background: "var(--primary)" }}
@@ -98,7 +98,7 @@ function LoansDashboard() {
             <div className=" mx-auto px-4 sm:px-8">
               <div className="py-8">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-semibold leading-tight">
+                  <h2 className="text-2xl font-semibold leading-tight pb-3">
                     Loan Request
                   </h2>
                   {/* <div className="flex items-center justify-between">
@@ -364,7 +364,7 @@ function LoansDashboard() {
           </div>
         </div>
       </RenderLoanPage>
-    </div>
+    
   );
 }
 

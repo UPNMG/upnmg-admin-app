@@ -107,7 +107,7 @@ function RenderLoanPage({ children, title }) {
           </div>
         </div>
 
-        <div className="DashboardContent">
+        <div className="px-3 pt-2 DashboardContent">
           <h2>{title}</h2>
           {children}
         </div>

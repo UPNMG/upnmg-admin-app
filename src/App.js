@@ -19,6 +19,7 @@ import HirePurchaseReport from './HirePurchaseModel/pages/HirePurchaseReport';
 import OrderDetailed from './HirePurchaseModel/pages/OrderDetailed';
 import Orders from './HirePurchaseModel/pages/Orders';
 import ProcessedOrder from './HirePurchaseModel/pages/ProcessedOrder';
+import ProductCategory from './HirePurchaseModel/pages/ProductCategory';
 import Products from './HirePurchaseModel/pages/Products';
 import PrivateLoanAdminRoute from './HOC/PrivateLoanAdminRoute';
 import PrivateMartAdminRoute from './HOC/PrivateMartAdminRoute';
@@ -52,6 +53,7 @@ function App() {
       <PrivateRoute  path={'/admin/members'} component={UPNMGMembers}/>
   
 
+      
       <PrivateLoanAdminRoute  path={'/loans/home'} component={LoansDashboard}/>
       <PrivateLoanAdminRoute  path={'/loans/application'} component={LoanApplication}/>
       <PrivateLoanAdminRoute  path={'/loans/fund-deduction'} component={FundContribution}/>
@@ -64,6 +66,7 @@ function App() {
 
       <PrivateMartAdminRoute  path={'/mart/home'} component={HirePurchaseDashboard}/>
       <PrivateMartAdminRoute  path={'/mart/product'} component={Products}/>
+      <PrivateMartAdminRoute  path={'/mart/category'} component={ProductCategory}/>
       <PrivateMartAdminRoute  path={'/mart/order'} component={Orders}/>
       <PrivateMartAdminRoute  path={'/mart/order-detailed'} component={OrderDetailed}/>
       <PrivateMartAdminRoute  path={'/mart/processed-order'} component={ProcessedOrder}/>

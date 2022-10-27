@@ -1,0 +1,95 @@
+/* eslint-disable  */
+.loginPage {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 25% 75%;
+      grid-template-columns: 25% 75%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100vh;
+}
+
+.loginPage .section_one .overlay {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.884);
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.loginPage .section_one .overlay .title {
+  padding-bottom: 2rem;
+  color: var(--primaryColor);
+}
+
+.loginPage .email-form-group {
+  margin-bottom: 1rem;
+}
+
+.loginPage .password-form-group {
+  margin-bottom: 1rem;
+}
+
+.loginPage .forgot_password {
+  text-align: end;
+}
+
+.loginPage .trigger_register {
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.loginPage .trigger_register a {
+  text-decoration: none;
+}
+
+.loginPage .section_two {
+  border-radius: 0rem 0rem 0rem 3rem;
+}
+
+.loginPage .section_two .overlay {
+  background: rgba(0, 89, 255, 0.692);
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+  border-radius: 0rem 0rem 0rem 3rem;
+}
+
+.loginPage .section_two .overlay .content {
+  padding: 2rem;
+}
+
+.loginPage .section_two .overlay .content h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  width: 80%;
+  padding-bottom: 2rem;
+}
+
+.loginPage .section_two .overlay .content p {
+  width: 50%;
+}
+/*# sourceMappingURL=auth.css.map */

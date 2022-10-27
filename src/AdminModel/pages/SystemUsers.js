@@ -140,12 +140,12 @@ function SystemUsers() {
       setTimeout(() => {
         ResetAuthResponse();
         GetSystemUsers();
-      }, 300);
+      }, 1500);
     } else if (auth?.response?.state === "ERROR") {
       toast.error(auth?.response?.message);
       setTimeout(() => {
         ResetAuthResponse();
-      }, 300);
+      }, 1500);
     }
   }, [auth?.response?.state, auth?.response?.message]);
 

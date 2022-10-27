@@ -114,7 +114,7 @@ import RenderLoanPage from "../RenderLoanPage";
             <section className="bg-white mt-4">
               <div className="container mx-auto px-4 sm:px-8">
               <div>
-      <h2 className="text-2xl font-semibold leading-tight">Fund Deductions</h2>
+      <h2 className="text-2xl font-semibold leading-tight py-3">Fund Deductions</h2>
     </div>
     <div className="-mx-1 sm:-mx-8 px-4 sm:px-8 py-0 overflow-x-auto">
       <div

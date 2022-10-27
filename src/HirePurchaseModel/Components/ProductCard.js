@@ -2,8 +2,10 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-function ProductCard({image, name, price,}) {
+function ProductCard({product}) {
     const history = useHistory()
+
+    console.log('product', product)
   return (
     <div className='productCard'>
     <div className='items'>
@@ -11,10 +13,10 @@ function ProductCard({image, name, price,}) {
             <img src='/images/dev/del.png' alt='product'/>
         </div>
         <div className='product-name'>
-            Product name here
+            {product?.product_name}
         </div>
-        <div className='price'>$454</div>
-        <div className='ordered_date'>Available in stock</div>
+        <div className='price'>{product?.new_price}</div>
+        <div className='ordered_date'>{product?.quantity > 0 ? 'Available in stock' : 'Out of stock'}</div>
         <button onClick={() => history.push('/mart/order-detailed')}>
          view detail
         </button>

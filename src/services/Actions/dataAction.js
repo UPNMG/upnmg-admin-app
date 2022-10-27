@@ -373,15 +373,26 @@ export const GetTotal = () => {
         type: dataConstants.LOADING,
         isLoading: true,
       });
-      //  const response Promise.all([
 
-      //   ])
+      console.log('from total')
+      
+      // const res = Promise.all([
+      //   await axiosInstance.get(`/users/members/total`),
+      //   await axiosInstance.get(`/funds/total`),
+      //   await axiosInstance.get(`/dues/total`),
+      //   await axiosInstance.get(`/loans/total`)
+      // ])
+
+      // console.log('membersResponse', res)
+
       const membersResponse = await axiosInstance.get(`/users/members/total`);
       const fundsResponse = await axiosInstance.get(`/funds/total`);
       const duesResponse = await axiosInstance.get(`/dues/total`);
       const loansResponse = await axiosInstance.get(`/loans/total`);
 
-      if (membersResponse && fundsResponse ) {
+      console.log('fundsResponse', fundsResponse)
+
+      if (fundsResponse ) {
         dispatch({
           type: dataConstants.GET_TOTAL,
           payload: {
