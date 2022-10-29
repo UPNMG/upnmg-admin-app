@@ -46,6 +46,198 @@
   background-color: white;
 }
 
+.ProductDetailed .backBtn {
+  background: gray;
+  padding: 0rem .5rem;
+  border-radius: 4pc;
+  color: white;
+}
+
+.ProductDetailed .imageAndInfo {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+}
+
+.ProductDetailed .imageAndInfo .imageSection {
+  background: white;
+}
+
+.ProductDetailed .imageAndInfo .imageSection .carousel.carousel-slider {
+  height: 400px;
+}
+
+.ProductDetailed .imageAndInfo .imageSection .carousel.carousel-slider img {
+  height: 400px;
+}
+
+.ProductDetailed .imageAndInfo .imageSection .carousel .slide .legend {
+  display: none;
+}
+
+.ProductDetailed .imageAndInfo .imageSection .carousel .thumbs-wrapper {
+  margin: 0px;
+}
+
+.ProductDetailed .imageAndInfo .imageSection .carousel .thumbs-wrapper img {
+  height: 50px;
+}
+
+.ProductDetailed .imageAndInfo .imageSection .slider img {
+  height: 100%;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection {
+  padding: 1rem;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .productTitle {
+  font-weight: 500;
+  color: #535353;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .small_description {
+  background: var(--whiteColor);
+  padding: 0.5rem;
+  border-radius: 0.4vw;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .stockAvialable {
+  color: var(--success);
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .outOfStock {
+  color: var(--warning);
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .price {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .price .currentPrice {
+  font-size: 2rem;
+  margin-right: 1rem;
+  font-weight: 500;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .price .oldPrice {
+  text-decoration: line-through;
+  color: #aaaaaa;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .price .priceDuration select {
+  padding: 15px;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .sizeFilters .title {
+  padding-top: 0.8rem;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .sizeFilters .sizes {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 1rem 0rem;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .sizeFilters .sizes div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: white;
+  margin-right: 1rem;
+  border: 2px solid var(--primaryColorLite);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .colorFilters .title {
+  padding-top: 0.8rem;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .colorFilters .colors {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 1rem 0rem;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .colorFilters .colors div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: white;
+  margin-right: 1rem;
+  border: none;
+  width: 60px;
+  height: 40px;
+  border-radius: 0.5vw;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .quantity input {
+  width: 20%;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .cartBtn {
+  text-align: end;
+  margin-top: 0.5rem;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .cartBtn button {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(20%, #01a94b), to(#015f39));
+  background: linear-gradient(to bottom, #01a94b 20%, #015f39 100%);
+  border: none;
+  padding: 1rem;
+  width: 30%;
+  color: white;
+}
+
+.ProductDetailed .imageAndInfo .smallInfoSection .cartBtn .favourite {
+  background: #272727;
+  margin-right: 1rem;
+  border: none;
+  padding: 1rem 0rem;
+  width: 30%;
+  color: white;
+}
+
+.ProductDetailed .productImages img {
+  width: 60%;
+  margin-bottom: 1rem;
+  border-radius: 0.6rem;
+}
+
 .Products .productContainer {
   display: -ms-grid;
   display: grid;
@@ -105,6 +297,48 @@
   font-size: .8rem;
   padding: .2rem 1rem;
   border-radius: 4pc;
+}
+
+.Products .productContainer .productCard .editBtn {
+  background: #015f39;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Products .productContainer .productCard .editBtn .icon {
+  font-size: .7rem;
+  color: white;
+}
+
+.Products .productContainer .productCard .delBtn {
+  background: #960032;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Products .productContainer .productCard .delBtn .icon {
+  font-size: .7rem;
+  color: white;
 }
 
 .Products table {

@@ -1,8 +1,10 @@
 /* eslint-disable  */
 import { Avatar } from "@material-ui/core";
+import { debounce } from "lodash";
 import React, { useEffect, useState } from "react";
 import { IoMdMore } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { bindActionCreators } from "redux";
 import Loader from "../../Components/Loader";
 import { productActionCreators } from "../../services/Actions";
@@ -14,6 +16,7 @@ function Products() {
   const dispatch = useDispatch()
   const {GetProductCategory,AddProduct, ResetProductResponse, GetProducts} = bindActionCreators(productActionCreators, dispatch)
   const [openModal, setOpenModal] = useState(false);
+  const [openPromptModal, setPromptOpenModal] = useState(false);
   const [addProductFormData, setAddProductFormData] = useState("");
 
 
@@ -21,14 +24,47 @@ function Products() {
   const [isBannerChecked, setBannerChecked] = useState(false);
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const [limit, setLimit] = useState(30)
+  const [categoryChange, setCategoryChange] = useState('all')
+  const [preview, setPreview] = useState([])
+  const [seletedFiles, setSeletedFiles] = useState([])
 
   const {category, response, isLoading, products} = useSelector(state => state?.product)
   
   console.log('category', category)
   console.log('products', products)
 
+  let formData = new FormData()
+
   const initialFormEditData = {};
 
+  const handleFileChange = (e) => {
+    // const { name, value } = e.target;
+    // setEditProductFormData({ ...editProductFormData, [name]: value });
+  
+    console.log('e', e.target.files)
+
+    const file = e.target.files[0];
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      // The file's text will be printed here
+      setPreview([...preview, event.target.result])
+      // console.log(event.target.result)
+
+    };
+    setSeletedFiles([...seletedFiles, file])
+    reader.readAsDataURL(file);
+    formData.append('file', e.target.files[0])
+  };
+
+  const handleLimitChange = (e) => {
+    setLimit(e.target.value)
+    console.log('e.target.value', e.target.value)
+  };
+  const handleCategoryChange = (e) => {
+    setCategoryChange(e.target.value)
+  };
   const handleAddProductChnage = (e) => {
     const { name, value } = e.target;
     setAddProductFormData({ ...addProductFormData, [name]: value });
@@ -65,6 +101,23 @@ function Products() {
     }
   };
 
+
+  const onSearchTextChange = debounce((e) => {
+    if (e?.target?.value) {
+     
+      GetProducts(
+        true,
+        1,
+        limit,
+        `${categoryChange ? '&category=' + categoryChange : ''}`,
+        `${e?.target?.value ? "&search=" + e?.target?.value : ""}`
+      );
+    } else {
+      
+      GetProducts(true,1,limit)
+    }
+  }, 800);
+
   const handleAddProductSubmit = (e) => {
     e.preventDefault();
 
@@ -76,8 +129,9 @@ function Products() {
       featured: isFeaturedChecked
     }
 
+    // console.log('selectedfiles', seletedFiles)
     
-    AddProduct(data)
+    AddProduct(data, seletedFiles)
     setOpenModal(false)
 
     console.log("data", data);
@@ -88,16 +142,21 @@ function Products() {
 
   useEffect(() => {
     GetProductCategory()
-    GetProducts(true,1,10)
+    GetProducts(true,1,limit)
 
   }, [])
 
   useEffect(() => {
+    GetProducts(true,1,limit, categoryChange ? '&category=' + categoryChange : '')
+
+  }, [limit, categoryChange])
+
+  useEffect(() => {
     if (response?.state === "SUCCESS") {
       toast.success(response?.message);
+      GetProducts(true,1,limit)
       setTimeout(() => {
         ResetProductResponse();
-       
       }, 1500);
     } else if (response?.state === "ERROR") {
       toast.error(response?.message);
@@ -120,6 +179,7 @@ function Products() {
               name="search"
               className="shadow-sm bg-gray-50 border border-gray-800 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-900 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
               placeholder="search by name"
+              onChange={onSearchTextChange}
 
               // onChange={(e) => handleInputChange(e)}
             />
@@ -128,6 +188,7 @@ function Products() {
             <label htmlFor="search">Product Category:</label>
             <select
               id="countries"
+              onChange={handleCategoryChange}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option value={'all'}>All</option>
@@ -139,8 +200,10 @@ function Products() {
             <label htmlFor="search">List to show:</label>
             <select
               id="countries"
+              onChange={handleLimitChange}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
+              <option value={'5'}>5</option>
               <option value={'10'}>10</option>
               <option value={'50'}>50</option>
               <option value={'150'}>150</option>
@@ -152,7 +215,7 @@ function Products() {
           <div className="col-md-2">
             <button
               type="button"
-              className="mt-4 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+              className="mt-4 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2 text-center mr-2 mb-2"
               onClick={() => setOpenModal(true)}
             >
               Add New
@@ -162,12 +225,12 @@ function Products() {
 
         <div className="productContainer py-3">
           {products?.length > 0 ? (<>
-           {products?.map((product, index) =>  <ProductCard key={index} product={product}/>)}
+           {products?.map((product, index) =>  <ProductCard key={index} product={product} category={category}/>)}
           </>) : (<>
           not found
           </>)}
           
-          {/* <ProductCard /> */}
+         
         </div>
 
         {/* <table className="table">
@@ -553,6 +616,7 @@ function Products() {
                 </div>
               </div>
               <div className="superRole">
+                <div>
                 <label
                   htmlFor="super_role"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
@@ -572,25 +636,61 @@ function Products() {
                   <option value="MART_OFFICER">MART OFFICER</option>
                   <option value="INVESTMENT_OFFICER">INVESTMENT OFFICER</option> */}
                 </select>
+
+                <div>
+                <label
+                  htmlFor="category"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                >
+                  Upload Images
+                </label>
+                <div className="flex justify-center items-center w-full">
+    <label htmlFor="dropzone-file" className="flex flex-col justify-center items-center w-full h-34 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+        <div className="flex flex-col justify-center items-center pt-2 pb-2">
+            <svg aria-hidden="true" className="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+        </div>
+        <input onChange={handleFileChange} id="dropzone-file" type="file" className="hidden" multiple accept='images/*'/>
+    </label>
+</div> 
+                </div>
+                </div>
               </div>
             </div>
 
-            <div>
-              <label
-                htmlFor="description"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Description
-              </label>
-              <textarea
-                id="description"
-                name="description"
-                rows="2"
-                onChange={handleAddProductChnage}
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="write your description..."
-              ></textarea>
-            </div>
+            <div className='grid gap-6 mb-1 md:grid-cols-2'>
+
+<div>
+  <label
+    htmlFor="description"
+    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+  >
+    Description
+  </label>
+  <textarea
+    id="description"
+    name="description"
+    rows="2"
+    onChange={handleAddProductChnage}
+    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    placeholder="write your description..."
+  ></textarea>
+</div>
+<div className='previewImages' style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  gap: '5px',
+  border: '1px solid gray',
+  borderRadius: '10px',
+  padding: '5px'
+
+}}>
+ {preview.map((prev, index) => {
+   return  <img key={index} src={prev} width="30" alt="preview"/>
+ })}
+</div>
+</div>
 
             <div className="modalButton">
               <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
@@ -622,6 +722,8 @@ function Products() {
           </form>
         </ProductModal>
       )}
+
+
     </RenderHirePurchasePage>
   );
 }

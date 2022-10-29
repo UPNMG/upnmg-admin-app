@@ -9,7 +9,7 @@ function ProductModal({children, width, title, closeModal, submitFunction}) {
   return (
     <div className="Modal">
           <div className="modalContainer" style={{width: `${width}`}}>
-            <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
+            <div className="flex justify-between items-start p-2 rounded-t border-b dark:border-gray-600">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {title}
               </h3>

@@ -20,6 +20,7 @@ import OrderDetailed from './HirePurchaseModel/pages/OrderDetailed';
 import Orders from './HirePurchaseModel/pages/Orders';
 import ProcessedOrder from './HirePurchaseModel/pages/ProcessedOrder';
 import ProductCategory from './HirePurchaseModel/pages/ProductCategory';
+import ProductDetailed from './HirePurchaseModel/pages/ProductDetailed';
 import Products from './HirePurchaseModel/pages/Products';
 import PrivateLoanAdminRoute from './HOC/PrivateLoanAdminRoute';
 import PrivateMartAdminRoute from './HOC/PrivateMartAdminRoute';
@@ -66,6 +67,7 @@ function App() {
 
       <PrivateMartAdminRoute  path={'/mart/home'} component={HirePurchaseDashboard}/>
       <PrivateMartAdminRoute  path={'/mart/product'} component={Products}/>
+      <PrivateMartAdminRoute  path={'/mart/product-detail'} component={ProductDetailed}/>
       <PrivateMartAdminRoute  path={'/mart/category'} component={ProductCategory}/>
       <PrivateMartAdminRoute  path={'/mart/order'} component={Orders}/>
       <PrivateMartAdminRoute  path={'/mart/order-detailed'} component={OrderDetailed}/>

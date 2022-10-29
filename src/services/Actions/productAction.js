@@ -77,7 +77,7 @@ export const AddProductCategory = (data) => {
   };
 };
 
-export const GetProducts = (isPaginated, page, size, search) => {
+export const GetProducts = (isPaginated, page, size, category,  search) => {
   return async (dispatch) => {
     try {
       dispatch({
@@ -85,7 +85,7 @@ export const GetProducts = (isPaginated, page, size, search) => {
         isLoading: true,
       });
 
-      const response = await axiosInstance.get(`/products?isPaginated=${isPaginated}&page=${page}&size=${size}${search ? search : ''}`)
+      const response = await axiosInstance.get(`/products?isPaginated=${isPaginated}&page=${page}&size=${size}${search ? search : ''}${category ? category : ''}`)
       if(response){
        console.log('response', response)
        const {
@@ -138,7 +138,7 @@ export const GetProducts = (isPaginated, page, size, search) => {
   };
 };
 
-export const AddProduct = (data) => {
+export const AddProduct = (data, images) => {
   return async (dispatch) => {
     try {
       dispatch({
@@ -146,7 +146,43 @@ export const AddProduct = (data) => {
         isLoading: true,
       });
 
-      const res = await axiosInstance.post(`/products/add`, data)
+      
+      const formData = new FormData();
+
+      formData.append('category', data?.category)
+      formData.append('old_price', data?.old_price)
+      formData.append('product_name', data?.product_name)
+      formData.append('quantity', data?.quantity)
+      formData.append('description', data?.description)
+      formData.append('new_price', data?.new_price)
+      formData.append('short_description', data?.short_description)
+      formData.append('banner', data?.banner)
+      formData.append('featured', data?.featured)
+
+
+     for(const image of images){
+       console.log('image', image)
+      formData.append("files", image, image?.name);
+     }
+
+     for(const size of data?.sizes){
+      formData.append("sizes", size);
+     }
+
+     for(const color of data?.colors){
+      formData.append("colors", color);
+     }
+
+     console.log('formData', formData.getAll('colors'))
+     console.log('formData', formData.getAll('sizes'))
+
+     console.log('formData', formData.getAll('product_name'))
+     console.log('formData', formData.getAll('files'))
+      
+      
+
+
+      const res = await axiosInstance.post(`/products/add`, formData)
       console.log('resData', res)
 
       if(res){
@@ -155,6 +191,90 @@ export const AddProduct = (data) => {
             response: {
                 state: 'SUCCESS',
                 message: 'New product added'
+            }  
+        })
+        dispatch({
+            type: productConstants.LOADING,
+            isLoading: false,
+          });
+      }
+
+    } catch (e) {
+      dispatch({
+        type: productConstants.RESPONSE_STATE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
+export const EditProduct = (product_id, data, file) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: true,
+      });
+
+      // data.files = file
+
+      const res = await axiosInstance.put(`/products/${product_id}`, data)
+
+      console.log('resData', res)
+
+      if(res){
+        dispatch({
+            type: productConstants.RESPONSE_STATE,
+            response: {
+                state: 'SUCCESS',
+                message: 'Product edited'
+            }  
+        })
+        dispatch({
+            type: productConstants.LOADING,
+            isLoading: false,
+          });
+      }
+
+    } catch (e) {
+      dispatch({
+        type: productConstants.RESPONSE_STATE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
+
+export const DeleteProduct = (product_id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: true,
+      });
+
+      const res = await axiosInstance.delete(`/products/delete/${product_id}`)
+      console.log('resData', res)
+
+      if(res){
+        dispatch({
+            type: productConstants.RESPONSE_STATE,
+            response: {
+                state: 'SUCCESS',
+                message: 'Product deleted successfully'
             }  
         })
         dispatch({
