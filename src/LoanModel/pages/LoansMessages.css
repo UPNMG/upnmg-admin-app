@@ -1,0 +1,114 @@
+/* eslint-disable  */
+.messenger{
+    display: flex;
+    height: calc(100vh - 60.78px);
+}
+
+
+.chatBoxWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    background: white;
+    height: 100%;
+}
+
+.chatBoxTop{
+     height: 75vh;
+     overflow-y: scroll;
+     padding-right: 10px;
+     background: white;
+
+}
+.chatBoxBottom{
+margin-top: 10px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.chatMessageInput{
+   flex: 1;
+   height: 90px;
+   margin-right: 20px;
+   padding: 1rem;
+}
+
+.createChatArrea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.createChatArrea button{
+    background: var(--primary);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 4pc;
+    margin-top: 7px;
+}
+
+.buttonContainer{
+    display: flex;
+    align-items: center;
+}
+.buttonContainer .chatMessageInput{
+   border: 1px solid var(--primary);
+}
+.buttonContainer .button{
+    background: var(--primary);
+}
+
+.LoansMessagesDetailed{
+    /* display: none; */
+    /* height: 70vh; */
+}
+
+@media screen and (max-width: 500px) {
+    .chatConversation{
+        display: block;
+    }
+    .chatBox{
+        display: none;
+    }
+
+    .backArrow{
+        background: rgb(253, 141, 141);
+        width: 50px;
+        height: 30px;
+        border-radius: 30%;
+        margin-top: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: .7rem;
+
+    }
+
+    .chatMessageInput{
+        flex: 1;
+        height: 50px;
+        margin-right: 20px;
+        padding: .4rem;
+        font-size: .7rem;
+        margin-bottom: 10px;
+        border: 1px solid rgb(175, 255, 164);
+     }
+     .button{
+         font-size: .8rem;
+         border-radius: .5vw;
+         font-weight: bold;
+     }
+    /* .messenger{
+        display: block;
+      
+    }
+    .chatConversation{
+        display: flex;
+        width: 100%;
+        overflow-x: scroll;
+        justify-content: space-around;
+        align-items: center;
+        } */
+}

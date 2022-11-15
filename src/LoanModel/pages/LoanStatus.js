@@ -167,7 +167,7 @@ function LoanStatus() {
             <div className="py-8">
               <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-semibold leading-tight">
-                  Booked Applications
+                  Loan Status
                 </h2>
                 <div className="flex items-center justify-between">
                   <FormControlLabel

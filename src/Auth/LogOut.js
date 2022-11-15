@@ -2,9 +2,9 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Loader from "../Components/Loader";
 import { SignOut } from "../services/Actions/authActions";
 
-// import Loader from "../Loader";
 
 function Logout() {
   const history = useHistory();
@@ -15,7 +15,7 @@ function Logout() {
       history.replace('/')
     }, 1500);
     dispatch(SignOut())
-  }, []);
+  }, [history]);
   return (
     <div
       style={{
@@ -28,7 +28,7 @@ function Logout() {
           background: 'rgba(255, 255, 255, 0.657)',
           height: '100%'
       }}>
-        {/* <Loader /> */}
+        <Loader />
       </div>
     </div>
   );

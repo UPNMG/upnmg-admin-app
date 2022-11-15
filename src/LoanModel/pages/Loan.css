@@ -38,3 +38,16 @@
     width: 150px;
     height: auto;
 }
+
+/* .LoansMessages */
+.LoansMessages .unread {
+    width: 15px;
+    height: 15px;
+    background: red;
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    position: relative;
+    top: 10px;
+    margin-right: 10px;
+}

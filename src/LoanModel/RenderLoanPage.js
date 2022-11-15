@@ -94,7 +94,7 @@ function RenderLoanPage({ children, title }) {
             </div>
           </div>
           <div className="prodileInfo">
-            <div className="">
+            <div className="" onClick={() => history.push("/loans/messages")}>
               <TbMessage2 className="icon" />
             </div>
             <div className="">

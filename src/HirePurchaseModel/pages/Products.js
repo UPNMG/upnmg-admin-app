@@ -4,7 +4,7 @@ import { debounce } from "lodash";
 import React, { useEffect, useState } from "react";
 import { IoMdMore } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { bindActionCreators } from "redux";
 import Loader from "../../Components/Loader";
 import { productActionCreators } from "../../services/Actions";
@@ -233,75 +233,14 @@ function Products() {
          
         </div>
 
-        {/* <table className="table">
-        <thead>
-          <tr>
-          
-            <th scope="col">Profile</th>
-            <th scope="col">staff Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">email</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Peroid</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">
-                <div className='image'>
-                    <img src='/images/dev/del.png' alt='image' style={{width: '70px'}}/>
-                </div>
-             
-            </th>
-
-            <td>657656</td>
-            <td>Agyapong Derrick</td>
-            <td>derrick@upnmg.com</td>
-            <td>Loan</td>
-            <td>Active</td>
-            <td ><button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"><IoMdMore/></button></td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <Avatar alt="Remy Sharp" src="/images/dev/cancel.png" />
-            </th>
-            <td>657656</td>
-            <td>Agyapong Derrick</td>
-            <td>derrick@upnmg.com</td>
-            <td>Loan</td>
-            <td>Active</td>
-            <td>del</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <Avatar alt="Remy Sharp" src="i/mages/dev/A.png" />
-            </th>
-            <td>657656</td>
-            <td>Agyapong Derrick</td>
-            <td>derrick@upnmg.com</td>
-            <td>Loan</td>
-            <td>Active</td>
-            <td>del</td>
-          </tr>
-          <tr>
-            <th scope="row">
-              <Avatar alt="Remy Sharp" src="/images/dev/loan.png" />
-            </th>
-            <td>657656</td>
-            <td>Agyapong Derrick</td>
-            <td>derrick@upnmg.com</td>
-            <td>Loan</td>
-            <td>Active</td>
-            <td>del</td>
-          </tr>
-        </tbody>
-      </table> */}
+      
       </div>
       {openModal && (
         <ProductModal
           closeModal={setOpenModal}
           width="70%"
+          height={'90vh'}
+          overflowY={'scroll'}
           title={"Add New Product"}
         >
           <form>
@@ -724,6 +663,7 @@ function Products() {
       )}
 
 
+<ToastContainer autoClose={3000}/>
     </RenderHirePurchasePage>
   );
 }

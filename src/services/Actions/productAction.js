@@ -24,7 +24,7 @@ export const GetProductCategory = () => {
 
     } catch (e) {
       dispatch({
-        type: productConstants.RESPONSE_STATE,
+        type: productConstants.RESPONSE,
         response: {
           state: "ERROR",
           message: e?.response?.data?.message ?? "Opps something bad happend",
@@ -37,6 +37,8 @@ export const GetProductCategory = () => {
     }
   };
 };
+
+
 export const AddProductCategory = (data) => {
   return async (dispatch) => {
     try {
@@ -49,7 +51,7 @@ export const AddProductCategory = (data) => {
       console.log('res', res)
       if(res){
         dispatch({
-            type: productConstants.RESPONSE_STATE,
+            type: productConstants.RESPONSE,
             response: {
                 state: 'SUCCESS',
                 message: 'New category added'
@@ -64,6 +66,74 @@ export const AddProductCategory = (data) => {
     } catch (e) {
       dispatch({
         type: productConstants.RESPONSE_STATE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
+
+export const DeleteCategory = (category_id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: true,
+      });
+
+      console.log('category', category_id)
+      const res = await axiosInstance.delete(`/products/category/${category_id}`)
+      console.log('resData', res)
+
+      if(res){
+        dispatch({
+          type: productConstants.RESPONSE,
+          response: {
+            state: "SUCCESS",
+            message: 'Category deleted successfully'
+          }
+        })
+
+      if(res.data.message){
+        dispatch({
+          type: productConstants.RESPONSE,
+          response: {
+            state: "ERROR",
+            message: res.data.message
+          }
+        })
+      }else{
+        dispatch({
+          type: productConstants.RESPONSE,
+          response: {
+            state: "SUCCESS",
+            message: 'Category deleted successfully'
+          }
+        })
+      }
+
+        // dispatch({
+        //     type: productConstants.RESPONSE_STATE,
+        //     response: {
+        //         state: 'SUCCESS',
+        //         message: 'Category deleted successfully'
+        //     }  
+        // })
+        dispatch({
+            type: productConstants.LOADING,
+            isLoading: false,
+          });
+      }
+
+    } catch (e) {
+      dispatch({
+        type: productConstants.RESPONSE,
         response: {
           state: "ERROR",
           message: e?.response?.data?.message ?? "Opps something bad happend",
@@ -124,7 +194,7 @@ export const GetProducts = (isPaginated, page, size, category,  search) => {
 
     } catch (e) {
       dispatch({
-        type: productConstants.RESPONSE_STATE,
+        type: productConstants.RESPONSE,
         response: {
           state: "ERROR",
           message: e?.response?.data?.message ?? "Opps something bad happend",
@@ -187,7 +257,7 @@ export const AddProduct = (data, images) => {
 
       if(res){
         dispatch({
-            type: productConstants.RESPONSE_STATE,
+            type: productConstants.RESPONSE,
             response: {
                 state: 'SUCCESS',
                 message: 'New product added'
@@ -201,7 +271,7 @@ export const AddProduct = (data, images) => {
 
     } catch (e) {
       dispatch({
-        type: productConstants.RESPONSE_STATE,
+        type: productConstants.RESPONSE,
         response: {
           state: "ERROR",
           message: e?.response?.data?.message ?? "Opps something bad happend",
@@ -214,7 +284,7 @@ export const AddProduct = (data, images) => {
     }
   };
 };
-export const EditProduct = (product_id, data, file) => {
+export const EditProduct = (product_id, data, images) => {
   return async (dispatch) => {
     try {
       dispatch({
@@ -223,14 +293,41 @@ export const EditProduct = (product_id, data, file) => {
       });
 
       // data.files = file
+      const formData = new FormData();
 
-      const res = await axiosInstance.put(`/products/${product_id}`, data)
+      formData.append('category', data?.category)
+      formData.append('old_price', data?.old_price)
+      formData.append('product_name', data?.product_name)
+      formData.append('quantity', data?.quantity)
+      formData.append('description', data?.description)
+      formData.append('new_price', data?.new_price)
+      formData.append('short_description', data?.short_description)
+      formData.append('banner', data?.banner)
+      formData.append('featured', data?.featured)
+
+
+     for(const image of images){
+       console.log('image', image)
+      formData.append("files", image, image?.name);
+     }
+
+     for(const size of data?.sizes){
+      formData.append("sizes", size);
+     }
+
+     for(const color of data?.colors){
+      formData.append("colors", color);
+     }
+
+
+      const res = await axiosInstance.put(`/products/${product_id}`, formData)
+      // const imagesResponse = await axiosInstance.put(`/products/upload-image/${product_id}`, formData)
 
       console.log('resData', res)
 
       if(res){
         dispatch({
-            type: productConstants.RESPONSE_STATE,
+            type: productConstants.RESPONSE,
             response: {
                 state: 'SUCCESS',
                 message: 'Product edited'
@@ -244,7 +341,7 @@ export const EditProduct = (product_id, data, file) => {
 
     } catch (e) {
       dispatch({
-        type: productConstants.RESPONSE_STATE,
+        type: productConstants.RESPONSE,
         response: {
           state: "ERROR",
           message: e?.response?.data?.message ?? "Opps something bad happend",
@@ -271,7 +368,7 @@ export const DeleteProduct = (product_id) => {
 
       if(res){
         dispatch({
-            type: productConstants.RESPONSE_STATE,
+            type: productConstants.RESPONSE,
             response: {
                 state: 'SUCCESS',
                 message: 'Product deleted successfully'
@@ -285,7 +382,47 @@ export const DeleteProduct = (product_id) => {
 
     } catch (e) {
       dispatch({
-        type: productConstants.RESPONSE_STATE,
+        type: productConstants.RESPONSE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
+export const DeleteProductImages = (product_id, public_id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: true,
+      });
+
+      const res = await axiosInstance.delete(`/products/product-image/${product_id}?${public_id}`)
+      console.log('resData', res)
+
+      if(res){
+        dispatch({
+            type: productConstants.RESPONSE,
+            response: {
+                state: 'SUCCESS',
+                message: 'Image deleted successfully'
+            }  
+        })
+        dispatch({
+            type: productConstants.LOADING,
+            isLoading: false,
+          });
+      }
+
+    } catch (e) {
+      dispatch({
+        type: productConstants.RESPONSE,
         response: {
           state: "ERROR",
           message: e?.response?.data?.message ?? "Opps something bad happend",
@@ -303,7 +440,7 @@ export const DeleteProduct = (product_id) => {
 export const ResetProductResponse = () => {
     return async (dispatch) => {
       dispatch({
-        type: productConstants.RESPONSE_STATE,
+        type: productConstants.RESPONSE,
         response: {
           state: null,
           message: "",

@@ -22,6 +22,7 @@ import ProcessedOrder from './HirePurchaseModel/pages/ProcessedOrder';
 import ProductCategory from './HirePurchaseModel/pages/ProductCategory';
 import ProductDetailed from './HirePurchaseModel/pages/ProductDetailed';
 import Products from './HirePurchaseModel/pages/Products';
+import ProfileHirePurchase from './HirePurchaseModel/pages/ProfileHirePurchase';
 import PrivateLoanAdminRoute from './HOC/PrivateLoanAdminRoute';
 import PrivateMartAdminRoute from './HOC/PrivateMartAdminRoute';
 import PrivateRoute from './HOC/PrivateRoute';
@@ -32,6 +33,8 @@ import FundContribution from './LoanModel/pages/FundContribution';
 import InitiatedLoans from './LoanModel/pages/InitiatedLoans';
 import LoanApplication from './LoanModel/pages/LoanApplication';
 import LoanApplicationDetailed from './LoanModel/pages/LoanApplicationDetailed';
+import LoansMessages from './LoanModel/pages/LoansMessages';
+import LoansMessagesDetailed from './LoanModel/pages/LoansMessagesDetailed';
 import LoanStatus from './LoanModel/pages/LoanStatus';
 import LoansPaid from './LoanModel/pages/PaidLoans';
 function App() {
@@ -54,8 +57,11 @@ function App() {
       <PrivateRoute  path={'/admin/members'} component={UPNMGMembers}/>
   
 
+      {/* <PrivateRoute  path={'/messages'} component={Messages}/> */}
       
       <PrivateLoanAdminRoute  path={'/loans/home'} component={LoansDashboard}/>
+      <PrivateLoanAdminRoute  path={'/loans/messages'} component={LoansMessages}/>
+      <PrivateLoanAdminRoute  path={'/loans/messages-detailed'} component={LoansMessagesDetailed}/>
       <PrivateLoanAdminRoute  path={'/loans/application'} component={LoanApplication}/>
       <PrivateLoanAdminRoute  path={'/loans/fund-deduction'} component={FundContribution}/>
       <PrivateLoanAdminRoute  path={'/loans/booked'} component={BookedLoans}/>
@@ -69,16 +75,13 @@ function App() {
       <PrivateMartAdminRoute  path={'/mart/product'} component={Products}/>
       <PrivateMartAdminRoute  path={'/mart/product-detail'} component={ProductDetailed}/>
       <PrivateMartAdminRoute  path={'/mart/category'} component={ProductCategory}/>
+      <PrivateMartAdminRoute  path={'/mart/profile'} component={ProfileHirePurchase}/>
       <PrivateMartAdminRoute  path={'/mart/order'} component={Orders}/>
       <PrivateMartAdminRoute  path={'/mart/order-detailed'} component={OrderDetailed}/>
       <PrivateMartAdminRoute  path={'/mart/processed-order'} component={ProcessedOrder}/>
       <PrivateMartAdminRoute  path={'/mart/report'} component={HirePurchaseReport}/>
     </Switch>
-      {/* <AdminDashboard/> */}
-      {/* <LoanDeduction/> */}
-      {/* <RenderAdminPage title={'Page'}>
-        <h2>This</h2>
-      </RenderAdminPage> */}
+  
     </div>
   );
 }

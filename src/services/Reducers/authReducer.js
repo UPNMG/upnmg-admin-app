@@ -27,7 +27,7 @@ const authReducer = (state = initialState, action) => {
                 role: action.payload.role,
                 authenticated: true,
             }
-        case authConstants.RESPONSE_STATE:
+        case authConstants.RESPONSE:
             return {
                 ...state,
                 response: {

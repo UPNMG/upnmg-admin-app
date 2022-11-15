@@ -1,32 +1,31 @@
 /* eslint-disable  */
-import { Delete, Edit } from '@material-ui/icons';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { bindActionCreators } from 'redux';
-import PromptModal from '../../AdminModel/Components/PromptModal';
-import { productActionCreators } from '../../services/Actions';
-import ProductModal from '../Modal/AddProductModal';
+import { Delete, Edit } from "@material-ui/icons";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import PromptModal from "../../AdminModel/Components/PromptModal";
+import { productActionCreators } from "../../services/Actions";
+import ProductModal from "../Modal/AddProductModal";
 
-function ProductCard({product, category}) {
-    const history = useHistory()
-    const dispatch = useDispatch()
-    const {DeleteProduct,EditProduct} = bindActionCreators(productActionCreators, dispatch)
-    
-    const [openEditProductModal, setOpenEditProductModal] = useState(false);
-    const [openPromptModal, setPromptOpenModal] = useState(false);
-    const [editProductFormData, setEditProductFormData] = useState("");
-    const [colors, setColors] = useState([]);
+function ProductCard({ product, category }) {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { DeleteProduct, EditProduct, DeleteProductImages } = bindActionCreators(
+    productActionCreators,
+    dispatch
+  );
+
+  const [openEditProductModal, setOpenEditProductModal] = useState(false);
+  const [openPromptModal, setPromptOpenModal] = useState(false);
+  const [editProductFormData, setEditProductFormData] = useState({});
+  const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
-  const [preview, setPreview] = useState([])
-  const [seletedFiles, setSeletedFiles] = useState([])
-  
+  const [preview, setPreview] = useState([]);
+  const [seletedFiles, setSeletedFiles] = useState([]);
 
-  
-    const [isFeaturedChecked, setIsFeaturedChecked] = useState(product?.featured);
-    const [isBannerChecked, setBannerChecked] = useState(false);
-
-
+  const [isFeaturedChecked, setIsFeaturedChecked] = useState(product?.featured);
+  const [isBannerChecked, setBannerChecked] = useState(false);
 
   const handleEditProductChnage = (e) => {
     const { name, value } = e.target;
@@ -35,19 +34,18 @@ function ProductCard({product, category}) {
   const handleFileChange = (e) => {
     // const { name, value } = e.target;
     // setEditProductFormData({ ...editProductFormData, [name]: value });
-  
-    console.log('e', e.target.files)
+
+    console.log("e", e.target.files);
 
     const file = e.target.files[0];
 
     const reader = new FileReader();
-    reader.onload = function(event) {
+    reader.onload = function (event) {
       // The file's text will be printed here
-      setPreview([...preview, event.target.result])
+      setPreview([...preview, event.target.result]);
       // console.log(event.target.result)
-
     };
-    setSeletedFiles([...seletedFiles, file])
+    setSeletedFiles([...seletedFiles, file]);
     reader.readAsDataURL(file);
   };
 
@@ -63,8 +61,8 @@ function ProductCard({product, category}) {
 
     console.log("value", value);
     if (checked) {
-      const filterColorExist = colors.find((color) => color === value)
-      if(!filterColorExist){
+      const filterColorExist = colors.find((color) => color === value);
+      if (!filterColorExist) {
         setColors([...colors, value]);
       }
     } else {
@@ -78,8 +76,8 @@ function ProductCard({product, category}) {
 
     console.log("value", value);
     if (checked) {
-      const filterSizeExist = sizes.find((size) => size === value)
-      if(!filterSizeExist){
+      const filterSizeExist = sizes.find((size) => size === value);
+      if (!filterSizeExist) {
         setSizes([...sizes, value]);
       }
       setSizes([...sizes, value]);
@@ -89,10 +87,19 @@ function ProductCard({product, category}) {
     }
   };
 
+  const handleDeleteCloudImage = (public_id, product_id) => {
+    DeleteProductImages(product_id, public_id)
+  }
+
+  const handleDeletePrevImage = (prevImg) => {
+    const newPrevImages = preview.filter((img) => img !== prevImg)
+    setPreview(newPrevImages)
+  }
+
   const handleEditProductSubmit = (e) => {
-    e.preventDefault()
-    const fileData = new FormData()
-    fileData.append('files', seletedFiles)
+    e.preventDefault();
+    // const fileData = new FormData();
+    // fileData.append("files", seletedFiles);
 
     const data = {
       ...editProductFormData,
@@ -100,62 +107,103 @@ function ProductCard({product, category}) {
       sizes: sizes,
       banner: isBannerChecked,
       featured: isFeaturedChecked,
-      
-    }
+    };
 
+    // console.log("editProductFormData", editProductFormData);
 
-    EditProduct(product?._id, fileData, fileData)
+    EditProduct(product?._id, data, seletedFiles)
 
-    console.log('data', data)
-    console.log('seletedFiles', seletedFiles)
-  }
-
+    // console.log("data", data);
+    // console.log("seletedFiles", seletedFiles);
+  };
+  console.log("product", product);
 
   useEffect(() => {
-    setIsFeaturedChecked(product?.featured)
-    setBannerChecked(product?.banner)
-    setColors(product?.colors)
-    setSizes(product?.sizes)
-  }, [product])
- 
+    setEditProductFormData({
+      category: product.category._id,
+      description: product.description,
+      featured: product.featured,
+      new_price: product.new_price,
+      old_price: product.old_price,
+      product_name: product.product_name,
+      quantity: product.quantity,
+      short_description: product.short_description,
+      banner: product.banner,
+    });
+    setColors(product.colors);
+    setSizes(product.sizes);
+  }, []);
 
-    console.log('product', product)
+  useEffect(() => {
+    setIsFeaturedChecked(product?.featured);
+    setBannerChecked(product?.banner);
+    setColors(product?.colors);
+    setSizes(product?.sizes);
+  }, [product]);
+
+  console.log("product", product);
   return (
     <>
-    <div className='productCard'>
-    <div className='items'>
-        <div className='image'>
-          {console.log('images', product?.images)}
-          {product?.images.length > 0 ? (<>
-          {<img src={product?.images[0]?.url} alt='product'/>}
-          </>) : (<img src='/images/dev/del.png' alt='product'/>)}
-            
+      <div className="productCard">
+        <div className="items">
+          <div className="image">
+            {console.log("images", product?.images)}
+            {product?.images.length > 0 ? (
+              <>{<img src={product?.images[0]?.url} alt="product" />}</>
+            ) : (
+              <img src="/images/dev/del.png" alt="product" />
+            )}
+          </div>
+          <div className="product-name">{product?.product_name}</div>
+          <div className="price">{product?.new_price}</div>
+          <div className="ordered_date">
+            {product?.quantity > 0 ? "Available in stock" : "Out of stock"}
+          </div>
+          <div
+            className=""
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <button
+              onClick={() =>
+                history.push({
+                  pathname: "/mart/product-detail",
+                  state: { product: product },
+                })
+              }
+            >
+              view detail
+            </button>
+            <div
+              className="editBtn mx-1"
+              onClick={() => setOpenEditProductModal(true)}
+            >
+              <Edit className="icon" />
+            </div>
+            <div
+              className="delBtn"
+              onClick={() => {
+                //  setSelectedProduct(product)
+                setPromptOpenModal(true);
+              }}
+            >
+              {" "}
+              <Delete className="icon" />
+            </div>
+          </div>
         </div>
-        <div className='product-name'>
-            {product?.product_name}
-        </div>
-        <div className='price'>{product?.new_price}</div>
-        <div className='ordered_date'>{product?.quantity > 0 ? 'Available in stock' : 'Out of stock'}</div>
-       <div className='' style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-       <button onClick={() => history.push({pathname: '/mart/product-detail', state: {product: product}})}>
-         view detail
-        </button>
-        <div className='editBtn mx-1' onClick={() => setOpenEditProductModal(true)}><Edit className='icon'/></div>
-       <div className='delBtn' onClick={() => {
-        //  setSelectedProduct(product)
-         setPromptOpenModal(true)}}> <Delete className='icon'/></div>
-       </div>
-    </div>
+      </div>
 
-</div>
-
-
-      
-{openEditProductModal && (
+      {openEditProductModal && (
         <ProductModal
           closeModal={setOpenEditProductModal}
           width="70%"
           title={"Edit Product"}
+          height={'90vh'}
+          overflowY={'scroll'}
         >
           <form>
             <div className="grid gap-6 mb-1 md:grid-cols-2">
@@ -197,7 +245,6 @@ function ProductCard({product, category}) {
                         value=""
                         id="featured"
                         className="sr-only peer"
-                      
                         checked={isFeaturedChecked}
                         onChange={handleFeatureChecked}
                       />
@@ -226,7 +273,6 @@ function ProductCard({product, category}) {
                         value=""
                         id="banner"
                         className="sr-only peer"
-                      
                         checked={isBannerChecked}
                         onChange={handleBannerChecked}
                       />
@@ -326,11 +372,14 @@ function ProductCard({product, category}) {
                 >
                   Add Colors
                 </label>
-              <div className='flex pb-2'>
-
-                <p>selected:</p>
-                {product?.colors.map((color, index) => <p key={index}><span >{color}</span></p>)}
-              </div>
+                <div className="flex pb-2">
+                  <p>selected:</p>
+                  {product?.colors.map((color, index) => (
+                    <p key={index}>
+                      <span>{color}</span>
+                    </p>
+                  ))}
+                </div>
 
                 <div className="flex items-center mb-1">
                   <input
@@ -409,11 +458,14 @@ function ProductCard({product, category}) {
                     Sizes
                   </label>
 
-                  <div className='flex pb-2'>
-
-<p>selected:</p>
-{product?.sizes.map((size, index) => <p key={index}><span >{size}</span></p>)}
-</div>
+                  <div className="flex pb-2">
+                    <p>selected:</p>
+                    {product?.sizes.map((size, index) => (
+                      <p key={index}>
+                        <span>{size}</span>
+                      </p>
+                    ))}
+                  </div>
 
                   <div className="flex items-center mb-1">
                     <input
@@ -486,81 +538,122 @@ function ProductCard({product, category}) {
               </div>
               <div className="category">
                 <div>
-                <label
-                  htmlFor="category"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-                >
-                  Category
-                </label>
-                <select
-                  id="category"
-                  onChange={handleEditProductChnage}
-                  name={"category"}
-                  className="block p-2 mb-6 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option value={product?.category?._id}>{product?.category?.name}</option>
-                  {category?.map((cate, index) =>  <option key={index} value={cate?._id}>{cate?.name}</option>)}
-                 
-                </select>
+                  <label
+                    htmlFor="category"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                  >
+                    Category
+                  </label>
+                  <select
+                    id="category"
+                    onChange={handleEditProductChnage}
+                    name={"category"}
+                    className="block p-2 mb-6 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option value={product?.category?._id}>
+                      {product?.category?.name}
+                    </option>
+                    {category?.map((cate, index) => (
+                      <option key={index} value={cate?._id}>
+                        {cate?.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div>
-                <label
-                  htmlFor="category"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-                >
-                  Upload Images
-                </label>
-                <div className="flex justify-center items-center w-full">
-    <label htmlFor="dropzone-file" className="flex flex-col justify-center items-center w-full h-34 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-        <div className="flex flex-col justify-center items-center pt-2 pb-2">
-            <svg aria-hidden="true" className="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-        </div>
-        <input onChange={handleFileChange} id="dropzone-file" type="file" className="hidden" multiple accept='images/*'/>
-    </label>
-</div> 
+                  <label
+                    htmlFor="category"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                  >
+                    Upload Images
+                  </label>
+                  <div className="flex justify-center items-center w-full">
+                    <label
+                      htmlFor="dropzone-file"
+                      className="flex flex-col justify-center items-center w-full h-34 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                    >
+                      <div className="flex flex-col justify-center items-center pt-2 pb-2">
+                        <svg
+                          aria-hidden="true"
+                          className="mb-3 w-10 h-10 text-gray-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                          ></path>
+                        </svg>
+                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                          <span className="font-semibold">Click to upload</span>{" "}
+                          or drag and drop
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          SVG, PNG, JPG or GIF (MAX. 800x400px)
+                        </p>
+                      </div>
+                      <input
+                        onChange={handleFileChange}
+                        id="dropzone-file"
+                        type="file"
+                        className="hidden"
+                        multiple
+                        accept="images/*"
+                      />
+                    </label>
+                  </div>
                 </div>
-
-              
               </div>
             </div>
 
-            <div className='grid gap-6 mb-1 md:grid-cols-2'>
-
-            <div>
-              <label
-                htmlFor="description"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            <div className="grid gap-6 mb-1 md:grid-cols-2">
+              <div>
+                <label
+                  htmlFor="description"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Description
+                </label>
+                <textarea
+                  id="description"
+                  name="description"
+                  defaultValue={product?.description}
+                  rows="2"
+                  onChange={handleEditProductChnage}
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="write your description..."
+                ></textarea>
+              </div>
+              <div
+                className="previewImages"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(4, 1fr)",
+                  gap: "5px",
+                  border: "1px solid gray",
+                  borderRadius: "10px",
+                  padding: "5px",
+                  overflowX: 'scroll'
+                }}
               >
-                Description
-              </label>
-              <textarea
-                id="description"
-                name="description"
-                defaultValue={product?.description}
-                rows="2"
-                onChange={handleEditProductChnage}
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="write your description..."
-              ></textarea>
-            </div>
-            <div className='previewImages' style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '5px',
-              border: '1px solid gray',
-              borderRadius: '10px',
-              padding: '5px'
+                {product?.images?.map((img, index) => {
+                  console.log('img', img)
+                   return (
+                    <img key={index} src={img.url} width="30" alt="preview" onDoubleClick={() => handleDeleteCloudImage(img?.public_id, product?._id)} />
+                  );
+                })}
+                {preview.map((prev, index) => {
+                  return (
+                    <img key={index} src={prev} width="30" alt="preview" onDoubleClick={() => handleDeletePrevImage(prev)}/>
+                  );
+                })}
 
-            }}>
-             {preview.map((prev, index) => {
-               return  <img key={index} src={prev} width="30" alt="preview"/>
-             })}
+              </div>
             </div>
-            </div>
-
-           
 
             <div className="modalButton">
               <div className="flex items-center p-2 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
@@ -591,57 +684,55 @@ function ProductCard({product, category}) {
             </div>
           </form>
         </ProductModal>
-
       )}
 
-
-{openPromptModal && (
-          <PromptModal closeModal={setPromptOpenModal} width={"auto"}>
-            <div className="relative  ">
-              <div className="p-6 text-center">
-                <svg
-                  aria-hidden="true"
-                  className="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  ></path>
-                </svg>
-                <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                  Are you sure you want to delete this product?
-                </h3>
-                <button
-                  data-modal-toggle="popup-modal"
-                  type="button"
-                  onClick={() => {
-                    DeleteProduct(product?._id);
-                    setPromptOpenModal(false);
-                  }}
-                  className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
-                >
-                  Yes, I'm sure
-                </button>
-                <button
-                  data-modal-toggle="popup-modal"
-                  type="button"
-                  className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                  onClick={() => setPromptOpenModal(false)}
-                >
-                  No, cancel
-                </button>
-              </div>
+      {openPromptModal && (
+        <PromptModal closeModal={setPromptOpenModal} width={"auto"}>
+          <div className="relative  ">
+            <div className="p-6 text-center">
+              <svg
+                aria-hidden="true"
+                className="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                Are you sure you want to delete this product?
+              </h3>
+              <button
+                data-modal-toggle="popup-modal"
+                type="button"
+                onClick={() => {
+                  DeleteProduct(product?._id);
+                  setPromptOpenModal(false);
+                }}
+                className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+              >
+                Yes, I'm sure
+              </button>
+              <button
+                data-modal-toggle="popup-modal"
+                type="button"
+                className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                onClick={() => setPromptOpenModal(false)}
+              >
+                No, cancel
+              </button>
             </div>
-          </PromptModal>
-        )}
-</>
-  )
+          </div>
+        </PromptModal>
+      )}
+    </>
+  );
 }
 
-export default ProductCard
+export default ProductCard;

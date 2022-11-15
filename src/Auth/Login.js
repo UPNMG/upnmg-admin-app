@@ -17,8 +17,9 @@ function Login() {
     dispatch
   );
   const [formData, setFormData] = useState(null);
-
+ 
   const { isLoading, response, authenticated, user, user_type } = auth;
+
 
   const handleInputChange = (e) => {
     setFormData((prevState) => {
@@ -36,6 +37,8 @@ function Login() {
     console.log(formData);
     if (formData !== null) {
       Login(formData);
+     
+      
     } else {
       toast.error("All fields are required");
     }
@@ -70,6 +73,7 @@ function Login() {
   ) {
     history.replace("/investment/home");
   }
+  
 
   useEffect(() => {
     if (response?.state === "SUCCESS") {

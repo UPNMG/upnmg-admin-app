@@ -42,7 +42,7 @@ function SystemUsers() {
     email: "",
     staff_code: "",
     phone_number: "",
-  
+    officer: "",
     super_role: "ADMIN",
   };
   const [formData, setFormData] = useState(initialFormData);
@@ -112,11 +112,11 @@ function SystemUsers() {
   };
 
   const handleEditModalSubmit = (e, user) => {
-    e.preventDefault()
+    e.preventDefault();
     console.log(formEditData);
-    console.log('user',user);
-    EditSystemUser(user, formEditData)
-    setOpenEditModal(false)
+    console.log("user", user);
+    EditSystemUser(user, formEditData);
+    setOpenEditModal(false);
   };
 
   useEffect(() => {
@@ -390,22 +390,42 @@ function SystemUsers() {
                 </div>
               </div>
 
-              <div>
-                <label
-                  for="staff_id"
-                  className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
-                  Staff Code
-                </label>
-                <input
-                  type="text"
-                  id="staff_id"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required
-                  name="staff_code"
-                  value={formData.staff_code}
-                  onChange={handleChange}
-                />
+              <div className="grid gap-6 mb-1 md:grid-cols-2">
+                <div>
+                  <label
+                    for="staff_id"
+                    className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    Staff Code
+                  </label>
+                  <input
+                    type="text"
+                    id="staff_id"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required
+                    name="staff_code"
+                    value={formData.staff_code}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label
+                    for="staff_id"
+                    className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    Officer
+                  </label>
+                  <input
+                    type="text"
+                    id="staff_id"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required
+                    placeholder="North Loan Officer"
+                    name="officer"
+                    value={formData.officer}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
               <div className="email_nd_phone grid gap-6 mb-1 md:grid-cols-2">
                 <div className="email">
@@ -650,21 +670,39 @@ function SystemUsers() {
                   onChange={handleFormEditChange}
                 />
               </div>
-              <div>
-                <label
-                  for="staff_id"
-                  className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
-                  Staff Code
-                </label>
-                <input
-                  type="text"
-                  id="staff_id"
-                  className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  name="staff_code"
-                  defaultValue={seletedUserData.staff_code}
-                  onChange={handleFormEditChange}
-                />
+              <div className="grid gap-6 mb-1 md:grid-cols-2">
+                <div>
+                  <label
+                    for="staff_id"
+                    className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    Staff Code
+                  </label>
+                  <input
+                    type="text"
+                    id="staff_id"
+                    className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="staff_code"
+                    defaultValue={seletedUserData.staff_code}
+                    onChange={handleFormEditChange}
+                  />
+                </div>
+                <div>
+                  <label
+                    for="staff_id"
+                    className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
+                  >
+                    Officer
+                  </label>
+                  <input
+                    type="text"
+                    id="officer"
+                    className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    name="officer"
+                    defaultValue={seletedUserData.officer}
+                    onChange={handleFormEditChange}
+                  />
+                </div>
               </div>
               <div className="email_nd_phone grid gap-6 mb-1 md:grid-cols-2">
                 <div className="email">
@@ -865,7 +903,9 @@ function SystemUsers() {
                   <button
                     data-modal-toggle="defaultModal"
                     type="submit"
-                    onClick={(e) => handleEditModalSubmit(e, seletedUserData?._id)}
+                    onClick={(e) =>
+                      handleEditModalSubmit(e, seletedUserData?._id)
+                    }
                     className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
                     Save User

@@ -15,11 +15,12 @@ const initialValues = {
     nextNumber: null,
     currentPageSize: 0,
   },
+
   response: {
     state: null,
-    message: '',
-    action: ''
-}
+    message: "",
+    action: "",
+  },
 
 };
 
@@ -43,7 +44,7 @@ const productReducer = (state = initialValues, action) => {
         paginate: action.payload.paginate,
       };
 
-    case productConstants.RESPONSE_STATE:
+    case productConstants.RESPONSE:
       return {
         ...state,
         response: {

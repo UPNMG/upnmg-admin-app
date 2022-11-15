@@ -11,6 +11,7 @@
  border-right: 1px solid rgb(224, 224, 224);
  height: 100vh;
  position: relative;
+ padding-left: 10px;
 }
 
 .RenderHirePurchasePage .sideBar .profile{ 
@@ -81,6 +82,8 @@ font-size: 1.5rem;
 .RenderHirePurchasePage .mainPage .topBar .prodileInfo{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-right: 2px;
 }
 .RenderHirePurchasePage .mainPage .topBar .prodileInfo .icon{
 font-size: 1.4rem;

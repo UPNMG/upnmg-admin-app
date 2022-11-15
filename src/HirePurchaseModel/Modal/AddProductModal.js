@@ -1,14 +1,14 @@
 /* eslint-disable  */
 import React from 'react'
-
-function ProductModal({children, width, title, closeModal, submitFunction}) {
+import './Modal.css'
+function ProductModal({children, width, height, overflowY='auto', title, closeModal, submitFunction}) {
   const handleSubmit = () => {
     // submitFunction()
     alert('he')
   }
   return (
-    <div className="Modal">
-          <div className="modalContainer" style={{width: `${width}`}}>
+    <div className="Modal ">
+          <div className="modalContainer ProductsModal" style={{width: `${width}`,height: `${height}`, overflowY: `${overflowY}`}}>
             <div className="flex justify-between items-start p-2 rounded-t border-b dark:border-gray-600">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {title}
