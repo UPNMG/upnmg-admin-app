@@ -1,9 +1,11 @@
 /* eslint-disable  */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import { bindActionCreators } from "redux";
+import Loader from "../Components/Loader";
 import { authActionCreators } from "../services/Actions";
 // import "./Auth.css";
 import "./css/auth.css";
@@ -50,7 +52,9 @@ function Login() {
     user_type === "SYSTEM_USER" &&
     user?.super_role === "ADMIN"
   ) {
+    console.log('admin login')
     history.replace("/admin/home");
+    // return <Redirect to={'/admin/home'}/>
   }
   if (
     authenticated &&
@@ -90,6 +94,8 @@ function Login() {
   }, [response?.state, response?.message]);
 
   return (
+    <>
+    {isLoading && <Loader/>}
     <div className="loginPage">
       <form
         className="section_one"
@@ -183,6 +189,7 @@ function Login() {
       {/* <AlertDialogSlide open={open} close={handleClose}/> */}
       <ToastContainer autoClose={3000}/>
     </div>
+    </>
   );
 }
 

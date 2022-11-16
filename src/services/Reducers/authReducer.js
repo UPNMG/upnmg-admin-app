@@ -2,6 +2,7 @@ import { authConstants } from "../Constants/authConstants";
 const initialState = {
     isLoading: false,
     access_token: null,
+    logout: false,
     user: null,
     user_type: null,
     authenticated: false,
@@ -26,6 +27,12 @@ const authReducer = (state = initialState, action) => {
                 user: action.payload.user,
                 role: action.payload.role,
                 authenticated: true,
+            }
+        case authConstants.LOG_OUT:
+            return {
+                ...state,
+                logout: action.logout,
+                authenticated: false,
             }
         case authConstants.RESPONSE:
             return {

@@ -1,0 +1,19 @@
+.CalContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CalContainer .calcResults{
+    border: 1px solid var(--success);
+    height: 100px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+
+}
+.CalContainer .calcResults h1{
+    font-size: 2.5rem;
+}

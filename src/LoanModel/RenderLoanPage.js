@@ -2,19 +2,32 @@
 // import Chart from "./Components/Chart";
 import { Avatar } from "@material-ui/core";
 import React from "react";
-import { BsMenuButtonFill } from "react-icons/bs";
+import { AiFillGold } from "react-icons/ai";
+import { BiBookAlt } from "react-icons/bi";
+import { BsCalculator, BsMenuButtonFill } from "react-icons/bs";
 import { FaHands } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
-import { GrMoney } from "react-icons/gr";
-import { MdLogout, MdOutlineNotificationsNone } from "react-icons/md";
+import { GiMoneyStack, GiTakeMyMoney } from "react-icons/gi";
+import { GrMoney, GrStatusUnknown } from "react-icons/gr";
+import { MdLogout, MdOutlineLibraryBooks, MdOutlineNotificationsNone } from "react-icons/md";
 import { TbMessage2 } from "react-icons/tb";
 import { TiHomeOutline } from "react-icons/ti";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { SignOut } from "../services/Actions/authActions";
 import "./LoansDashboard.css";
 function RenderLoanPage({ children, title }) {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth)
+  const { user} = auth
+  
+
   const handleLogout = () => {
-    history.push('/logout')
+    dispatch(SignOut())
+    setTimeout(() => {
+      window.location.reload(false)
+    },1000)
   }
   return (
     <div className="LoansDashboard">
@@ -24,7 +37,7 @@ function RenderLoanPage({ children, title }) {
             className="menu cursor-pointer"
             onClick={() => history.push("/loans/home")}
           >
-            <TiHomeOutline className="icon" />
+           <AiFillGold className="icon"/>
             <div className="label cursor-pointer">Home</div>
           </div>
           <div
@@ -38,7 +51,7 @@ function RenderLoanPage({ children, title }) {
             className="menu cursor-pointer"
             onClick={() => history.push("/loans/application")}
           >
-            <FaHands className="icon" />
+            <GiMoneyStack className="icon" />
             <div className="label">Loan Applications</div>
           </div>
      
@@ -46,38 +59,46 @@ function RenderLoanPage({ children, title }) {
             className="menu cursor-pointer"
             onClick={() => history.push("/loans/booked")}
           >
-            <GrMoney className="icon" />
+            <BiBookAlt className="icon" />
             <div className="label">Booked Loans </div>
           </div>
           <div
             className="menu cursor-pointer"
             onClick={() => history.push("/loans/initiated")}
           >
-            <GrMoney className="icon" />
+            <MdOutlineLibraryBooks className="icon" />
             <div className="label">Initiated Loans</div>
           </div>
           <div
             className="menu cursor-pointer"
             onClick={() => history.push("/loans/paid")}
           >
-            <GrMoney className="icon" />
+            <GiTakeMyMoney className="icon" />
             <div className="label">Loans Paid</div>
           </div>
           <div
             className="menu cursor-pointer"
             onClick={() => history.push("/loans/status")}
           >
-            <GrMoney className="icon" />
+            <GrStatusUnknown className="icon" />
             <div className="label">Loan Status</div>
+          </div>
+          <div
+            className="menu cursor-pointer"
+            onClick={() => history.push("/loans/calculator")}
+          >
+            <BsCalculator className="icon" />
+            <div className="label">Loan Calculator</div>
           </div>
          
         </div>
         <div className="profile">
-          <Avatar alt="Remy Sharp" src="/images/dev/success.png" />
-          <p>Derrick</p>
+         
+          <img className="p-1 w-10 h-10 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={`${user?.profile_image ? user?.profile_image : '/images/dev/avatar1.png'}`} alt="Bordered avatar"/>
+          <p>{user?.name}</p>
           <button className="button flex items-center justify-center">
             <FiLogOut  className="mx-2"/>
-            <div>Logout</div>
+            <div onClick={handleLogout}>Logout</div>
           </button>
         </div>
       </section>
@@ -100,10 +121,14 @@ function RenderLoanPage({ children, title }) {
             <div className="">
               <MdOutlineNotificationsNone className="icon" />
             </div>
-            <div className="userImage">
+
+            <img onClick={()=> history.push('/loans/profile')} className="p-1 w-10 h-10 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={`${user?.profile_image ? user?.profile_image : '/images/dev/avatar1.png'}`} alt="Bordered avatar"/>
+
+            {/* <div className="userImage">
               <MdLogout className="text-white"  onClick={handleLogout}/>
              
-            </div>
+            </div> */}
+
           </div>
         </div>
 

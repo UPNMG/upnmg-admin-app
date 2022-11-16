@@ -5,7 +5,6 @@ import { Route, Redirect } from "react-router-dom";
 
 
 function PrivateRoute({ component: Component, ...rest }) {
-  const history = useHistory()
   const token = window.localStorage.getItem("token");
   return (
     <Route
@@ -14,7 +13,6 @@ function PrivateRoute({ component: Component, ...rest }) {
         if (token) {
           return <Component {...props} />;
         } else {
-          // return <Redirect to={"/"} />;
           return <Redirect to={"/"} />;
         }
       }}

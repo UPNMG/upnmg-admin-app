@@ -13,12 +13,20 @@ import { AiFillGold } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 import "./HirePurchaseDashboard.css";
 import { RiShoppingCartFill } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SignOut } from "../services/Actions/authActions";
 
 function RenderHirePurchasePage({children, title}) {
     const history = useHistory()
+    const dispatch = useDispatch()
     const auth = useSelector(state => state.auth)
     const { user} = auth
+    const handleLogout = () => {
+      dispatch(SignOut())
+      setTimeout(() => {
+        window.location.reload(false)
+      },1000)
+    }
   return (
     <div className='RenderHirePurchasePage'>
               <section className="sideBar">
@@ -64,9 +72,9 @@ function RenderHirePurchasePage({children, title}) {
 
           </div>
           <div className="profile">
-          <img className="p-1 w-10 h-10 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={user?.profile_image} alt="Bordered avatar"/>
+          <img className="p-1 w-10 h-10 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={`${user?.profile_image ? user?.profile_image : '/images/dev/avatar1.png'}`} alt="Bordered avatar"/>
           <p>{user?.name}</p>
-          <button className="button" onClick={() => history.push('/logout')}><span style={{paddingRight: '10px'}}> </span>Logout</button>
+          <button className="button" onClick={() => handleLogout()}><span style={{paddingRight: '10px'}}> </span>Logout</button>
           </div>
       </section>
 
@@ -91,7 +99,7 @@ function RenderHirePurchasePage({children, title}) {
             <div className="">
               <MdOutlineNotificationsNone className="icon" />
             </div>
-<img onClick={()=> history.push('/mart/profile')} className="p-1 w-10 h-10 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={user?.profile_image} alt="Bordered avatar"/>
+<img onClick={()=> history.push('/mart/profile')} className="p-1 w-10 h-10 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={`${user?.profile_image ? user?.profile_image : '/images/dev/avatar1.png'}`} alt="Bordered avatar"/>
             {/* <div className="userImage"> */}
 
 

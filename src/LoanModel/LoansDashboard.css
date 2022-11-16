@@ -93,7 +93,7 @@ font-size: .8rem;
 }
 .LoansDashboard .LoanSideBar .menuList .menu .icon{
 margin-right: 1rem;
-font-size: 1rem;
+font-size: 1.5rem;
 }
 
 .LoansDashboard .mainPage{
@@ -135,6 +135,8 @@ font-size: 1rem;
 .LoansDashboard .mainPage .topBar .prodileInfo{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding-right: 10px;
 }
 .LoansDashboard .mainPage .topBar .prodileInfo .icon{
 font-size: 1.4rem;

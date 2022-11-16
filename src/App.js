@@ -33,10 +33,12 @@ import FundContribution from './LoanModel/pages/FundContribution';
 import InitiatedLoans from './LoanModel/pages/InitiatedLoans';
 import LoanApplication from './LoanModel/pages/LoanApplication';
 import LoanApplicationDetailed from './LoanModel/pages/LoanApplicationDetailed';
+import LoanCalculator from './LoanModel/pages/LoanCalculator';
 import LoansMessages from './LoanModel/pages/LoansMessages';
 import LoansMessagesDetailed from './LoanModel/pages/LoansMessagesDetailed';
 import LoanStatus from './LoanModel/pages/LoanStatus';
 import LoansPaid from './LoanModel/pages/PaidLoans';
+import ProfileLoan from './LoanModel/pages/ProfileLoan';
 function App() {
   return (
     <div className="App">
@@ -70,6 +72,8 @@ function App() {
       <PrivateLoanAdminRoute  path={'/loans/status'} component={LoanStatus}/>
       <PrivateLoanAdminRoute  path={'/loans/paid'} component={LoansPaid}/>
       <PrivateLoanAdminRoute  path={'/loans/application-detailed'} component={LoanApplicationDetailed}/>
+      <PrivateLoanAdminRoute  path={'/loans/profile'} component={ProfileLoan}/>
+      <PrivateLoanAdminRoute  path={'/loans/calculator'} component={LoanCalculator}/>
 
       <PrivateMartAdminRoute  path={'/mart/home'} component={HirePurchaseDashboard}/>
       <PrivateMartAdminRoute  path={'/mart/product'} component={Products}/>

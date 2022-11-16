@@ -1,5 +1,5 @@
 /* eslint-disable  */
-import React from "react";
+import React, { useEffect } from "react";
 import { BsMenuButtonFill } from "react-icons/bs";
 import { FaHands, FaUsers, FaUsersCog } from "react-icons/fa";
 import { GrMoney } from "react-icons/gr";
@@ -7,18 +7,31 @@ import { MdLogout, MdOutlineNotificationsNone } from "react-icons/md";
 import { RiHandCoinLine } from "react-icons/ri";
 import { TbMessage2 } from "react-icons/tb";
 import { TiHomeOutline } from "react-icons/ti";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Loader from "../Components/Loader";
+import { SignOut } from "../services/Actions/authActions";
 import "./AdminDashboard.css";
 
 function RenderAdminPage({children, title}) {
     const history = useHistory()
+    const dispatch = useDispatch()
+    const auth = useSelector(state => state?.auth)
     const user = JSON.parse(localStorage.getItem('user'))
    
     const handleLogout = () => {
-      history.push('/logout')
+      // history.push('/logout')
+      dispatch(SignOut())
+      setTimeout(() => {
+        window.location.reload(false)
+      },1000)
     }
+
+
+    
   return (
     <div className="AdminDashboard">
+      {/* {auth.isLoading && <Loader/>} */}
       <section className="sideBar">
       <div className="sec1">
 
@@ -90,7 +103,7 @@ function RenderAdminPage({children, title}) {
               <MdOutlineNotificationsNone className="icon" />
             </div>
             <div className="userImage">
-              <MdLogout className="text-white"  onClick={handleLogout}/>
+              <MdLogout className="text-white"  onClick={() => handleLogout()}/>
              
             </div>
           </div>

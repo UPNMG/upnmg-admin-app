@@ -23,9 +23,11 @@ function AdminDashboard() {
   const { GetAppliedLoans,GetAllDues, ResetDataResponse, GetTotal } = bindActionCreators(dataActionCreators, dispatch);
 
   const data = useSelector((state) => state?.data);
+  const auth = useSelector((state) => state?.auth);
   const {isLoading, appliedLoans, paginate, response, totalMembers, totalFunds, totalLoans, totalDues} = data
  
   console.log('data', data)
+  console.log('auth', auth)
 
   useEffect(() => {
     GetAppliedLoans(true, 1, 5, 'initiated');

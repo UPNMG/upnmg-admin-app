@@ -12,7 +12,7 @@ function Logout() {
   useEffect(() => {
     setTimeout(() => {
       localStorage.clear()
-      history.replace('/')
+      history.push('/')
     }, 1500);
     dispatch(SignOut())
   }, [history]);

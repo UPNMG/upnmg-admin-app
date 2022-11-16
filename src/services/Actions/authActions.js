@@ -42,6 +42,10 @@ export const Login = (user) => {
               message: "Opps make sure you have the right access",
             },
           });
+          dispatch({
+            type: authConstants.LOADING,
+            isLoading: false,
+          });
         }
       }
     } catch (e) {
@@ -114,6 +118,11 @@ export const SignOut = () => {
       localStorage.clear();
       dispatch({
         type: authConstants.LOG_OUT,
+        logout: true
+      });
+      dispatch({
+        type: authConstants.LOADING,
+        isLoading: false,
       });
     } catch (e) {
       dispatch({
