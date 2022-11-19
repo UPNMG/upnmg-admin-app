@@ -110,8 +110,13 @@ function ProductCard({ product, category }) {
     };
 
     // console.log("editProductFormData", editProductFormData);
-
+    // TODO:: NEXT TODO AFTER CODE // WORKING ON UPDATE PRODUCT IMAGE FAILING
+    //ERROR:: UNEXPECTED FILED // CHECK ON BACKEND
     EditProduct(product?._id, data, seletedFiles)
+    setPreview(null)
+    setOpenEditProductModal(false)
+
+    
 
     // console.log("data", data);
     // console.log("seletedFiles", seletedFiles);
@@ -120,18 +125,18 @@ function ProductCard({ product, category }) {
 
   useEffect(() => {
     setEditProductFormData({
-      category: product.category._id,
-      description: product.description,
-      featured: product.featured,
-      new_price: product.new_price,
-      old_price: product.old_price,
-      product_name: product.product_name,
-      quantity: product.quantity,
-      short_description: product.short_description,
-      banner: product.banner,
+      category: product?.category?._id,
+      description: product?.description,
+      featured: product?.featured,
+      new_price: product?.new_price,
+      old_price: product?.old_price,
+      product_name: product?.product_name,
+      quantity: product?.quantity,
+      short_description: product?.short_description,
+      banner: product?.banner,
     });
-    setColors(product.colors);
-    setSizes(product.sizes);
+    setColors(product?.colors);
+    setSizes(product?.sizes);
   }, []);
 
   useEffect(() => {
@@ -148,7 +153,7 @@ function ProductCard({ product, category }) {
         <div className="items">
           <div className="image">
             {console.log("images", product?.images)}
-            {product?.images.length > 0 ? (
+            {product?.images?.length > 0 ? (
               <>{<img src={product?.images[0]?.url} alt="product" />}</>
             ) : (
               <img src="/images/dev/del.png" alt="product" />
@@ -372,13 +377,16 @@ function ProductCard({ product, category }) {
                 >
                   Add Colors
                 </label>
-                <div className="flex pb-2">
+                <div className="pb-2">
                   <p>selected:</p>
-                  {product?.colors.map((color, index) => (
+                 <div className="flex">
+                 {product?.colors?.map((color, index) => (
                     <p key={index}>
-                      <span>{color}</span>
+                      {/* <span>{color}</span> */}
+                      <span style={{background: `${color}`}} className="text-black text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">{color}</span>
                     </p>
                   ))}
+                 </div>
                 </div>
 
                 <div className="flex items-center mb-1">
@@ -458,13 +466,18 @@ function ProductCard({ product, category }) {
                     Sizes
                   </label>
 
-                  <div className="flex pb-2">
+                  <div className=" pb-2">
                     <p>selected:</p>
-                    {product?.sizes.map((size, index) => (
+                    <div className="flex">
+                    
+                    {product?.sizes?.map((size, index) => (
                       <p key={index}>
-                        <span>{size}</span>
+                        {/* <span>{size}</span> */}
+<span className="bg-gray-800 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{size}</span>
+                        
                       </p>
                     ))}
+                    </div>
                   </div>
 
                   <div className="flex items-center mb-1">
@@ -643,7 +656,7 @@ function ProductCard({ product, category }) {
                 {product?.images?.map((img, index) => {
                   console.log('img', img)
                    return (
-                    <img key={index} src={img.url} width="30" alt="preview" onDoubleClick={() => handleDeleteCloudImage(img?.public_id, product?._id)} />
+                    <img key={index} src={img?.url} width="30" alt="preview" onDoubleClick={() => handleDeleteCloudImage(img?.public_id, product?._id)} />
                   );
                 })}
                 {preview.map((prev, index) => {
