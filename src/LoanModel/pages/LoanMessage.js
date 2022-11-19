@@ -1,8 +1,9 @@
+/* eslint-disable  */
 import React, { useEffect, useState } from 'react'
+import { format } from 'timeago.js'
+import axiosInstance from '../../services/Axios/axios'
 // import axiosInstance from '../../../service/axios/axios'
 import './LoanMessage.css'
-import {format} from 'timeago.js'
-import axiosInstance from '../../services/Axios/axios'
 function LoanMessage({mesgs,own, sender_id, date, auth}) {
     const [otherUser, setOtherUser] = useState(null)
     // console.log('mesgs', mesgs)
