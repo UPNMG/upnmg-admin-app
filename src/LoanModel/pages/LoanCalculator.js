@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-} from "@material-ui/core";
+/* eslint-disable  */
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import RenderLoanPage from "../RenderLoanPage";
@@ -43,10 +37,10 @@ function LoanCalculator() {
             } else if (Number(loanTerm) === 36) {
               convertedDuration = 3;
             } else if (
-              Number(loanTerm) == 1 ||
-              Number(loanTerm) == 3 ||
-              Number(loanTerm) == 6 ||
-              Number(loanTerm) == 12
+              Number(loanTerm) === 1 ||
+              Number(loanTerm) === 3 ||
+              Number(loanTerm) === 6 ||
+              Number(loanTerm) === 12
             ) {
               convertedDuration = 1;
             }

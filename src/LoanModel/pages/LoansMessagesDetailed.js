@@ -1,15 +1,16 @@
+/* eslint-disable  */
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { io } from "socket.io-client";
 import {
   authActionCreators,
-  messageActionCreators,
+  messageActionCreators
 } from "../../services/Actions";
+import axiosInstance from "../../services/Axios/axios";
 import RenderLoanPage from "../RenderLoanPage";
 import LoanMessage from "./LoanMessage";
-import { io } from "socket.io-client";
-import axiosInstance from "../../services/Axios/axios";
 
 function LoansMessagesDetailed() {
   const dispatch = useDispatch();

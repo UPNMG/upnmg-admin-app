@@ -1,10 +1,9 @@
+/* eslint-disable  */
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import axiosInstance from '../../services/Axios/axios'
-import {format} from 'timeago.js'
-import { GetMessages } from '../../services/Actions/MessagesAction'
 import { useHistory } from 'react-router-dom'
+import { GetMessages } from '../../services/Actions/MessagesAction'
+import axiosInstance from '../../services/Axios/axios'
 
 
 function Conversation({conversation}) {

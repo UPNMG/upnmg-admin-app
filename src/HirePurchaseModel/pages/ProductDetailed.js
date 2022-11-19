@@ -1,3 +1,4 @@
+/* eslint-disable  */
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import RenderHirePurchasePage from '../RenderHirePurchasePage'
@@ -97,25 +98,7 @@ function ProductDetailed() {
                 // }}
               />
             </div>
-            {/* <div className="cartBtn">
-              <button
-                className="favourite"
-                onClick={(e) => {
-                  AddFavoriteProducts(product?._id);
-                }}
-              >
-                <span>
-                  <Favorite />
-                </span>{" "}
-                Add to Fav
-              </button>
-              <button className="" onClick={(e) => handleAddToCart(e)}>
-                <span>
-                  <ShoppingCart />
-                </span>{" "}
-                Add to cart
-              </button>
-            </div> */}
+   
           </div>
         </div>
         <div className="detailDescription">
@@ -131,7 +114,7 @@ function ProductDetailed() {
       {product?.images?.map((img, index) => {
             return (
               <div key={index}>
-                <img src={img?.url} />
+                <img src={img?.url} alt={'product'}/>
               </div>
             );
           })}
