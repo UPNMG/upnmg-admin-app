@@ -15,6 +15,7 @@ import './App.css';
 import Login from './Auth/Login';
 import Logout from './Auth/LogOut';
 import HirePurchaseDashboard from './HirePurchaseModel/HirePurchaseDashboard';
+import ApprovedOrders from './HirePurchaseModel/pages/ApprovedOrders';
 import HirePurchaseReport from './HirePurchaseModel/pages/HirePurchaseReport';
 import OrderDetailed from './HirePurchaseModel/pages/OrderDetailed';
 import Orders from './HirePurchaseModel/pages/Orders';
@@ -23,6 +24,8 @@ import ProductCategory from './HirePurchaseModel/pages/ProductCategory';
 import ProductDetailed from './HirePurchaseModel/pages/ProductDetailed';
 import Products from './HirePurchaseModel/pages/Products';
 import ProfileHirePurchase from './HirePurchaseModel/pages/ProfileHirePurchase';
+import RejectedOrders from './HirePurchaseModel/pages/RejectedOrders';
+import ShippedOrders from './HirePurchaseModel/pages/ShippedOrders';
 import PrivateLoanAdminRoute from './HOC/PrivateLoanAdminRoute';
 import PrivateMartAdminRoute from './HOC/PrivateMartAdminRoute';
 import PrivateRoute from './HOC/PrivateRoute';
@@ -83,6 +86,9 @@ function App() {
       <PrivateMartAdminRoute  path={'/mart/order'} component={Orders}/>
       <PrivateMartAdminRoute  path={'/mart/order-detailed'} component={OrderDetailed}/>
       <PrivateMartAdminRoute  path={'/mart/processed-order'} component={ProcessedOrder}/>
+      <PrivateMartAdminRoute  path={'/mart/rejected-order'} component={RejectedOrders}/>
+      <PrivateMartAdminRoute  path={'/mart/shipped-order'} component={ShippedOrders}/>
+      <PrivateMartAdminRoute  path={'/mart/approved-order'} component={ApprovedOrders}/>
       <PrivateMartAdminRoute  path={'/mart/report'} component={HirePurchaseReport}/>
     </Switch>
   

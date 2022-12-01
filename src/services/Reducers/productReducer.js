@@ -4,6 +4,8 @@ const initialValues = {
   isLoading: false,
   category: [],
   products: [],
+  orders: [],
+  product_detailed: {},
   paginate: {
     total: 0,
     totalItems: 0,
@@ -41,6 +43,18 @@ const productReducer = (state = initialValues, action) => {
       return {
         ...state,
         products: action.payload.products,
+        paginate: action.payload.paginate,
+      };
+    case productConstants.GET_PRODUCT_DETAILED:
+      return {
+        ...state,
+        product_detailed: action.payload.product_detailed,
+       
+      };
+    case productConstants.GET_ORDERS:
+      return {
+        ...state,
+        orders: action.payload.products,
         paginate: action.payload.paginate,
       };
 

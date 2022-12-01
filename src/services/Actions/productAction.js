@@ -37,6 +37,42 @@ export const GetProductCategory = () => {
     }
   };
 };
+export const GetProductById = (product_id) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: true,
+      });
+
+      const response = await axiosInstance.get(`/products/${product_id}`)
+      if(response){
+       console.log('response', response)
+        dispatch({
+            type: productConstants.GET_PRODUCT_DETAILED,
+            payload: {product_detailed: response.data}  
+        })
+        dispatch({
+            type: productConstants.LOADING,
+            isLoading: false,
+          });
+      }
+
+    } catch (e) {
+      dispatch({
+        type: productConstants.RESPONSE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
 
 
 export const AddProductCategory = (data) => {
@@ -208,6 +244,222 @@ export const GetProducts = (isPaginated, page, size, category,  search) => {
   };
 };
 
+export const GetOrders = (isPaginated, page, size, status, search) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: true,
+      });
+
+      const response = await axiosInstance.get(`/orders/admin/orders?isPaginated=${isPaginated}&page=${page}&size=${size}&status=${status}${search ? search : ''}`)
+      if(response){
+       console.log('response', response)
+       const {
+        docs,
+        page: currentPage,
+        totalItems,
+        totalPages,
+        currentPageSize,
+        links,
+        size: currentSize,
+      } = response.data;
+
+      dispatch({
+        type: productConstants.GET_ORDERS,
+        payload: {
+          products: docs,
+          paginate: {
+            total: totalPages,
+            totalItems,
+            page: currentPage,
+            size: currentSize,
+            previousPage: links?.previousPage,
+            currentPageSize,
+            nextPage: links?.nextPage,
+            previousNumber: links?.previous,
+            nextNumber: links?.next,
+          },
+        },
+      });
+    
+        dispatch({
+            type: productConstants.LOADING,
+            isLoading: false,
+          });
+      }
+
+    } catch (e) {
+      dispatch({
+        type: productConstants.RESPONSE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
+
+export const UpdateOrderToInitiated = (order_id, body) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: true,
+      });
+
+      const response = await axiosInstance.put(`/orders/update/initiated/${order_id}`, body)
+      if(response){
+        dispatch({
+          type: productConstants.RESPONSE,
+          response: {
+            state: "SUCCESS",
+            message: "Order moved to Initiated or proccessed",
+          },
+        });
+        dispatch({
+            type: productConstants.LOADING,
+            isLoading: false,
+          });
+      }
+
+    } catch (e) {
+      dispatch({
+        type: productConstants.RESPONSE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
+export const UpdateOrderToShipped = (order_id, body) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: true,
+      });
+
+      const response = await axiosInstance.put(`/orders/update/shipped/${order_id}`, body)
+      if(response){
+        dispatch({
+          type: productConstants.RESPONSE,
+          response: {
+            state: "SUCCESS",
+            message: "Order moved to shipped ",
+          },
+        });
+        dispatch({
+            type: productConstants.LOADING,
+            isLoading: false,
+          });
+      }
+
+    } catch (e) {
+      dispatch({
+        type: productConstants.RESPONSE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
+export const UpdateOrderToApproved = (order_id, body) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: true,
+      });
+
+      const response = await axiosInstance.put(`/orders/update/approved/${order_id}`, body)
+      if(response){
+        dispatch({
+          type: productConstants.RESPONSE,
+          response: {
+            state: "SUCCESS",
+            message: "Order moved to approved ",
+          },
+        });
+        dispatch({
+            type: productConstants.LOADING,
+            isLoading: false,
+          });
+      }
+
+    } catch (e) {
+      dispatch({
+        type: productConstants.RESPONSE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
+export const UpdateOrderToRejected = (order_id, body) => {
+  return async (dispatch) => {
+    try {
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: true,
+      });
+
+      const response = await axiosInstance.put(`/orders/update/rejected/${order_id}`, body)
+      if(response){
+        dispatch({
+          type: productConstants.RESPONSE,
+          response: {
+            state: "SUCCESS",
+            message: "Order moved to rejected ",
+          },
+        });
+        dispatch({
+            type: productConstants.LOADING,
+            isLoading: false,
+          });
+      }
+
+    } catch (e) {
+      dispatch({
+        type: productConstants.RESPONSE,
+        response: {
+          state: "ERROR",
+          message: e?.response?.data?.message ?? "Opps something bad happend",
+        },
+      });
+      dispatch({
+        type: productConstants.LOADING,
+        isLoading: false,
+      });
+    }
+  };
+};
+
+
+
 export const AddProduct = (data, images) => {
   return async (dispatch) => {
     try {
@@ -222,12 +474,16 @@ export const AddProduct = (data, images) => {
       formData.append('category', data?.category)
       formData.append('old_price', data?.old_price)
       formData.append('product_name', data?.product_name)
-      formData.append('quantity', data?.quantity)
+      formData.append('quantity', data?.quantity ?? 1)
       formData.append('description', data?.description)
       formData.append('new_price', data?.new_price)
       formData.append('short_description', data?.short_description)
       formData.append('banner', data?.banner)
       formData.append('featured', data?.featured)
+
+      if(data?.banner_image){
+        formData.append('banner_image', data?.banner_image)
+      }
 
 
      for(const image of images){
@@ -395,6 +651,7 @@ export const DeleteProduct = (product_id) => {
     }
   };
 };
+
 export const DeleteProductImages = (product_id, public_id) => {
   return async (dispatch) => {
     try {
@@ -403,7 +660,7 @@ export const DeleteProductImages = (product_id, public_id) => {
         isLoading: true,
       });
 
-      const res = await axiosInstance.delete(`/products/product-image/${product_id}?${public_id}`)
+      const res = await axiosInstance.delete(`/products/product-image/${product_id}?public_id=${public_id}`)
       console.log('resData', res)
 
       if(res){

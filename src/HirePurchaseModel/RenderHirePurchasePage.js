@@ -2,10 +2,10 @@
 // import Chart from "./Components/Chart";
 import { Avatar } from "@material-ui/core";
 import React from 'react';
-import { BsMenuButtonFill } from "react-icons/bs";
+import { BsMenuButtonFill, BsUiChecks } from "react-icons/bs";
 import { GiShoppingCart } from "react-icons/gi";
 import { FiLogOut } from "react-icons/fi";
-import { MdOutlineNotificationsNone } from "react-icons/md";
+import { MdOutlineLocalShipping, MdOutlineNotificationsNone } from "react-icons/md";
 import { TbMessage2 } from "react-icons/tb";
 import { GoRepoClone, GoSettings } from "react-icons/go";
 import { BiArchive, BiCategory, BiExpand } from "react-icons/bi";
@@ -15,6 +15,7 @@ import "./HirePurchaseDashboard.css";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { SignOut } from "../services/Actions/authActions";
+import { TiCancel } from "react-icons/ti";
 
 function RenderHirePurchasePage({children, title}) {
     const history = useHistory()
@@ -51,6 +52,18 @@ function RenderHirePurchasePage({children, title}) {
             <div className="menu" onClick={()=> history.push('/mart/processed-order')}>
                 <RiShoppingCartFill className="icon"/>
                 <div className="label">Processed Order</div>
+            </div>
+            <div className="menu" onClick={()=> history.push('/mart/shipped-order')}>
+                <MdOutlineLocalShipping className="icon"/>
+                <div className="label">Shipped Order</div>
+            </div>
+            <div className="menu" onClick={()=> history.push('/mart/approved-order')}>
+                <BsUiChecks className="icon"/>
+                <div className="label">Approved Order</div>
+            </div>
+            <div className="menu" onClick={()=> history.push('/mart/rejected-order')}>
+                <TiCancel className="icon"/>
+                <div className="label">Rejected Order</div>
             </div>
             <hr/>
             <div className="menu" onClick={()=> history.push('/mart/report')}>

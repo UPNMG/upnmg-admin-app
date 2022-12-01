@@ -176,7 +176,7 @@ function ProductCard({ product, category }) {
               onClick={() =>
                 history.push({
                   pathname: "/mart/product-detail",
-                  state: { product: product },
+                  state: { product_id: product?._id },
                 })
               }
             >

@@ -1,103 +1,38 @@
 /* eslint-disable  */
-import React, { useEffect } from 'react'
-import { FaAccusoft, FaRegChartBar } from 'react-icons/fa'
-import { MdOutlineShowChart } from 'react-icons/md'
-import { RiBarChartLine } from 'react-icons/ri'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import Loader from '../Components/Loader'
-import { GetUserProfile } from '../services/Actions/authActions'
-import './css/hirepurchase.css'
-import RenderHirePurchasePage from './RenderHirePurchasePage'
+import { Avatar } from "@material-ui/core";
+import React, { useEffect } from "react";
+import { IoMdMore } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { productActionCreators } from "../../services/Actions";
+import { GetUserProfile } from "../../services/Actions/authActions";
+import RenderHirePurchasePage from "../RenderHirePurchasePage";
 import * as moment from 'moment'
-import { bindActionCreators } from 'redux'
-import { productActionCreators } from '../services/Actions'
+function ApprovedOrders() {
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const {GetOrders} = bindActionCreators(productActionCreators, dispatch)
+  const product = useSelector(state => state.product)
+  const {isLoading, orders} = product
+  
+  console.log('orders', orders)
 
-function HirePurchaseDashboard() {
-    const history = useHistory()
-    const dispatch = useDispatch()
-    const {GetOrders} = bindActionCreators(productActionCreators, dispatch)
-    const product = useSelector(state => state.product)
-    const {isLoading, orders} = product
-    
-    console.log('orders', orders)
-    const data = [
-      {
-        products:{}
-      }
-    ]
 
-  useEffect(() => {
-    dispatch(GetUserProfile())
-    GetOrders(true, 1, 5)
-  }, [])
+useEffect(() => {
+  dispatch(GetUserProfile())
+  GetOrders(true, 1, 5, 'approved', null)
+}, [])
   return (
-    // <div className='HirePurchaseDashboard'>
-        <RenderHirePurchasePage>
-          {isLoading && <Loader/>}
-            <section className='cardContainer'>
-                <div className='card card1'>
-                    <div className='icons'> 
-                        <div className='cover'>
-                            <FaAccusoft/>
-                        </div>
-                        <div className=''>
-                            {/* <MdOutlineShowChart/> */}
-                            <FaRegChartBar/>
-                        </div>
-                    </div>
-                    <div>Total products</div>
-                    <div className='value'>1234</div>
-                    <hr/>
-                    <div>start from 1 jan 2021</div>
-                </div>
-                <div className='card card2'>
-                    <div className='icons'> 
-                        <div className='cover'>
-                            <FaAccusoft/>
-                        </div>
-                        <div className=''>
-                            {/* <FaAddressBook/> */}
-                            <MdOutlineShowChart/>
-
-                        </div>
-                    </div>
-                    <div>Total Orders</div>
-                    <div className='value'>1234</div>
-                    <hr/>
-                    <div>start from 1 jan 2021</div>
-                </div>
-                <div className='card'>
-                    <div className='icons'> 
-                        <div className='cover'>
-                            <FaAccusoft/>
-                        </div>
-                        <div className=''>
-                            {/* <FaAddressBook/> */}
-                            <RiBarChartLine/>
-                        </div>
-                    </div>
-                    <div>Processed Orders</div>
-                    <div className='value'>1234</div>
-                    <hr/>
-                    <div>start from 1 jan 2021</div>
-                </div>
-
-            </section>
-
-
-        {/* {data?.products.length > 0 && ( */}
-          <section className="bg-white mt-4">
-            <div className="mx-auto px-4 sm:px-8">
-              <div className="py-8">
-                <div>
+    <div className="ProcessedOrder"> 
+      <RenderHirePurchasePage>
+          <div>
+          <div className="pt-3">
                   <h2 className="text-2xl font-semibold leading-tight pb-3">
-                    New Orders
+                    Approved Orders
                   </h2>
                 </div>
-                <div className="-mx-1 sm:-mx-8 px-4 sm:px-8 py-0 overflow-x-auto">
-                  <div className="inline-block min-w-full shadow-md rounded-lg overflow-hidden">
-                    <table className="min-w-full leading-normal">
+          <table className="min-w-full leading-normal">
                       <thead>
                         <tr>
                           <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
@@ -196,16 +131,10 @@ function HirePurchaseDashboard() {
                         })}
                       </tbody>
                     </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-         
-          
-        </RenderHirePurchasePage>
-    // </div>
-  )
+          </div>
+      </RenderHirePurchasePage>
+    </div>
+  );
 }
 
-export default HirePurchaseDashboard
+export default ApprovedOrders;

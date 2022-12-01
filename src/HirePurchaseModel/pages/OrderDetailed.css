@@ -1,0 +1,16 @@
+.processBtn{
+    background: var(--warning) !important;
+    margin: 0px 5px;
+}
+.rejectBtn{
+    background: var(--danger) !important;
+    margin: 0px 5px;
+}
+.approvedBtn{
+    background: var(--primaryColor) !important;
+    margin: 0px 5px;
+}
+.shippedBtn{
+    background: var(--primaryLite) !important;
+    margin: 0px 5px;
+}
