@@ -9,6 +9,7 @@ import "../css/hirepurchase.css";
 import RenderHirePurchasePage from "../RenderHirePurchasePage";
 import Loader from "../../Components/Loader";
 import "./OrderDetailed.css";
+import { toast } from "react-toastify";
 
 function OrderDetailed() {
   const history = useHistory();
@@ -98,7 +99,7 @@ function OrderDetailed() {
                     const payload = {
                       status: true,
                     };
-                    // UpdateOrderToInitiated(order?._id, payload)
+                    UpdateOrderToApproved(order?._id, payload)
                   }}
                 >
                   approved
@@ -109,7 +110,7 @@ function OrderDetailed() {
                     const payload = {
                       status: true,
                     };
-                    // UpdateOrderToInitiated(order?._id, payload)
+                    UpdateOrderToShipped(order?._id, payload)
                   }}
                 >
                   shipped
@@ -120,7 +121,7 @@ function OrderDetailed() {
                     const payload = {
                       status: true,
                     };
-                    // UpdateOrderToInitiated(order?._id, payload)
+                    UpdateOrderToRejected(order?._id, payload)
                   }}
                 >
                   reject

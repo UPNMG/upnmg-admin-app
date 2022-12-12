@@ -19,9 +19,8 @@ function Login() {
     dispatch
   );
   const [formData, setFormData] = useState(null);
- 
-  const { isLoading, response, authenticated, user, user_type } = auth;
 
+  const { isLoading, response, authenticated, user, user_type } = auth;
 
   const handleInputChange = (e) => {
     setFormData((prevState) => {
@@ -34,50 +33,46 @@ function Login() {
   const handleClickOpen = () => {};
 
   const handleLogin = (e) => {
-  
     e.preventDefault();
     console.log(formData);
     if (formData !== null) {
       Login(formData);
-     
-      
     } else {
       toast.error("All fields are required");
     }
   };
 
+  useEffect(() => {
+    if (
+      authenticated &&
+      user_type === "SYSTEM_USER" &&
+      user?.super_role === "ADMIN"
+    ) {
+      console.log("admin login");
+      history.replace("/admin/home");
+      // return <Redirect to={'/admin/home'}/>
+    } else if (
+      authenticated &&
+      user_type === "SYSTEM_USER" &&
+      user?.super_role === "LOAN_OFFICER"
+    ) {
+      history.replace("/loans/home");
+    } else if (
+      authenticated &&
+      user_type === "SYSTEM_USER" &&
+      user?.super_role === "INVESTMENT_OFFICER"
+    ) {
+      history.replace("/investment/home");
+    } else if (
+      authenticated &&
+      user_type === "SYSTEM_USER" &&
+      user?.super_role === "MART_OFFICER"
+    ) {
+      history.replace("/mart/home");
+    }
+ 
+  }, [authenticated, user_type, user?.super_role]);
   //ADMIN, LOAN_OFFICER, MART_OFFICER, INVESTMENT_OFFICER, USER
-  if (
-    authenticated &&
-    user_type === "SYSTEM_USER" &&
-    user?.super_role === "ADMIN"
-  ) {
-    console.log('admin login')
-    history.replace("/admin/home");
-    // return <Redirect to={'/admin/home'}/>
-  }
-  if (
-    authenticated &&
-    user_type === "SYSTEM_USER" &&
-    user?.super_role === "LOAN_OFFICER"
-  ) {
-    history.replace("/loans/home");
-  }
-  if (
-    authenticated &&
-    user_type === "SYSTEM_USER" &&
-    user?.super_role === "MART_OFFICER"
-  ) {
-    history.replace("/mart/home");
-  }
-  if (
-    authenticated &&
-    user_type === "SYSTEM_USER" &&
-    user?.super_role === "INVESTMENT_OFFICER"
-  ) {
-    history.replace("/investment/home");
-  }
-  
 
   useEffect(() => {
     if (response?.state === "SUCCESS") {
@@ -95,27 +90,27 @@ function Login() {
 
   return (
     <>
-    {isLoading && <Loader/>}
-    <div className="loginPage">
-      <form
-        className="section_one"
-        style={{
-          background:
-            "url(/images/dev/background.jpg) no-repeat center center/cover",
-        }}
-      >
-        <div className="overlay"></div>
-      </form>
-      <div
-        className="section_two"
-        style={{
-          background:
-            "url(/images/dev/nurse-float.jpeg) no-repeat center center/cover",
-        }}
-      >
-        <div className="overlay">
-          {/* <h1 className="title">Login</h1> */}
-          {/* <div className="email-form-group form-group">
+      {isLoading && <Loader />}
+      <div className="loginPage">
+        <form
+          className="section_one"
+          style={{
+            background:
+              "url(/images/dev/background.jpg) no-repeat center center/cover",
+          }}
+        >
+          <div className="overlay"></div>
+        </form>
+        <div
+          className="section_two"
+          style={{
+            background:
+              "url(/images/dev/nurse-float.jpeg) no-repeat center center/cover",
+          }}
+        >
+          <div className="overlay">
+            {/* <h1 className="title">Login</h1> */}
+            {/* <div className="email-form-group form-group">
             <label htmlFor="email">Email</label>
             <input
               id="email"
@@ -135,60 +130,60 @@ function Login() {
               onChange={(e) => handleInputChange(e)}
             />
           </div> */}
-          <form>
-            <h1 className="title">Login</h1>
-            <div className="mb-6">
-              <label
-                htmlFor="email"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Your email / Staff code
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                placeholder="example@gmail.com / 202020"
-                required
-                onChange={(e) => handleInputChange(e)}
-              />
-            </div>
-            <div className="mb-6">
-              <label
-                htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Your password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                required
-                onChange={(e) => handleInputChange(e)}
-              />
-            </div>
+            <form>
+              <h1 className="title">Login</h1>
+              <div className="mb-6">
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Your email / Staff code
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                  placeholder="example@gmail.com / 202020"
+                  required
+                  onChange={(e) => handleInputChange(e)}
+                />
+              </div>
+              <div className="mb-6">
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Your password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                  required
+                  onChange={(e) => handleInputChange(e)}
+                />
+              </div>
 
-            <button className="button mb2 mt1" onClick={handleLogin}>
-              Login
-            </button>
-            <p
-              className="forgot_password"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              onClick={handleClickOpen}
-            >
-              Forgot password?
-            </p>
-          </form>
+              <button className="button mb2 mt1" onClick={handleLogin}>
+                Login
+              </button>
+              <p
+                className="forgot_password"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                onClick={handleClickOpen}
+              >
+                Forgot password?
+              </p>
+            </form>
+          </div>
         </div>
-      </div>
 
-      {/* <AlertDialogSlide open={open} close={handleClose}/> */}
-      <ToastContainer autoClose={3000}/>
-    </div>
+        {/* <AlertDialogSlide open={open} close={handleClose}/> */}
+        <ToastContainer autoClose={3000} />
+      </div>
     </>
   );
 }

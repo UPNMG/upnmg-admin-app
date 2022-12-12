@@ -5,7 +5,17 @@ const initialValues = {
   category: [],
   products: [],
   orders: [],
+  suppliers: [],
   product_detailed: {},
+  totals: {
+    totalProducts: 0,
+    totalOrders: 0,
+    totalApprovedOrders: 0,
+    totalInitiatedOrders: 0,
+    totalRejectedOrders: 0,
+    totalShippedOrders: 0,
+    totalSubmitedOrders: 0
+  },
   paginate: {
     total: 0,
     totalItems: 0,
@@ -38,6 +48,16 @@ const productReducer = (state = initialValues, action) => {
       return {
         ...state,
         category: action.payload.category,
+      };
+    case productConstants.GET_TOTALS:
+      return {
+        ...state,
+        totals: action.payload.totals,
+      };
+    case productConstants.GET_SUPPLIERS:
+      return {
+        ...state,
+        suppliers: action.payload.suppliers,
       };
     case productConstants.GET_PRODUCT:
       return {

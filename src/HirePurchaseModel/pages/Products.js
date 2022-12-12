@@ -1,8 +1,6 @@
 /* eslint-disable  */
-import { Avatar } from "@material-ui/core";
 import { debounce } from "lodash";
 import React, { useEffect, useState } from "react";
-import { IoMdMore } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import { bindActionCreators } from "redux";
@@ -14,10 +12,9 @@ import ProductModal from "../Modal/AddProductModal";
 import RenderHirePurchasePage from "../RenderHirePurchasePage";
 function Products() {
   const dispatch = useDispatch();
-  const { GetProductCategory, AddProduct, ResetProductResponse, GetProducts } =
+  const { GetProductCategory, AddProduct, ResetProductResponse, GetProducts, GetSuppliers } =
     bindActionCreators(productActionCreators, dispatch);
   const [openModal, setOpenModal] = useState(false);
-  const [openPromptModal, setPromptOpenModal] = useState(false);
   const [addProductFormData, setAddProductFormData] = useState("");
 
   const [isFeaturedChecked, setIsFeaturedChecked] = useState(false);
@@ -31,7 +28,7 @@ function Products() {
   const [seletedFiles, setSeletedFiles] = useState([]);
   const [isBanner, setIsBanner] = useState(false);
 
-  const { category, response, isLoading, products } = useSelector(
+  const { category, response, isLoading, products,suppliers } = useSelector(
     (state) => state?.product
   );
 
@@ -161,7 +158,9 @@ function Products() {
     } else if (!addProductFormData?.new_price) {
       toast.error("Product price is required");
       return;
-    } else {
+    }else if(!addProductFormData?.supplier) {
+      toast.error("Manufacturer / vendor is required");
+    }else {
       AddProduct(data, seletedFiles);
       setOpenModal(false);
     }
@@ -175,6 +174,7 @@ function Products() {
   useEffect(() => {
     GetProductCategory();
     GetProducts(true, 1, limit);
+    GetSuppliers()
   }, []);
 
   useEffect(() => {
@@ -253,7 +253,7 @@ function Products() {
           <div className="col-md-2">
             <button
               type="button"
-              className="mt-4 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2 text-center mr-2 mb-2"
+              className="mt-4 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-3 py-2 text-center mr-2 mb-2"
               onClick={() => setOpenModal(true)}
             >
               Add New
@@ -411,7 +411,8 @@ function Products() {
               </div>
             </div>
 
-            <div>
+<div className="grid gap-6 mb-1 md:grid-cols-2">
+<div>
               <label
                 htmlFor="short_description"
                 className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -427,6 +428,30 @@ function Products() {
                 onChange={handleAddProductChnage}
               />
             </div>
+            <div>
+            <label
+                    htmlFor="super_role"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                  >
+                    Supplier
+                  </label>
+                  <select
+                    id="supplier"
+                    onChange={handleAddProductChnage}
+                    name={"supplier"}
+                    className="block p-2 mb-6 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option value="">choose</option>
+                    {suppliers?.map((supplier, index) => (
+                      <option key={index} value={supplier?._id}>
+                        {supplier?.name}
+                      </option>
+                    ))}
+                  
+                  </select>
+            </div>
+</div>
+         
             <div className="email_nd_phone grid gap-6 mb-1 md:grid-cols-3">
               <div className="email">
                 <label
@@ -640,6 +665,7 @@ function Products() {
                     </label>
                   </div>
                 </div>
+                
               </div>
               <div className="superRole">
                 <div>
@@ -786,6 +812,8 @@ function Products() {
           </form>
         </ProductModal>
       )}
+
+   
 
       <ToastContainer autoClose={3000} />
     </RenderHirePurchasePage>

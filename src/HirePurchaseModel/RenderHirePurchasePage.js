@@ -9,13 +9,14 @@ import { MdOutlineLocalShipping, MdOutlineNotificationsNone } from "react-icons/
 import { TbMessage2 } from "react-icons/tb";
 import { GoRepoClone, GoSettings } from "react-icons/go";
 import { BiArchive, BiCategory, BiExpand } from "react-icons/bi";
-import { AiFillGold } from "react-icons/ai";
+import { AiFillGold, AiOutlineSlack } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
 import "./HirePurchaseDashboard.css";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { SignOut } from "../services/Actions/authActions";
 import { TiCancel } from "react-icons/ti";
+import { FaPeopleCarry } from "react-icons/fa";
 
 function RenderHirePurchasePage({children, title}) {
     const history = useHistory()
@@ -26,7 +27,7 @@ function RenderHirePurchasePage({children, title}) {
       dispatch(SignOut())
       setTimeout(() => {
         window.location.reload(false)
-      },1000)
+      },500)
     }
   return (
     <div className='RenderHirePurchasePage'>
@@ -35,6 +36,10 @@ function RenderHirePurchasePage({children, title}) {
             <div className="menu" onClick={()=> history.push('/mart/home')}>
                 <AiFillGold className="icon"/>
                 <div className="label" >Home</div>
+            </div>
+            <div className="menu" onClick={()=> history.push('/mart/vendors')}>
+                <FaPeopleCarry className="icon"/>
+                <div className="label">Suppliers</div>
             </div>
             <div className="menu" onClick={()=> history.push('/mart/category')}>
                 <BiCategory className="icon"/>
@@ -65,7 +70,11 @@ function RenderHirePurchasePage({children, title}) {
                 <TiCancel className="icon"/>
                 <div className="label">Rejected Order</div>
             </div>
-            <hr/>
+            <div className="menu" onClick={()=> history.push('/mart/status-order')}>
+                <AiOutlineSlack className="icon"/>
+                <div className="label">Status of orders</div>
+            </div>
+            <hr className="my-4"/>
             <div className="menu" onClick={()=> history.push('/mart/report')}>
                 <GoRepoClone className="icon"/>
                 <div className="label">Report</div>

@@ -255,6 +255,7 @@
 
 .Products .productContainer .productCard {
   background: #fff;
+  height: 240px;
 }
 
 .Products .productContainer .productCard .items {
@@ -277,10 +278,16 @@
 .Products .productContainer .productCard .items .product-name {
   font-weight: bold;
   padding-top: .7rem;
+  font-size: .8rem;
 }
 
 .Products .productContainer .productCard .image {
   width: 40%;
+  height: 70px;
+}
+
+.Products .productContainer .productCard .image img {
+  max-height: 70px;
 }
 
 .Products .productContainer .productCard .ordered_date {

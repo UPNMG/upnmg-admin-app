@@ -1,24 +1,23 @@
 /* eslint-disable  */
 import { Delete, Edit } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import PromptModal from "../../AdminModel/Components/PromptModal";
+import CediSymbol from "../../Components/CediSymbol";
 import { productActionCreators } from "../../services/Actions";
 import ProductModal from "../Modal/AddProductModal";
 
 function ProductCard({ product, category }) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { DeleteProduct, EditProduct, DeleteProductImages } = bindActionCreators(
-    productActionCreators,
-    dispatch
-  );
-
+  const { DeleteProduct, EditProduct, DeleteProductImages, GetSuppliers } =
+    bindActionCreators(productActionCreators, dispatch);
   const [openEditProductModal, setOpenEditProductModal] = useState(false);
   const [openPromptModal, setPromptOpenModal] = useState(false);
   const [editProductFormData, setEditProductFormData] = useState({});
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [preview, setPreview] = useState([]);
@@ -26,6 +25,10 @@ function ProductCard({ product, category }) {
 
   const [isFeaturedChecked, setIsFeaturedChecked] = useState(product?.featured);
   const [isBannerChecked, setBannerChecked] = useState(false);
+
+  const { suppliers } = useSelector((state) => state.product);
+
+  console.log("suppliers", suppliers);
 
   const handleEditProductChnage = (e) => {
     const { name, value } = e.target;
@@ -88,13 +91,13 @@ function ProductCard({ product, category }) {
   };
 
   const handleDeleteCloudImage = (public_id, product_id) => {
-    DeleteProductImages(product_id, public_id)
-  }
+    DeleteProductImages(product_id, public_id);
+  };
 
   const handleDeletePrevImage = (prevImg) => {
-    const newPrevImages = preview.filter((img) => img !== prevImg)
-    setPreview(newPrevImages)
-  }
+    const newPrevImages = preview.filter((img) => img !== prevImg);
+    setPreview(newPrevImages);
+  };
 
   const handleEditProductSubmit = (e) => {
     e.preventDefault();
@@ -112,11 +115,9 @@ function ProductCard({ product, category }) {
     // console.log("editProductFormData", editProductFormData);
     // TODO:: NEXT TODO AFTER CODE // WORKING ON UPDATE PRODUCT IMAGE FAILING
     //ERROR:: UNEXPECTED FILED // CHECK ON BACKEND
-    EditProduct(product?._id, data, seletedFiles)
-    setPreview(null)
-    setOpenEditProductModal(false)
-
-    
+    EditProduct(product?._id, data, seletedFiles);
+    setPreview(null);
+    setOpenEditProductModal(false);
 
     // console.log("data", data);
     // console.log("seletedFiles", seletedFiles);
@@ -137,6 +138,7 @@ function ProductCard({ product, category }) {
     });
     setColors(product?.colors);
     setSizes(product?.sizes);
+    GetSuppliers();
   }, []);
 
   useEffect(() => {
@@ -160,7 +162,9 @@ function ProductCard({ product, category }) {
             )}
           </div>
           <div className="product-name">{product?.product_name}</div>
-          <div className="price">{product?.new_price}</div>
+          <div className="price">
+            <CediSymbol /> {product?.new_price}
+          </div>
           <div className="ordered_date">
             {product?.quantity > 0 ? "Available in stock" : "Out of stock"}
           </div>
@@ -196,7 +200,10 @@ function ProductCard({ product, category }) {
               }}
             >
               {" "}
-              <Delete className="icon" />
+              <div onClick={() => {
+                setSelectedProduct(product)
+                setPromptOpenModal(true)
+              }}><Delete className="icon" /></div>
             </div>
           </div>
         </div>
@@ -207,8 +214,8 @@ function ProductCard({ product, category }) {
           closeModal={setOpenEditProductModal}
           width="70%"
           title={"Edit Product"}
-          height={'90vh'}
-          overflowY={'scroll'}
+          height={"90vh"}
+          overflowY={"scroll"}
         >
           <form>
             <div className="grid gap-6 mb-1 md:grid-cols-2">
@@ -291,23 +298,49 @@ function ProductCard({ product, category }) {
               </div>
             </div>
 
-            <div>
-              <label
-                htmlFor="short_description"
-                className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Short Description
-              </label>
-              <input
-                type="text"
-                id="short_description"
-                defaultValue={product?.short_description}
-                className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                name="short_description"
-                // defaultValue={seletedUserData.staff_code}
-                onChange={handleEditProductChnage}
-              />
+            <div className="grid gap-6 mb-1 md:grid-cols-2">
+              <div>
+                <label
+                  htmlFor="short_description"
+                  className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Short Description
+                </label>
+                <input
+                  type="text"
+                  id="short_description"
+                  defaultValue={product?.short_description}
+                  className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  name="short_description"
+                  // defaultValue={seletedUserData.staff_code}
+                  onChange={handleEditProductChnage}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="category"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+                >
+                  Supplier
+                </label>
+                <select
+                  id="supplier"
+                  onChange={handleEditProductChnage}
+                  name={"supplier"}
+                  className="block p-2 mb-6 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >
+                  <option value={product?.supplier?._id}>
+                    {product?.supplier?.name}
+                  </option>
+                  {suppliers?.map((supplier, index) => (
+                    <option key={index} value={supplier?._id}>
+                      {supplier?.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
+
             <div className="email_nd_phone grid gap-6 mb-1 md:grid-cols-3">
               <div className="email">
                 <label
@@ -379,14 +412,19 @@ function ProductCard({ product, category }) {
                 </label>
                 <div className="pb-2">
                   <p>selected:</p>
-                 <div className="flex">
-                 {product?.colors?.map((color, index) => (
-                    <p key={index}>
-                      {/* <span>{color}</span> */}
-                      <span style={{background: `${color}`}} className="text-black text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">{color}</span>
-                    </p>
-                  ))}
-                 </div>
+                  <div className="flex">
+                    {product?.colors?.map((color, index) => (
+                      <p key={index}>
+                        {/* <span>{color}</span> */}
+                        <span
+                          style={{ background: `${color}` }}
+                          className="text-black text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900"
+                        >
+                          {color}
+                        </span>
+                      </p>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="flex items-center mb-1">
@@ -469,14 +507,14 @@ function ProductCard({ product, category }) {
                   <div className=" pb-2">
                     <p>selected:</p>
                     <div className="flex">
-                    
-                    {product?.sizes?.map((size, index) => (
-                      <p key={index}>
-                        {/* <span>{size}</span> */}
-<span className="bg-gray-800 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{size}</span>
-                        
-                      </p>
-                    ))}
+                      {product?.sizes?.map((size, index) => (
+                        <p key={index}>
+                          {/* <span>{size}</span> */}
+                          <span className="bg-gray-800 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+                            {size}
+                          </span>
+                        </p>
+                      ))}
                     </div>
                   </div>
 
@@ -650,21 +688,34 @@ function ProductCard({ product, category }) {
                   border: "1px solid gray",
                   borderRadius: "10px",
                   padding: "5px",
-                  overflowX: 'scroll'
+                  overflowX: "scroll",
                 }}
               >
                 {product?.images?.map((img, index) => {
-                  console.log('img', img)
-                   return (
-                    <img key={index} src={img?.url} width="30" alt="preview" onDoubleClick={() => handleDeleteCloudImage(img?.public_id, product?._id)} />
+                  console.log("img", img);
+                  return (
+                    <img
+                      key={index}
+                      src={img?.url}
+                      width="30"
+                      alt="preview"
+                      onDoubleClick={() =>
+                        handleDeleteCloudImage(img?.public_id, product?._id)
+                      }
+                    />
                   );
                 })}
                 {preview.map((prev, index) => {
                   return (
-                    <img key={index} src={prev} width="30" alt="preview" onDoubleClick={() => handleDeletePrevImage(prev)}/>
+                    <img
+                      key={index}
+                      src={prev}
+                      width="30"
+                      alt="preview"
+                      onDoubleClick={() => handleDeletePrevImage(prev)}
+                    />
                   );
                 })}
-
               </div>
             </div>
 
@@ -699,48 +750,49 @@ function ProductCard({ product, category }) {
         </ProductModal>
       )}
 
+     
       {openPromptModal && (
-        <PromptModal closeModal={setPromptOpenModal} width={"auto"}>
-          <div className="relative  ">
-            <div className="p-6 text-center">
-              <svg
-                aria-hidden="true"
-                className="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
-              <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                Are you sure you want to delete this product?
-              </h3>
-              <button
-                data-modal-toggle="popup-modal"
-                type="button"
-                onClick={() => {
-                  DeleteProduct(product?._id);
-                  setPromptOpenModal(false);
-                }}
-                className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
-              >
-                Yes, I'm sure
-              </button>
-              <button
-                data-modal-toggle="popup-modal"
-                type="button"
-                className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                onClick={() => setPromptOpenModal(false)}
-              >
-                No, cancel
-              </button>
-            </div>
+        <PromptModal width={"35%"} title={"Delete"} closeModal={setPromptOpenModal}>
+         
+          <div class="p-6 text-center">
+            <svg
+              aria-hidden="true"
+              class="mx-auto mb-3 text-gray-400 w-14 h-14 dark:text-gray-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <h3 class="mb-3 text-lg font-normal text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this product?
+            </h3>
+            <button
+              data-modal-toggle="popup-modal"
+              type="button"
+              onClick={() => {
+                DeleteProduct(product?._id);
+                
+                setPromptOpenModal(false);
+              }}
+              class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2.5 text-center mr-2"
+            >
+              Yes, I'm sure
+            </button>
+            <button
+              data-modal-toggle="popup-modal"
+              type="button"
+              onClick={() => setPromptOpenModal(false)}
+              class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-3 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+            >
+              No, cancel
+            </button>
           </div>
         </PromptModal>
       )}

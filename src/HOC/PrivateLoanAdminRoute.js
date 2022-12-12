@@ -18,7 +18,8 @@ function PrivateLoanAdminRoute({ component: Component, ...rest }) {
           return <Component {...props} />;
         } else {
           // return <Redirect to={"/"} />;
-          return <Redirect to={"/"} />;
+          // return <Redirect to={"/"} />;
+          history.replace('/')
         }
       }}
     />

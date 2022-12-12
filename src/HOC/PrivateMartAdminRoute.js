@@ -17,8 +17,9 @@ function PrivateMartAdminRoute({ component: Component, ...rest }) {
         if (token && user?.role.includes('ADMIN') || user?.role.includes('LOAN_OFFICER')) {
           return <Component {...props} />;
         } else {
+          history.replace('/')
           // return <Redirect to={"/"} />;
-          return <Redirect to={"/"} />;
+          // return <Redirect to={"/"} />;
         }
       }}
     />

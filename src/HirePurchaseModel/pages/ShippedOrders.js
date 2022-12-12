@@ -71,7 +71,7 @@ useEffect(() => {
                                 <p className="text-gray-900 whitespace-no-wrap">
                                   {order?.user_id?.name}
                                 </p>
-                                <p className="text-gray-600 whitespace-no-wrap">
+                                <p className="text-gray-600 whitespace-no-wrap font-bold">
                                 {order?.user_id?.staff_id}
                                 </p>
                               </div>
@@ -81,35 +81,21 @@ useEffect(() => {
                             <p className="text-gray-900 whitespace-no-wrap">
                               {order?.affordability}
                             </p>
-                            {/* <p className="text-gray-600 whitespace-no-wrap">
-                              USD
-                            </p> */}
+                            
                           </td>
                           <td className="px-5 py-1 border-b border-gray-200 bg-white text-sm">
                             <p className="text-gray-900 whitespace-no-wrap">
                               {moment(order?.created_at).format("MMM Do YY")}
                             </p>
-                            {/* <p className="text-gray-600 whitespace-no-wrap">
-                              {'time ago here'}
-                            </p> */}
+                            
                           </td>
-                          <td className="px-2 py-1 border-b border-gray-200 bg-white text-sm">
-                            {/* <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                              <span
-                                aria-hidden
-                                className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                              ></span>
-                            </span> */}
+                          <td className="px-5 py-1 border-b border-gray-200 bg-white text-sm">
+                           
                               <span className="relative">{order?.division}</span>
                           </td>
-                          <td className="px-2 py-1 border-b border-gray-200 bg-white text-sm">
-                            <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                              <span
-                                aria-hidden
-                                className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                              ></span>
+                          <td className="px-5 py-1 border-b border-gray-200 bg-white text-sm">
+                        
                               <span className="relative">{order?.facility}</span>
-                            </span>
                           </td>
                           <td className="px-5 py-1 border-b border-gray-200 bg-white text-sm text-right">
                             <button
