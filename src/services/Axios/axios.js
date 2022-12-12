@@ -3,8 +3,8 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
 //   baseURL: "http://192.168.100.72:8000/api/v1",
-  baseURL: "http://localhost:8000/api/v1",
-  // baseURL: 'https://api.upnmg.com/api/v1',
+  // baseURL: "http://localhost:8000/api/v1",
+  baseURL: 'https://api.upnmg.com/api/v1',
   timeout: 100000,
 });
 
